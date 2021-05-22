@@ -10,7 +10,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Silvio
+ * @author Equipe
  * @param <T>
  * @param <ID>
  */

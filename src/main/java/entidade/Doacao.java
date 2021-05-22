@@ -6,27 +6,32 @@
 package entidade;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.Date;
+import javax.persistence.*;
 
 /**
  *
- * @author David
+ * @author Equipe.
  */
 @Entity
 @Table(name = "doacao")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Doacao implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    private String equipamento;
-    private double dinheiro;  //TODO verificar tipo.
+    @Temporal(TemporalType.DATE)
+    private Date data;
+
+    public Doacao() {
+    }
+
+    public Doacao(Long id, Date data) {
+        this.id = id;
+        this.data = data;
+    }
     
 
     public Long getId() {
@@ -35,6 +40,14 @@ public class Doacao implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
     }
 
     @Override

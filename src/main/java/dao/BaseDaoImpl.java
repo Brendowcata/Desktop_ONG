@@ -11,7 +11,7 @@ import org.hibernate.Transaction;
 
 /**
  *
- * @author Silvio
+ * @author Equipe.
  * @param <T>
  * @param <ID>
  */
