@@ -102,8 +102,8 @@ public class UtilGerador {
     }
 
     public static String gerarCpf() {
-        return gerarCaracter(3) + "." + gerarCaracter(3) + "." + gerarCaracter(3)
-                + "-" + gerarCaracter(2);
+        return gerarNumero(3) + "." + gerarNumero(3) + "." + gerarNumero(3)
+                + "-" + gerarNumero(2);
     }
 
     public static String gerarTelefoneFixo() {
