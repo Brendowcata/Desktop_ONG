@@ -6,37 +6,34 @@
 package entidade;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.*;
 
 /**
  *
- * @author Equipe.
+ * @author Kamilla
  */
 @Entity
-@Table(name = "doacao")
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Doacao implements Serializable {
+@Table(name = "dinheiro")
+public class Dinheiro implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Temporal(TemporalType.DATE)
-    private Date data;
-    
-    @OneToOne(mappedBy = "doacao", cascade = CascadeType.ALL)
-    private Dinheiro dinheiro;
-    
 
-    public Doacao() {
+    private double dinheiro;
+
+    @OneToOne
+    @JoinColumn(name = "id_doacao")
+    private Doacao doacao;
+
+    public Dinheiro() {
     }
 
-    public Doacao(Long id, Date data) {
+    public Dinheiro(Long id, Double dinheiro) {
         this.id = id;
-        this.data = data;
+        this.dinheiro = dinheiro;
     }
-    
 
     public Long getId() {
         return id;
@@ -46,22 +43,23 @@ public class Doacao implements Serializable {
         this.id = id;
     }
 
-    public Date getData() {
-        return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
-    }
-
-    public Dinheiro getDinheiro() {
+    public Double getDinheiro() {
         return dinheiro;
     }
 
-    public void setDinheiro(Dinheiro dinheiro) {
+    public void setDinheiro(Double dinheiro) {
         this.dinheiro = dinheiro;
     }
+
+    public Doacao getDoacao() {
+        return doacao;
+    }
+
+    public void setDoacao(Doacao doacao) {
+        this.doacao = doacao;
+    }
     
+   
 
     @Override
     public int hashCode() {
@@ -73,10 +71,10 @@ public class Doacao implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Doacao)) {
+        if (!(object instanceof Dinheiro)) {
             return false;
         }
-        Doacao other = (Doacao) object;
+        Dinheiro other = (Dinheiro) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -85,7 +83,7 @@ public class Doacao implements Serializable {
 
     @Override
     public String toString() {
-        return "entidade.Doacao[ id=" + id + " ]";
+        return "entidade.Dinheiro[ id=" + id + " ]";
     }
-    
+
 }
