@@ -61,7 +61,7 @@ public class Doacao implements Serializable {
     public void setDinheiro(Dinheiro dinheiro) {
         this.dinheiro = dinheiro;
     }
-    
+
 
     @Override
     public int hashCode() {

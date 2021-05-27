@@ -50,6 +50,15 @@ public class UtilGerador {
         sobrenome = nomes[indice];
         return sobrenome;
     }
+    
+    public static String gerarNomeEquipamento() {
+        String equipamento;
+        int indice;
+        String[] equipamentos = {"Cadeira de Rodas", "Muleta", "Bengala", "Andador", "Carrinho de curativo", "Aparelho medidor de pressão"};
+        indice = (int) (Math.random() * equipamentos.length);
+        equipamento = equipamentos[indice];
+        return equipamento;
+    }
 
     public static String gerarCidade() {
         String cidade;
