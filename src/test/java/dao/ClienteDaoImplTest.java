@@ -28,7 +28,7 @@ public class ClienteDaoImplTest {
         clienteDao = new ClienteDaoImpl();
     }
 
-    //@Test
+    @Test
     public void testSalvar() {
         System.out.println("Salvar Cliente");
         cliente = new Cliente(

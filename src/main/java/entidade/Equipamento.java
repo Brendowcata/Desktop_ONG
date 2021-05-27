@@ -28,6 +28,9 @@ public class Equipamento implements Serializable {
     private Date data;
     private String observacao;
     
+    @OneToOne(mappedBy = "equipamento")
+    private Emprestimo emprestimo;
+    
     public Equipamento() {
     }
 
@@ -45,6 +48,16 @@ public class Equipamento implements Serializable {
         this.data = data;
         this.observacao = observacao;
     }
+
+    public Emprestimo getEmprestimo() {
+        return emprestimo;
+    }
+
+    public void setEmprestimo(Emprestimo emprestimo) {
+        this.emprestimo = emprestimo;
+    }
+    
+    
 
     public Long getId() {
         return id;

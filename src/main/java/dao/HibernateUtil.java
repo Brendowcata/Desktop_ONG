@@ -26,11 +26,14 @@ public class HibernateUtil {
         try {
             Configuration cfg = new Configuration();
                         
+            cfg.addAnnotatedClass(Cliente.class);            
             cfg.addAnnotatedClass(Perfil.class);            
             cfg.addAnnotatedClass(Usuario.class);            
             cfg.addAnnotatedClass(Doacao.class);            
             cfg.addAnnotatedClass(Dinheiro.class);            
             cfg.addAnnotatedClass(Equipamento.class);            
+            cfg.addAnnotatedClass(Endereco.class);            
+            cfg.addAnnotatedClass(Emprestimo.class);            
 
             cfg.configure("/META-INF/hibernate.cfg.xml");
             StandardServiceRegistryBuilder build = new StandardServiceRegistryBuilder().
