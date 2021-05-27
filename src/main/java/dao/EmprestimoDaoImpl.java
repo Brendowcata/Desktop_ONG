@@ -19,9 +19,10 @@ import org.hibernate.Session;
 public class EmprestimoDaoImpl extends BaseDaoImpl<Emprestimo, Long> implements EmprestimoDao, Serializable{
 
     @Override
-    public List<Emprestimo> pesquisarEmprestimoPorCliente(String nome, Session sessao) throws HibernateException {
-        Query consulta = sessao.createQuery("from Emprestimo where equipamento like :nome");
-        consulta.setParameter("nome", "%" + nome + "%");
+    public List<Emprestimo> pesquisarEmprestimoPorCliente(Long id, Session sessao) throws HibernateException {
+        Query consulta = sessao.createQuery("from Emprestimo e join fetch e.cliente.endereco"
+                                                     + " where e.id = :cliente");
+        consulta.setParameter("cliente", id);
         return consulta.list();
     }
 

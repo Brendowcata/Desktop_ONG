@@ -30,8 +30,16 @@ public class EmprestimoDaoImplTest {
         emprestimoDao = new EmprestimoDaoImpl();
     }
 
-    //@Test
+    @Test
     public void testPesquisarEmprestimoPorCliente() {
+        buscarEmprestimoBd();
+        session = HibernateUtil.abrirConexao();
+        List<Emprestimo> emprestimoBd = emprestimoDao.pesquisarEmprestimoPorCliente(emprestimo.getCliente().getId(), session);
+        session.close();
+        assertNotNull(emprestimoBd);
+        
+        emprestimo = emprestimoBd.get(0);
+        System.out.println(emprestimo.getCliente().getNome());
     }
 
     //@Test
@@ -58,7 +66,7 @@ public class EmprestimoDaoImplTest {
 
     }
     
-    @Test
+    //@Test
     public void testAlterar() {
         System.out.println("alterar");
         Cliente cliente;
@@ -70,8 +78,11 @@ public class EmprestimoDaoImplTest {
         equipamentoDaoImplTest.testSalvar();
         equipamento = equipamentoDaoImplTest.buscarEquipamentoBd();
         buscarEmprestimoBd();
+        Usuario usuario;
+        usuario = salvarUsuario();
         emprestimo.setEquipamento(equipamento);
         emprestimo.setCliente(cliente);
+        emprestimo.setUsuario(usuario);
         session = HibernateUtil.abrirConexao();
         emprestimoDao.salvarOuAlterar(emprestimo, session);
         session.close();
@@ -79,8 +90,12 @@ public class EmprestimoDaoImplTest {
         
     }
     
+    
+    
+   
+    
     private Usuario salvarUsuario(){
-        Usuario usuario = new Usuario("Usuario3", "loginteste3", "senhateste3");
+        Usuario usuario = new Usuario(util.UtilGerador.gerarNome(), util.UtilGerador.gerarNome(), util.UtilGerador.gerarNome());
         UsuarioDao usuarioDao = new UsuarioDaoImpl();
         session = HibernateUtil.abrirConexao();
         usuarioDao.salvarOuAlterar(usuario, session);
@@ -91,7 +106,7 @@ public class EmprestimoDaoImplTest {
     
      public Emprestimo buscarEmprestimoBd() {
         session = HibernateUtil.abrirConexao();
-        Query consulta = session.createQuery("FROM Emprestimo");
+        Query consulta = session.createQuery("from Emprestimo");
         List<Emprestimo> emprestimos = consulta.list();
         session.close();
         if (emprestimos.isEmpty()) {
