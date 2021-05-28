@@ -21,30 +21,30 @@ import org.hibernate.cfg.Configuration;
 public class HibernateUtil {
 
     private static final SessionFactory sessionFactory;
-    
+
     static {
         try {
             Configuration cfg = new Configuration();
-                        
-            cfg.addAnnotatedClass(Cliente.class);            
-            cfg.addAnnotatedClass(Perfil.class);            
-            cfg.addAnnotatedClass(Usuario.class);            
-            cfg.addAnnotatedClass(Doacao.class);            
-            cfg.addAnnotatedClass(Dinheiro.class);            
-            cfg.addAnnotatedClass(Equipamento.class);            
-            cfg.addAnnotatedClass(Endereco.class);            
-            cfg.addAnnotatedClass(Emprestimo.class);            
+
+            cfg.addAnnotatedClass(Cliente.class);
+            cfg.addAnnotatedClass(Perfil.class);
+            cfg.addAnnotatedClass(Usuario.class);
+            cfg.addAnnotatedClass(Doacao.class);
+            cfg.addAnnotatedClass(Dinheiro.class);
+            cfg.addAnnotatedClass(Equipamento.class);
+            cfg.addAnnotatedClass(Endereco.class);
+            cfg.addAnnotatedClass(Emprestimo.class);
 
             cfg.configure("/META-INF/hibernate.cfg.xml");
             StandardServiceRegistryBuilder build = new StandardServiceRegistryBuilder().
-                                           applySettings(cfg.getProperties());
+                    applySettings(cfg.getProperties());
             sessionFactory = cfg.buildSessionFactory(build.build());
         } catch (HibernateException ex) {
             System.err.println("Erro ao criar Hibernate util." + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
-    
+
     public static Session abrirConexao() {
         return sessionFactory.openSession();
     }

@@ -27,7 +27,7 @@ public class DinheiroDaoImplTest {
 
  
     
-     @Test
+    // @Test
     public void testSalvar() {
         System.out.println("Salvar");
         dinheiro = new Dinheiro(null, Double.parseDouble(UtilGerador.gerarNumero(3)));
