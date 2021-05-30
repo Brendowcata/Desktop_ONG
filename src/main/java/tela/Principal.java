@@ -51,6 +51,7 @@ public class Principal extends javax.swing.JFrame {
         setTitle("Sistema ONG");
 
         btCadastroCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/imagem/clientes.PNG"))); // NOI18N
+        btCadastroCliente.setToolTipText("Cadastro Cliente");
         btCadastroCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btCadastroClienteMouseClicked(evt);
@@ -58,8 +59,10 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btCadastroEquipamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/imagem/ong.PNG"))); // NOI18N
+        btCadastroEquipamento.setToolTipText("Cadastro Equipamento");
 
         btCadastroEmprestimo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/imagem/login.png"))); // NOI18N
+        btCadastroEmprestimo.setToolTipText("Cadastro Emprestimo");
 
         javax.swing.GroupLayout painel_principalLayout = new javax.swing.GroupLayout(painel_principal);
         painel_principal.setLayout(painel_principalLayout);

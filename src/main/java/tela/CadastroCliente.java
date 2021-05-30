@@ -5,6 +5,8 @@
  */
 package tela;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Administrador
@@ -62,10 +64,20 @@ public class CadastroCliente extends javax.swing.JFrame {
         btSalvar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btSalvar.setText("Salvar");
         btSalvar.setPreferredSize(new java.awt.Dimension(90, 25));
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
 
         btLimpar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btLimpar.setText("Limpar");
         btLimpar.setPreferredSize(new java.awt.Dimension(90, 25));
+        btLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLimparActionPerformed(evt);
+            }
+        });
 
         lb_nome.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_nome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -122,7 +134,6 @@ public class CadastroCliente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_principalLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_principalLayout.createSequentialGroup()
                                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,6 +239,38 @@ public class CadastroCliente extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+
+        boolean erro = validarCampo();
+        if (erro) {
+            JOptionPane.showMessageDialog(null, "Os campos são obrigatórios");
+        } else {
+
+        }
+
+    }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
+        limpar();
+    }//GEN-LAST:event_btLimparActionPerformed
+
+    private boolean validarCampo() {
+
+        return false;
+    }
+
+    private void limpar() {
+        tfNome.setText("");
+        tfCpf.setText("");
+        tfRg.setText("");
+        tfTelefone.setText("");
+        tfRua.setText("");
+        tfNumero.setText("");
+        tfBairro.setText("");
+        tfCidade.setText("");
+        tfEstado.setText("");
+    }
 
     /**
      * @param args the command line arguments

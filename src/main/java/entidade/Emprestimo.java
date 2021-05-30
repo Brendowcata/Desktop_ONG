@@ -29,7 +29,7 @@ public class Emprestimo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @Temporal(TemporalType.TIMESTAMP)
@@ -44,7 +44,7 @@ public class Emprestimo implements Serializable {
     @JoinColumn(name = "idCliente", nullable = true)
     private Cliente cliente;
     
-     @OneToOne
+    @OneToOne
     @JoinColumn(name = "idEquipamento", nullable = true)
     private Equipamento equipamento;
     
