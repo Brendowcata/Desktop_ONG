@@ -35,15 +35,17 @@ public class Endereco implements Serializable {
     public Endereco() {
     }
 
-    public Endereco(Long id, String rua, String numero, String bairro, String cidade, String estado, String complemento) {
-        this.id = id;
+    public Endereco(String rua, String numero, String bairro, String cidade, String estado, String complemento, Cliente cliente) {
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;
         this.cidade = cidade;
         this.estado = estado;
         this.complemento = complemento;
+        this.cliente = cliente;
     }
+
+  
 
     public Long getId() {
         return id;
@@ -108,6 +110,8 @@ public class Endereco implements Serializable {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+    
+    
 
     @Override
     public int hashCode() {

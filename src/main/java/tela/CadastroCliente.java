@@ -5,7 +5,13 @@
  */
 package tela;
 
+import dao.ClienteDao;
+import dao.ClienteDaoImpl;
+import dao.HibernateUtil;
+import entidade.Cliente;
+import entidade.Endereco;
 import javax.swing.JOptionPane;
+import org.hibernate.Session;
 
 /**
  *
@@ -13,11 +19,15 @@ import javax.swing.JOptionPane;
  */
 public class CadastroCliente extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Template
-     */
+    private Session session;
+    private Cliente cliente;
+    private Endereco endereco;
+    private ClienteDao clienteDao;
+    private String mensagem = "";
+    
     public CadastroCliente() {
         initComponents();
+        clienteDao = new ClienteDaoImpl();
     }
 
     /**
@@ -52,6 +62,8 @@ public class CadastroCliente extends javax.swing.JFrame {
         tfCidade = new javax.swing.JTextField();
         tfBairro = new javax.swing.JTextField();
         tfEstado = new javax.swing.JTextField();
+        lb_complemento = new javax.swing.JLabel();
+        tfComplemento = new javax.swing.JTextField();
 
         setTitle("Cadastro Cliente");
         setAlwaysOnTop(true);
@@ -119,17 +131,15 @@ public class CadastroCliente extends javax.swing.JFrame {
         lb_estado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_estado.setText("Estado/UF:");
 
+        lb_complemento.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_complemento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_complemento.setText("Complemento:");
+
         javax.swing.GroupLayout painel_principalLayout = new javax.swing.GroupLayout(painel_principal);
         painel_principal.setLayout(painel_principalLayout);
         painel_principalLayout.setHorizontalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_principalLayout.createSequentialGroup()
-                .addGap(201, 201, 201)
-                .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(painel_principalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,6 +189,19 @@ public class CadastroCliente extends javax.swing.JFrame {
                         .addGap(78, 78, 78))
                     .addComponent(lb_endereco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(31, 31, 31))
+            .addGroup(painel_principalLayout.createSequentialGroup()
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painel_principalLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lb_complemento, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painel_principalLayout.createSequentialGroup()
+                        .addGap(198, 198, 198)
+                        .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painel_principalLayout.setVerticalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,11 +241,15 @@ public class CadastroCliente extends javax.swing.JFrame {
                     .addComponent(lb_estado)
                     .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_complemento)
+                    .addComponent(tfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -243,10 +270,31 @@ public class CadastroCliente extends javax.swing.JFrame {
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
         boolean erro = validarCampo();
-        if (erro) {
-            JOptionPane.showMessageDialog(null, "Os campos são obrigatórios");
+        if (!erro) {
+            session = HibernateUtil.abrirConexao();
+            cliente = new Cliente(
+                    tfNome.getText(),
+                    tfCpf.getText(),
+                    tfRg.getText(),
+                    tfTelefone.getText()
+            );
+            endereco = new Endereco(
+                    tfRua.getText(),
+                    tfNumero.getText(),
+                    tfBairro.getText(),
+                    tfCidade.getText(),
+                    tfEstado.getText(),
+                    tfComplemento.getText(),
+                    null
+            );
+            cliente.setEndereco(endereco);
+            
+            clienteDao.salvarOuAlterar(cliente, session);
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            limpar();
         } else {
-
+            JOptionPane.showMessageDialog(null, mensagem + "\nOs campos são obrigatórios");
+            limpar();
         }
 
     }//GEN-LAST:event_btSalvarActionPerformed
@@ -256,8 +304,23 @@ public class CadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btLimparActionPerformed
 
     private boolean validarCampo() {
-
-        return false;
+        mensagem = "";
+        boolean erro = false;
+        String nomeCliente = tfNome.getText().trim();
+        if(nomeCliente.length() <= 1){
+            mensagem = "Valor inválido para nome!";
+            erro = true;
+        }
+        
+        String cpf = tfCpf.getText().trim();
+        if(cpf.length() <= 11){
+            mensagem = "Valor inválido para CPF!";
+            erro = true;
+        }
+        if(erro){
+            //JOptionPane.showMessageDialog(null, mensagem);
+        }
+        return erro;
     }
 
     private void limpar() {
@@ -270,6 +333,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         tfBairro.setText("");
         tfCidade.setText("");
         tfEstado.setText("");
+        tfComplemento.setText("");
     }
 
     /**
@@ -315,6 +379,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JButton btSalvar;
     private javax.swing.JLabel lb_bairro;
     private javax.swing.JLabel lb_cidade;
+    private javax.swing.JLabel lb_complemento;
     private javax.swing.JLabel lb_cpf;
     private javax.swing.JLabel lb_endereco;
     private javax.swing.JLabel lb_estado;
@@ -326,6 +391,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JPanel painel_principal;
     private javax.swing.JTextField tfBairro;
     private javax.swing.JTextField tfCidade;
+    private javax.swing.JTextField tfComplemento;
     private javax.swing.JTextField tfCpf;
     private javax.swing.JTextField tfEstado;
     private javax.swing.JTextField tfNome;

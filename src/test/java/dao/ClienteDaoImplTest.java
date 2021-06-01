@@ -32,7 +32,6 @@ public class ClienteDaoImplTest {
     public void testSalvar() {
         System.out.println("Salvar Cliente");
         cliente = new Cliente(
-                null,
                 gerarNome(),
                 gerarCpf(),
                 gerarNumero(7),
@@ -40,13 +39,13 @@ public class ClienteDaoImplTest {
         );
 
         Endereco endereco = new Endereco(
-                null,
                 gerarLogradouro(),
                 gerarNumero(3),
                 "TRINDADE",
                 gerarCidade(),
                 gerarUF(),
-                "Casa da Frente - Portão Branco"
+                "Casa da Frente - Portão Branco",
+                null
         );
 
         cliente.setEndereco(endereco);

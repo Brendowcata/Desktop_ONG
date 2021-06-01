@@ -18,7 +18,7 @@ public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = true)
     private String nome;
@@ -35,8 +35,7 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
-    public Cliente(Long id, String nome, String cpf, String rg, String telefone) {
-        this.id = id;
+    public Cliente(String nome, String cpf, String rg, String telefone) {
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
