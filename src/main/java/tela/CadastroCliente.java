@@ -11,6 +11,7 @@ import dao.HibernateUtil;
 import entidade.Cliente;
 import entidade.Endereco;
 import javax.swing.JOptionPane;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 /**
@@ -24,7 +25,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private Endereco endereco;
     private ClienteDao clienteDao;
     private String mensagem = "";
-    
+
     public CadastroCliente() {
         initComponents();
         clienteDao = new ClienteDaoImpl();
@@ -66,7 +67,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         tfComplemento = new javax.swing.JTextField();
 
         setTitle("Cadastro Cliente");
-        setAlwaysOnTop(true);
 
         titulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -288,15 +288,14 @@ public class CadastroCliente extends javax.swing.JFrame {
                     null
             );
             cliente.setEndereco(endereco);
-            
-            clienteDao.salvarOuAlterar(cliente, session);
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
-            limpar();
-        } else {
-            JOptionPane.showMessageDialog(null, mensagem + "\nOs campos são obrigatórios");
-            limpar();
+            try {
+                clienteDao.salvarOuAlterar(cliente, session);
+                JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+                limpar();
+            } catch (HibernateException e) {
+                JOptionPane.showMessageDialog(null, "Erro ao salvar!");
+            }
         }
-
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
@@ -307,18 +306,18 @@ public class CadastroCliente extends javax.swing.JFrame {
         mensagem = "";
         boolean erro = false;
         String nomeCliente = tfNome.getText().trim();
-        if(nomeCliente.length() <= 1){
+        if (nomeCliente.length() <= 1) {
             mensagem = "Valor inválido para nome!";
             erro = true;
         }
-        
+
         String cpf = tfCpf.getText().trim();
-        if(cpf.length() <= 11){
+        if (cpf.length() <= 11) {
             mensagem = "Valor inválido para CPF!";
             erro = true;
         }
-        if(erro){
-            //JOptionPane.showMessageDialog(null, mensagem);
+        if (erro) {
+            JOptionPane.showMessageDialog(null, mensagem + "\nOs campos são obrigatórios");
         }
         return erro;
     }

@@ -46,6 +46,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Pesquisa Cliente"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pesquisa_clienteActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -162,7 +165,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
-                  <Component id="btCadastroCliente" min="-2" pref="105" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jButton1" pref="105" max="32767" attributes="0"/>
+                      <Component id="btCadastroCliente" pref="0" max="32767" attributes="0"/>
+                  </Group>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Component id="btCadastroEquipamento" min="-2" pref="105" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -177,10 +183,12 @@
                   <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="btCadastroEquipamento" pref="0" max="32767" attributes="0"/>
-                      <Component id="btCadastroCliente" pref="0" max="32767" attributes="0"/>
                       <Component id="btCadastroEmprestimo" pref="100" max="32767" attributes="0"/>
+                      <Component id="btCadastroCliente" alignment="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="249" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jButton1" min="-2" pref="100" max="-2" attributes="0"/>
+                  <EmptySpace pref="131" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -212,6 +220,17 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Cadastro Emprestimo"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/META-INF/imagem/clientes.PNG"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Pesquisar Clientes"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton1MouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

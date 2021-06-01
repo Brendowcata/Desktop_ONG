@@ -31,6 +31,7 @@ public class Principal extends javax.swing.JFrame {
         btCadastroCliente = new javax.swing.JButton();
         btCadastroEquipamento = new javax.swing.JButton();
         btCadastroEmprestimo = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         arquivo = new javax.swing.JMenu();
         ajuda = new javax.swing.JMenuItem();
@@ -64,13 +65,23 @@ public class Principal extends javax.swing.JFrame {
         btCadastroEmprestimo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/imagem/login.png"))); // NOI18N
         btCadastroEmprestimo.setToolTipText("Cadastro Emprestimo");
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/imagem/clientes.PNG"))); // NOI18N
+        jButton1.setToolTipText("Pesquisar Clientes");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout painel_principalLayout = new javax.swing.GroupLayout(painel_principal);
         painel_principal.setLayout(painel_principalLayout);
         painel_principalLayout.setHorizontalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_principalLayout.createSequentialGroup()
                 .addGap(90, 90, 90)
-                .addComponent(btCadastroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, Short.MAX_VALUE)
+                    .addComponent(btCadastroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(33, 33, 33)
                 .addComponent(btCadastroEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -83,9 +94,11 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(130, 130, 130)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btCadastroEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(btCadastroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(btCadastroEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                .addContainerGap(249, Short.MAX_VALUE))
+                    .addComponent(btCadastroEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(btCadastroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(131, Short.MAX_VALUE))
         );
 
         arquivo.setMnemonic('a');
@@ -113,6 +126,11 @@ public class Principal extends javax.swing.JFrame {
 
         pesquisa_cliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         pesquisa_cliente.setText("Pesquisa Cliente");
+        pesquisa_cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisa_clienteActionPerformed(evt);
+            }
+        });
         cliente.add(pesquisa_cliente);
 
         jMenuBar1.add(cliente);
@@ -203,6 +221,14 @@ public class Principal extends javax.swing.JFrame {
         new CadastroCliente().setVisible(true);
     }//GEN-LAST:event_btCadastroClienteMouseClicked
 
+    private void pesquisa_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisa_clienteActionPerformed
+       new PesquisaCliente().setVisible(true);
+    }//GEN-LAST:event_pesquisa_clienteActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+         new PesquisaCliente().setVisible(true);
+    }//GEN-LAST:event_jButton1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -248,6 +274,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem editar;
     private javax.swing.JMenu emprestimos;
     private javax.swing.JMenu equipamentos;
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
