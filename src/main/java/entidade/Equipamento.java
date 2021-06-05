@@ -23,9 +23,8 @@ public class Equipamento implements Serializable {
     private Long id;
     @Column(nullable = false)
     private String nome;
-    private boolean situacao;
-    @Temporal(TemporalType.DATE)
-    private Date data;
+    private int quantidadeEstoque;
+    private int quantidadeEmprestado;
     private String observacao;
     
     @OneToOne(mappedBy = "equipamento")
@@ -34,18 +33,16 @@ public class Equipamento implements Serializable {
     public Equipamento() {
     }
 
-    public Equipamento(String nome, boolean situacao, Date data, String observacao) {
+    public Equipamento(String nome, int quantidadeEstoque, String observacao) {
         this.nome = nome;
-        this.situacao = situacao;
-        this.data = data;
+        this.quantidadeEstoque = quantidadeEstoque;
         this.observacao = observacao;
     }
 
-    public Equipamento(Long id, String nome, boolean situacao, Date data, String observacao) {
+    public Equipamento(Long id, String nome,int quantidadeEstoque, String observacao) {
         this.id = id;
         this.nome = nome;
-        this.situacao = situacao;
-        this.data = data;
+        this.quantidadeEstoque = quantidadeEstoque;
         this.observacao = observacao;
     }
 
@@ -57,8 +54,6 @@ public class Equipamento implements Serializable {
         this.emprestimo = emprestimo;
     }
     
-    
-
     public Long getId() {
         return id;
     }
@@ -75,20 +70,20 @@ public class Equipamento implements Serializable {
         this.nome = nome;
     }
 
-    public boolean isSituacao() {
-        return situacao;
+    public int getQuantidadeEstoque() {
+        return quantidadeEstoque;
     }
 
-    public void setSituacao(boolean situacao) {
-        this.situacao = situacao;
+    public void setQuantidadeEstoque(int quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
     }
 
-    public Date getData() {
-        return data;
+    public int getQuantidadeEmprestado() {
+        return quantidadeEmprestado;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setQuantidadeEmprestado(int quantidadeEmprestado) {
+        this.quantidadeEmprestado = quantidadeEmprestado;
     }
 
     public String getObservacao() {

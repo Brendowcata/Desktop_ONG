@@ -48,7 +48,6 @@ public class PesquisarEquipamento extends javax.swing.JFrame {
         javax.swing.JLabel lbQuantidade = new javax.swing.JLabel();
 
         setTitle("Pesquisa Equipamento");
-        setMaximumSize(new java.awt.Dimension(600, 428));
 
         painel_principal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         painel_principal.setPreferredSize(new java.awt.Dimension(600, 428));
@@ -58,7 +57,7 @@ public class PesquisarEquipamento extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome", "Situação", "Data Cadastro", "Observação"
+                "Nome", "Em estoque", "Emprestado", "Observação"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -80,7 +79,7 @@ public class PesquisarEquipamento extends javax.swing.JFrame {
         lb_nome.setText("Nome:");
 
         btExcluir.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btExcluir.setText("Excluir");
+        btExcluir.setText("Excluir todo");
         btExcluir.setPreferredSize(new java.awt.Dimension(90, 25));
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,7 +175,7 @@ public class PesquisarEquipamento extends javax.swing.JFrame {
             Equipamento equipamentoSelecionado = equipamentos.get(linhaSelecionada);
             new AlterarEquipamento(equipamentoSelecionado).setVisible(true);
             this.isFocusOwner();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Selecione uma linha!");
         }
     }//GEN-LAST:event_btAlterarActionPerformed
@@ -190,7 +189,7 @@ public class PesquisarEquipamento extends javax.swing.JFrame {
                     if (tabelaModelo != null) {
                         tabelaModelo.setNumRows(0);
                     }
-                    JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum valor!");
+                    JOptionPane.showMessageDialog(null, "Não há equipamento com o nome informado!");
                 } else {
                     popularTabela();
                 }
@@ -200,7 +199,6 @@ public class PesquisarEquipamento extends javax.swing.JFrame {
             } finally {
                 sessao.close();
             }
-
         }
     }//GEN-LAST:event_btPesquisarActionPerformed
 
@@ -208,14 +206,14 @@ public class PesquisarEquipamento extends javax.swing.JFrame {
         int linhaSelecionada = tabelaEquipamento.getSelectedRow();
 
         if (linhaSelecionada >= 0) {
-            int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir?");
+            int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir o equipamento e todas unidades em estoque?");
             if (opcao == 0) {
                 try {
                     sessao = HibernateUtil.abrirConexao();
                     Equipamento equipamentoSelecionado = equipamentos.get(linhaSelecionada);
                     equipamentoDao.excluir(equipamentoSelecionado, sessao);
                     JOptionPane.showMessageDialog(null, "Equipamento excluído com sucesso!");
-                    tabelaModelo.setNumRows(0);
+                    btPesquisarActionPerformed(evt);
                     tfNome.setText("");
 
                 } catch (HibernateException e) {
@@ -233,12 +231,9 @@ public class PesquisarEquipamento extends javax.swing.JFrame {
 
         boolean erro = false;
         String nome = tfNome.getText().trim();
+
         if (nome.length() == 1) {
             JOptionPane.showMessageDialog(null, "Nome inválido.");
-            erro = true;
-        }
-        if (nome.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Informe o nome do equipamento!");
             erro = true;
         }
         return erro;
@@ -247,13 +242,12 @@ public class PesquisarEquipamento extends javax.swing.JFrame {
     private void popularTabela() {
         tabelaModelo = (DefaultTableModel) tabelaEquipamento.getModel();
         tabelaModelo.setNumRows(0);
-        String situacao;
-        SimpleDateFormat formatoData = new SimpleDateFormat("dd-MM-YYYY");
+
         for (Equipamento equipamentoFor : equipamentos) {
-            situacao = equipamentoFor.isSituacao() ? "Em estoque" : "Emprestado";
+
             tabelaModelo.addRow(new Object[]{equipamentoFor.getNome(),
-                situacao,
-                formatoData.format(equipamentoFor.getData()),
+                equipamentoFor.getQuantidadeEstoque(),
+                equipamentoFor.getQuantidadeEmprestado(),
                 equipamentoFor.getObservacao()});
         }
     }
@@ -283,6 +277,10 @@ public class PesquisarEquipamento extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(PesquisarEquipamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

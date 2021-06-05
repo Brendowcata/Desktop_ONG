@@ -17,5 +17,5 @@ public interface EquipamentoDao extends BaseDao<Equipamento, Long>{
     
     List<Equipamento> pesquisarEquipamentoPorNome(String nome, Session sessao)throws HibernateException;
     
-    List<Equipamento> pesquisarQuantidadeEquipamentoEstoque (String nome, Session sessao)throws HibernateException;
+    List<Equipamento> pesquisarTodo(Session sessao) throws  HibernateException;
 }

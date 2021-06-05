@@ -27,11 +27,10 @@ public class EquipamentoDaoImpl extends BaseDaoImpl<Equipamento, Long> implement
         consulta.setParameter("nome", "%" + nome + "%");
         return consulta.list();
     }
-    
+
     @Override
-    public List<Equipamento> pesquisarQuantidadeEquipamentoEstoque(String nome, Session sessao) throws HibernateException {
-        Query consulta = sessao.createQuery("FROM Equipamento WHERE nome LIKE :nome AND situacao = true");
-        consulta.setParameter("nome", "%" + nome + "%");
+    public List<Equipamento> pesquisarTodo(Session sessao) throws HibernateException {
+        Query consulta = sessao.createQuery("FROM Equipamento");
         return consulta.list();
     }
 

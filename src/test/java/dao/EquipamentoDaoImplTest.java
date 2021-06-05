@@ -33,8 +33,7 @@ public class EquipamentoDaoImplTest {
         equipamento = new Equipamento(
                 null,
                 gerarNomeEquipamento(),
-                true,
-                new Date(),
+                equipamento.getQuantidadeEstoque() + 1,
                 gerarCaracter(4));
         sessao = HibernateUtil.abrirConexao();
         equipamentoDao.salvarOuAlterar(equipamento, sessao);
@@ -82,15 +81,13 @@ public class EquipamentoDaoImplTest {
     }
 
     //@Test
-    public void pesquisarQuantidadeEquipamentoEstoque() {
-        System.out.println("pesquisar quantidade em estoque do equipamento");
+    public void testPesquisarTodo() {
+        System.out.println("pesquisar todos");
         buscarEquipamentoBd();
         sessao = HibernateUtil.abrirConexao();
-        List<Equipamento> equipamentos = equipamentoDao.pesquisarQuantidadeEquipamentoEstoque("Bengala", sessao);
+        List<Equipamento> equipamentos = equipamentoDao.pesquisarTodo(sessao);
         sessao.close();
         assertTrue(!equipamentos.isEmpty());
-        
-        JOptionPane.showMessageDialog(null, "Quantidade de " + equipamentos.get(0).getNome() + " em estoque: " + equipamentos.size()); //essa linha serve só para ver a saída, não precisa existir no código.
     }
 
     //   @Test

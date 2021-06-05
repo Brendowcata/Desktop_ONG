@@ -23,23 +23,17 @@ public class AlterarEquipamento extends javax.swing.JFrame {
     private Equipamento equipamento;
     private EquipamentoDao equipamentoDao;
 
-    public AlterarEquipamento(){
+    public AlterarEquipamento() {
 
     }
 
-    public AlterarEquipamento(Equipamento equipamento){
+    public AlterarEquipamento(Equipamento equipamento) {
         initComponents();
         this.equipamento = equipamento;
         equipamentoDao = new EquipamentoDaoImpl();
-        formatarData(equipamento.getData());
         tfNome.setText(equipamento.getNome());
+        lb_quantidadeEstoque.setText(Integer.toString(equipamento.getQuantidadeEstoque()));
         taObservacao.setText(equipamento.getObservacao());
-        comboSituacao.setSelectedItem(equipamento.isSituacao() ? "Em estoque" : "Emprestado");
-    }
-    
-    private void formatarData(Date data) {
-        SimpleDateFormat dataFormatada = new SimpleDateFormat("dd-MM-yyyy");
-        lbDataCadastro.setText(dataFormatada.format(data));
     }
 
     @SuppressWarnings("unchecked")
@@ -55,10 +49,9 @@ public class AlterarEquipamento extends javax.swing.JFrame {
         lb_nome1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         taObservacao = new javax.swing.JTextArea();
-        dataCadastro = new javax.swing.JLabel();
-        lbDataCadastro = new javax.swing.JLabel();
-        tfSituacao = new javax.swing.JLabel();
-        comboSituacao = new javax.swing.JComboBox<>();
+        lb_estoque = new javax.swing.JLabel();
+        btExcluirUnidade = new javax.swing.JButton();
+        lb_quantidadeEstoque = new javax.swing.JLabel();
 
         setTitle("Alterar Equipamento");
 
@@ -97,82 +90,72 @@ public class AlterarEquipamento extends javax.swing.JFrame {
         taObservacao.setRows(5);
         jScrollPane1.setViewportView(taObservacao);
 
-        dataCadastro.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        dataCadastro.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        dataCadastro.setText("Data cadastro:");
+        lb_estoque.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_estoque.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_estoque.setText("Em estoque:");
 
-        lbDataCadastro.setText(" ");
+        btExcluirUnidade.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btExcluirUnidade.setText("Excluir unidade");
+        btExcluirUnidade.setPreferredSize(new java.awt.Dimension(90, 25));
+        btExcluirUnidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirUnidadeActionPerformed(evt);
+            }
+        });
 
-        tfSituacao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        tfSituacao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        tfSituacao.setText("Situação: *");
-
-        comboSituacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Em estoque", "Emprestado" }));
+        lb_quantidadeEstoque.setText(" ");
 
         javax.swing.GroupLayout painel_principalLayout = new javax.swing.GroupLayout(painel_principal);
         painel_principal.setLayout(painel_principalLayout);
         painel_principalLayout.setHorizontalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(painel_principalLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_principalLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(painel_principalLayout.createSequentialGroup()
-                                .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painel_principalLayout.createSequentialGroup()
-                                .addComponent(lb_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_principalLayout.createSequentialGroup()
-                        .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_principalLayout.createSequentialGroup()
-                                .addComponent(lb_nome1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_principalLayout.createSequentialGroup()
-                                    .addComponent(dataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(lbDataCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_principalLayout.createSequentialGroup()
-                                    .addGap(10, 10, 10)
-                                    .addComponent(tfSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(comboSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(btExcluirUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painel_principalLayout.createSequentialGroup()
+                        .addComponent(lb_nome1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(87, 87, 87))
+            .addGroup(painel_principalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_estoque, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tfNome, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                    .addComponent(lb_quantidadeEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painel_principalLayout.setVerticalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_principalLayout.createSequentialGroup()
                 .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dataCadastro)
-                    .addComponent(lbDataCadastro))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfSituacao)
-                    .addComponent(comboSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lb_nome))
-                .addGap(18, 18, 18)
+                    .addComponent(lb_nome)
+                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addComponent(lb_nome1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
+                    .addComponent(lb_quantidadeEstoque, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_estoque))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_nome1))
                 .addGap(18, 18, 18)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btExcluirUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45))
         );
 
@@ -213,6 +196,28 @@ public class AlterarEquipamento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
+    private void btExcluirUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirUnidadeActionPerformed
+
+        try {
+            if (equipamento.getQuantidadeEstoque() > 1) {
+                excluirUnidadeEstoque();
+                sessao = HibernateUtil.abrirConexao();
+                equipamentoDao.salvarOuAlterar(equipamento, sessao);
+                JOptionPane.showMessageDialog(null, "Unidade excluída com sucesso!");
+                lb_quantidadeEstoque.setText(Integer.toString(equipamento.getQuantidadeEstoque()));
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Há apenas uma unidade em estoque, exclua o equipamento todo!");
+            }
+        } catch (HibernateException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar!");
+        } finally {
+            sessao.close();
+        }
+
+
+    }//GEN-LAST:event_btExcluirUnidadeActionPerformed
+
     private void limpar() {
         tfNome.setText("");
         taObservacao.setText("");
@@ -232,19 +237,17 @@ public class AlterarEquipamento extends javax.swing.JFrame {
         }
         return erro;
     }
-    
+
     private void carregarEquipamento() {
         equipamento.setNome(tfNome.getText().trim());
         equipamento.setObservacao(taObservacao.getText().trim());
-        
-        if (comboSituacao.getSelectedIndex() == 0) {
-            equipamento.setSituacao(true);
-        }else{
-            equipamento.setSituacao(false);
-        }
-        
+
     }
-    
+
+    private void excluirUnidadeEstoque() {
+        equipamento.setQuantidadeEstoque(equipamento.getQuantidadeEstoque() - 1);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -278,6 +281,14 @@ public class AlterarEquipamento extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -288,18 +299,17 @@ public class AlterarEquipamento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btExcluirUnidade;
     private javax.swing.JButton btLimpar;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JComboBox<String> comboSituacao;
-    private javax.swing.JLabel dataCadastro;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbDataCadastro;
+    private javax.swing.JLabel lb_estoque;
     private javax.swing.JLabel lb_nome;
     private javax.swing.JLabel lb_nome1;
+    private javax.swing.JLabel lb_quantidadeEstoque;
     private javax.swing.JPanel painel_principal;
     private javax.swing.JTextArea taObservacao;
     private javax.swing.JTextField tfNome;
-    private javax.swing.JLabel tfSituacao;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }
