@@ -16,7 +16,8 @@ import org.hibernate.Session;
  */
 public interface EmprestimoDao extends BaseDao<Emprestimo, Long> {
     
-    List<Emprestimo> pesquisarEmprestimoPorCliente(Long id, Session sessao)throws HibernateException;
+    List<Emprestimo> pesquisarEmprestimoPorCliente(String nome, Session sessao)throws HibernateException;
+    
     
     
 }

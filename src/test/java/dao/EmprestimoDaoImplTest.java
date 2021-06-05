@@ -34,13 +34,16 @@ public class EmprestimoDaoImplTest {
     public void testPesquisarEmprestimoPorCliente() {
         buscarEmprestimoBd();
         session = HibernateUtil.abrirConexao();
-        List<Emprestimo> emprestimoBd = emprestimoDao.pesquisarEmprestimoPorCliente(emprestimo.getCliente().getId(), session);
+        List<Emprestimo> emprestimoBd = emprestimoDao.pesquisarEmprestimoPorCliente(String.valueOf(emprestimo.getCliente().getId()), session);
         session.close();
         assertNotNull(emprestimoBd);
         
         emprestimo = emprestimoBd.get(0);
         System.out.println(emprestimo.getCliente().getNome());
     }
+    
+   
+    
 
     //@Test
     public void testSalvar() {

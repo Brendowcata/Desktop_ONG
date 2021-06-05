@@ -5,18 +5,60 @@
  */
 package tela;
 
+import dao.ClienteDao;
+import dao.ClienteDaoImpl;
+import dao.EmprestimoDao;
+import dao.EmprestimoDaoImpl;
+import dao.EquipamentoDao;
+import dao.EquipamentoDaoImpl;
+import dao.HibernateUtil;
+import entidade.Cliente;
+import entidade.Emprestimo;
+import entidade.Equipamento;
+import entidade.Usuario;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import org.hibernate.Query;
+
+import org.hibernate.Session;
+
+
+
 /**
  *
  * @author Administrador
  */
 public class CadastroEmprestimo extends javax.swing.JFrame {
 
+    private Emprestimo emprestimo;
+    private Cliente cliente;
+    private Usuario usuario;
+    private Equipamento equipamento;
+    private EmprestimoDao emprestimoDao;
+    private Session session;
+    private List<Equipamento> strList;
     /**
      * Creates new form Template
      */
     public CadastroEmprestimo() {
+        emprestimoDao = new EmprestimoDaoImpl();
         initComponents();
+        textCpf.requestFocus();
+        formatarData(new Date());
+        puxarDadosEquipamento();
+
     }
+
+    private void formatarData(Date data) {
+        SimpleDateFormat dataFormatada = new SimpleDateFormat("dd-MM-yyyy");
+        TextData.setText(dataFormatada.format(data));
+    }
+    
+     
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,45 +72,136 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
         painel_principal = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
         lb_nome = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        buttonSalvar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        TextData = new javax.swing.JLabel();
+        lb_nome1 = new javax.swing.JLabel();
+        buttonPesquisar = new javax.swing.JButton();
+        textCpf = new javax.swing.JFormattedTextField();
+        lb_nome2 = new javax.swing.JLabel();
+        textNome = new javax.swing.JTextField();
+        lb_nome3 = new javax.swing.JLabel();
+        comboEquipamento = new javax.swing.JComboBox<>();
 
         titulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titulo.setText("Cadastro de Empréstimos");
         titulo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        lb_nome.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_nome.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lb_nome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_nome.setText("Data Empréstimo:");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton1.setText("Salvar");
-        jButton1.setPreferredSize(new java.awt.Dimension(90, 25));
+        buttonSalvar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        buttonSalvar.setText("Salvar");
+        buttonSalvar.setPreferredSize(new java.awt.Dimension(90, 25));
+        buttonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSalvarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        TextData.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lb_nome1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lb_nome1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_nome1.setText("CPF:");
+
+        buttonPesquisar.setText("Pesquisar");
+        buttonPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPesquisarActionPerformed(evt);
+            }
+        });
+
+        try {
+            textCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        textCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textCpfActionPerformed(evt);
+            }
+        });
+        textCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textCpfKeyPressed(evt);
+            }
+        });
+
+        lb_nome2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lb_nome2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_nome2.setText("Cliente:");
+
+        textNome.setEditable(false);
+
+        lb_nome3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lb_nome3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_nome3.setText("Equipamento:");
+
+        comboEquipamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboEquipamentoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painel_principalLayout = new javax.swing.GroupLayout(painel_principal);
         painel_principal.setLayout(painel_principalLayout);
         painel_principalLayout.setHorizontalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painel_principalLayout.createSequentialGroup()
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lb_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addGap(255, 255, 255)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(255, Short.MAX_VALUE))
             .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_principalLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_principalLayout.createSequentialGroup()
+                        .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lb_nome2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_nome1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_nome3, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                            .addComponent(TextData, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textCpf)
+                            .addComponent(textNome)
+                            .addComponent(comboEquipamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonPesquisar)
+                        .addGap(102, 102, 102))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_principalLayout.createSequentialGroup()
+                        .addComponent(buttonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(257, 257, 257))))
         );
         painel_principalLayout.setVerticalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_principalLayout.createSequentialGroup()
                 .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
-                .addComponent(lb_nome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb_nome)
+                    .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(TextData, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_nome1)
+                    .addComponent(buttonPesquisar)
+                    .addComponent(textCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_nome2)
+                    .addComponent(textNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_nome3))
+                .addGap(58, 58, 58)
+                .addComponent(buttonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -86,6 +219,94 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void buttonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPesquisarActionPerformed
+        // TODO add your handling code here:
+        String cpf = String.valueOf(textCpf.getText().replace(".", "").replace("-", "").trim());
+        if (!cpf.equals("")) {
+            try {
+                cliente = new Cliente();
+                ClienteDao clienteDao = new ClienteDaoImpl();
+                session = HibernateUtil.abrirConexao();
+                cliente = clienteDao.pesquisaPorCpf(String.valueOf(textCpf.getText()), session);
+                session.close();
+                textNome.setText(cliente.getNome());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Digite um CPF cadastrado!");
+                textCpf.setText("");
+                textCpf.requestFocus();
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "O CPF deve ter 11 digitos!");
+            textCpf.requestFocus();
+        }
+
+    }//GEN-LAST:event_buttonPesquisarActionPerformed
+
+    private void comboEquipamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEquipamentoActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_comboEquipamentoActionPerformed
+
+    private void buttonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSalvarActionPerformed
+        // TODO add your handling code here:
+      EquipamentoDao equipamentoDao = new EquipamentoDaoImpl();
+            if(!comboEquipamento.getSelectedItem().equals("Escolha um Equipamento...")){
+        emprestimo = new Emprestimo();
+         emprestimo.setCadastro(new Date());
+         emprestimo.setCliente(cliente);
+//         emprestimo.setUsuario(usuario);
+         String selecionado = String.valueOf(comboEquipamento.getSelectedItem());
+                for (Equipamento equipamento1 : strList) {
+                if(equipamento1.getNome().equalsIgnoreCase(selecionado)){
+                   equipamento = equipamento1;
+                   emprestimo.setEquipamento(equipamento);
+                }
+                }
+                    equipamento.setQuantidadeEmprestado(equipamento.getQuantidadeEmprestado() + 1);
+                    equipamento.setQuantidadeEstoque(equipamento.getQuantidadeEstoque()- 1);
+                     session = HibernateUtil.abrirConexao();
+                    emprestimoDao.salvarOuAlterar(emprestimo, session);
+                    equipamentoDao.salvarOuAlterar(equipamento, session);
+                    session.close();
+                    JOptionPane.showMessageDialog(null, "Emprestimo Cadastrado com Sucesso!");
+                    puxarDadosEquipamento();
+            } else {
+                JOptionPane.showMessageDialog(null, "Escolha um equipamento para ser emprestado!");
+            }
+        
+                
+        
+    }//GEN-LAST:event_buttonSalvarActionPerformed
+
+    private void textCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textCpfActionPerformed
+
+    private void textCpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCpfKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == evt.VK_ENTER){
+            buttonPesquisar.requestFocus();
+            buttonPesquisarActionPerformed(null);
+        }
+    }//GEN-LAST:event_textCpfKeyPressed
+
+    private void puxarDadosEquipamento() {
+        strList = new ArrayList<>();
+        List<String> listaEquipamento = new ArrayList<>();
+        listaEquipamento.add("Escolha um Equipamento...");
+        session = HibernateUtil.abrirConexao();
+        Query consulta = session.createQuery("FROM Equipamento");
+        strList = consulta.list();
+        session.close();
+        for (Equipamento equipamento1 : strList) {
+            if(equipamento1.getQuantidadeEstoque() > 0){
+            listaEquipamento.add(equipamento1.getNome());
+            }
+        }
+        DefaultComboBoxModel defaultComboBox = new DefaultComboBoxModel(listaEquipamento.toArray());
+        comboEquipamento.setModel(defaultComboBox);
+    }
     /**
      * @param args the command line arguments
      */
@@ -124,10 +345,21 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
         });
     }
 
+   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel TextData;
+    private javax.swing.JButton buttonPesquisar;
+    private javax.swing.JButton buttonSalvar;
+    private javax.swing.JComboBox<String> comboEquipamento;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lb_nome;
+    private javax.swing.JLabel lb_nome1;
+    private javax.swing.JLabel lb_nome2;
+    private javax.swing.JLabel lb_nome3;
     private javax.swing.JPanel painel_principal;
+    private javax.swing.JFormattedTextField textCpf;
+    private javax.swing.JTextField textNome;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }

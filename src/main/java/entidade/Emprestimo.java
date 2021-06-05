@@ -130,5 +130,9 @@ public class Emprestimo implements Serializable {
     public String toString() {
         return "entidade.Emprestimo[ id=" + id + " ]";
     }
+
+    public boolean isSituacao() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
