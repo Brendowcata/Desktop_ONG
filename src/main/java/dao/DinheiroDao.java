@@ -6,8 +6,10 @@
 package dao;
 
 import entidade.Dinheiro;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 
 /**
  *
@@ -15,8 +17,10 @@ import org.hibernate.HibernateException;
  */
 public interface DinheiroDao extends BaseDao<Dinheiro, Long> {
     
-  //  List<Dinheiro> totalPorMes () throws HibernateException;
+    List<Dinheiro> pesquisarPorData (Date data, Session sessao) throws HibernateException;
     
-  //  List<Dinheiro> totalPorAno () throws HibernateException;  
+    List<Dinheiro> totalDinheiroPorMes (Date mes, Session sessao) throws HibernateException;
     
+    List<Dinheiro> totalDinheiroPorAno (Date ano, Session sessao) throws HibernateException;
+            
 }

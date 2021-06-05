@@ -6,6 +6,7 @@
 package entidade;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.*;
 
 /**
@@ -18,23 +19,34 @@ public class Dinheiro implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private double dinheiro;
+    
+    @Temporal(TemporalType.DATE)
+    private Date dataDoacao;
 
     @OneToOne
-    @JoinColumn(name = "id_doacao")
-    private Doacao doacao;
+    @JoinColumn(name = "id_cliente")
+    private Cliente cliente;
 
     public Dinheiro() {
     }
 
-    public Dinheiro(Long id, Double dinheiro) {
-        this.id = id;
+    public Dinheiro(double dinheiro, Date data) {
         this.dinheiro = dinheiro;
+        this.dataDoacao = data;
     }
 
+
+    public Dinheiro(Long id, double dinheiro, Date dataDoacao) {
+        this.id = id;
+        this.dinheiro = dinheiro;
+        this.dataDoacao = dataDoacao;
+
+    }
+       
     public Long getId() {
         return id;
     }
@@ -51,15 +63,22 @@ public class Dinheiro implements Serializable {
         this.dinheiro = dinheiro;
     }
 
-    public Doacao getDoacao() {
-        return doacao;
+    public Date getData() {
+        return dataDoacao;
     }
 
-    public void setDoacao(Doacao doacao) {
-        this.doacao = doacao;
+    public void setData(Date data) {
+        this.dataDoacao = data;
     }
     
-   
+     public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
 
     @Override
     public int hashCode() {
