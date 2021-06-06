@@ -15,6 +15,7 @@ import entidade.Dinheiro;
 import entidade.Endereco;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -51,18 +52,7 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
         dinheiroDao = new DinheiroDaoImpl();
         formatarData(dinheiro.getData());
         tfValor.setText(dinheiro.getDinheiro().toString());
-        tfNome.setText(dinheiro.getCliente().getNome());
-        tfCpf.setText(dinheiro.getCliente().getCpf());
-        tfRg.setText(dinheiro.getCliente().getRg());
-        tfTelefone.setText(dinheiro.getCliente().getTelefone());
-
-//        tfRua.setText(dinheiro.getCliente().getEndereco().getRua());
-//        tfNumero.setText(dinheiro.getCliente().getEndereco().getNumero());
-//        tfBairro.setText(dinheiro.getCliente().getEndereco().getBairro());
-//        tfCidade.setText(dinheiro.getCliente().getEndereco().getCidade());
-//        tfEstado.setText(dinheiro.getCliente().getEndereco().getEstado());
-//        tfComplemento.setText(dinheiro.getCliente().getEndereco().getComplemento());
-
+        painel_Cliente.setVisible(false);
         btSalvar.setText("Alterar");
         titulo.setText("Alterar Dinheiro");
     }
@@ -112,6 +102,8 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
         tfComplemento = new javax.swing.JTextField();
         btSalvar = new javax.swing.JButton();
         btLimpar = new javax.swing.JButton();
+
+        setTitle("Cadastrar Dinheiro");
 
         titulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

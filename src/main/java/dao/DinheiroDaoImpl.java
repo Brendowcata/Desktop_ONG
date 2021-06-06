@@ -33,16 +33,15 @@ public class DinheiroDaoImpl extends BaseDaoImpl<Dinheiro, Long> implements Dinh
 
     @Override
     public List<Dinheiro> totalDinheiroPorMes(Date mes, Session sessao) throws HibernateException {
-        Query consulta = sessao.createQuery("from Dinheiro where month(dataDoacao) = month(:pesquisaMes");
+        Query consulta = sessao.createQuery("from Dinheiro where month(dataDoacao) = month(:pesquisaMes)");
         consulta.setParameter("pesquisaMes", mes);
         return consulta.list();
     }
 
     @Override
     public List<Dinheiro> totalDinheiroPorAno(Date ano, Session sessao) throws HibernateException {
-        Query consulta = sessao.createQuery("from SUM(dinheiro) from Dinheiro where year(dataDoacao) = year(:pesquisaAno");
+        Query consulta = sessao.createQuery("from Dinheiro where year(dataDoacao) = year(:pesquisaAno)");
         consulta.setParameter("pesquisaAno", ano);
         return consulta.list();
-    }
-    
+    }   
 }

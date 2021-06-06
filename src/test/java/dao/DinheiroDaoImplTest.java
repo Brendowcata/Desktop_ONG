@@ -19,29 +19,25 @@ import util.UtilGerador;
  * @author Kamilla
  */
 public class DinheiroDaoImplTest {
-    
+
     private Session sessao;
     private Dinheiro dinheiro;
     private DinheiroDao dinheiroDao;
-    
+
     public DinheiroDaoImplTest() {
         dinheiroDao = new DinheiroDaoImpl();
     }
 
- 
-    
-
-    // @Test
-
+    //@Test
     public void testSalvar() {
         System.out.println("Salvar");
         dinheiro = new Dinheiro(Double.parseDouble(UtilGerador.gerarNumero(3)), new Date());
         sessao = HibernateUtil.abrirConexao();
         dinheiroDao.salvarOuAlterar(dinheiro, sessao);
         sessao.close();
-         assertNotNull(dinheiro.getId());
+        assertNotNull(dinheiro.getId());
     }
-    
+
     //@Test
     public void testAlterar() {
         System.out.println("Alterar");
@@ -50,33 +46,57 @@ public class DinheiroDaoImplTest {
         sessao = HibernateUtil.abrirConexao();
         dinheiroDao.salvarOuAlterar(dinheiro, sessao);
         sessao.close();
-        
+
         sessao = HibernateUtil.abrirConexao();
         Dinheiro dinheiroAlterado = dinheiroDao.pesquisarPorId(dinheiro.getId(), sessao);
         sessao.close();
-        
+
         assertEquals(dinheiro.getId(), dinheiroAlterado.getId());
     }
-    
+
     //@Test
-    public void testExcluir(){
+    public void testExcluir() {
         System.out.println("Excluir");
         buscarDinheiroBd();
         sessao = HibernateUtil.abrirConexao();
         dinheiroDao.excluir(dinheiro, sessao);
         sessao.close();
-        
+
         sessao = HibernateUtil.abrirConexao();
         Dinheiro dinheiroExcluido = dinheiroDao.pesquisarPorId(dinheiro.getId(), sessao);
         sessao.close();
-        
+
         assertNull(dinheiroExcluido);
     }
-    
+
     //@Test
     public void testPesquisarPorData() {
-        System.out.println("PesquisarPorData");
+        System.out.println("pesquisarPorData");
+        buscarDinheiroBd();
+        sessao = HibernateUtil.abrirConexao();
+        List<Dinheiro> dinheiros = dinheiroDao.pesquisarPorData(dinheiro.getData(), sessao);
+        sessao.close();
+        assertTrue(!dinheiros.isEmpty());
+    }
 
+    //@Test
+    public void testPesquisarPorMes() {
+        System.out.println("pesquisarPorMes");
+        buscarDinheiroBd();
+        sessao = HibernateUtil.abrirConexao();
+        List<Dinheiro> dinheiros = dinheiroDao.totalDinheiroPorMes(dinheiro.getData(), sessao);
+        sessao.close();
+        assertTrue(!dinheiros.isEmpty());
+    }
+
+    @Test
+    public void testPesquisarPorAno() {
+        System.out.println("pesquisarPorAno");
+        buscarDinheiroBd();
+        sessao = HibernateUtil.abrirConexao();
+        List<Dinheiro> dinheiros = dinheiroDao.totalDinheiroPorAno(dinheiro.getData(), sessao);
+        sessao.close();
+        assertTrue(!dinheiros.isEmpty());
     }
 
     private Dinheiro buscarDinheiroBd() {
@@ -91,5 +111,5 @@ public class DinheiroDaoImplTest {
         }
         return dinheiro;
     }
-    
+
 }
