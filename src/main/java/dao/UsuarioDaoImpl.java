@@ -11,7 +11,7 @@ import org.hibernate.*;
 
 /**
  *
- * @author Administrador
+ * @author Equipe.
  */
 public class UsuarioDaoImpl extends BaseDaoImpl<Usuario, Long> implements UsuarioDao {
 

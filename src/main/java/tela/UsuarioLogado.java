@@ -15,7 +15,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Equipe
+ * @author Equipe.
  */
 public class UsuarioLogado implements Serializable {
 
@@ -27,7 +27,6 @@ public class UsuarioLogado implements Serializable {
     public UsuarioLogado(Usuario usuario) {
         this.usuario = usuario;
         usuarioDao = new UsuarioDaoImpl();
-        
     }
 
     public void atualizarUsuarioUltimoAcesso() {

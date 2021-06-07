@@ -11,7 +11,7 @@ import org.hibernate.*;
 
 /**
  *
- * @author Administrador
+ * @author Equipe.
  */
 public interface UsuarioDao extends BaseDao<Usuario, Long>{
     

@@ -7,8 +7,6 @@ package tela;
 
 import dao.*;
 import entidade.Equipamento;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -197,7 +195,6 @@ public class AlterarEquipamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btExcluirUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirUnidadeActionPerformed
-
         try {
             if (equipamento.getQuantidadeEstoque() > 1) {
                 excluirUnidadeEstoque();
@@ -214,8 +211,6 @@ public class AlterarEquipamento extends javax.swing.JFrame {
         } finally {
             sessao.close();
         }
-
-
     }//GEN-LAST:event_btExcluirUnidadeActionPerformed
 
     private void limpar() {
@@ -231,7 +226,6 @@ public class AlterarEquipamento extends javax.swing.JFrame {
             mensagem += "Favor informar o nome do equipamento.\n";
             erro = true;
         }
-
         if (erro) {
             JOptionPane.showMessageDialog(null, mensagem);
         }
@@ -241,7 +235,6 @@ public class AlterarEquipamento extends javax.swing.JFrame {
     private void carregarEquipamento() {
         equipamento.setNome(tfNome.getText().trim());
         equipamento.setObservacao(taObservacao.getText().trim());
-
     }
 
     private void excluirUnidadeEstoque() {

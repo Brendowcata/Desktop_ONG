@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 /**
  *
- * @author Administrador
+ * @author Equipe.
  */
 @Entity
 @Table(name = "usuario")
@@ -35,11 +35,8 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "id_perfil")
     private Perfil perfil;
     
-    
     @OneToOne(mappedBy = "usuario")
     private Emprestimo emprestimo;
-    
-    
 
     public Usuario() {
     }
@@ -117,8 +114,6 @@ public class Usuario implements Serializable {
         this.perfil = perfil;
     }
     
-    
-
     @Override
     public int hashCode() {
         int hash = 0;

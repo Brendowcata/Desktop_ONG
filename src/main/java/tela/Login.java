@@ -9,14 +9,13 @@ import dao.HibernateUtil;
 import dao.UsuarioDao;
 import dao.UsuarioDaoImpl;
 import entidade.Usuario;
-import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 /**
  *
- * @author Equipe
+ * @author Equipe.
  */
 public class Login extends javax.swing.JFrame {
 
@@ -145,7 +144,6 @@ public class Login extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(null, "Usuário ou Senha incorreto!");
             }
-            
         } catch (HibernateException e) {
             System.out.println("Erro ao logar " + e.getMessage());
         }finally{

@@ -7,7 +7,6 @@ package tela;
 
 import dao.*;
 import entidade.Equipamento;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -228,7 +227,6 @@ public class PesquisarEquipamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private boolean validarCampo() {
-
         boolean erro = false;
         String nome = tfNome.getText().trim();
 
@@ -244,7 +242,6 @@ public class PesquisarEquipamento extends javax.swing.JFrame {
         tabelaModelo.setNumRows(0);
 
         for (Equipamento equipamentoFor : equipamentos) {
-
             tabelaModelo.addRow(new Object[]{equipamentoFor.getNome(),
                 equipamentoFor.getQuantidadeEstoque(),
                 equipamentoFor.getQuantidadeEmprestado(),

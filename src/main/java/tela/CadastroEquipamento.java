@@ -7,8 +7,6 @@ package tela;
 
 import dao.*;
 import entidade.Equipamento;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;

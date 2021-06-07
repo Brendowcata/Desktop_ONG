@@ -8,8 +8,6 @@ package tela;
 import dao.*;
 import entidade.Equipamento;
 import java.awt.HeadlessException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.swing.*;
 import org.hibernate.HibernateException;
@@ -26,8 +24,6 @@ public class DoacaoEquipamento extends javax.swing.JFrame {
     private EquipamentoDao equipamentoDao;
     private List<Equipamento> equipamentos;
 
-//    public DoacaoEquipamento() {
-//    }
     public DoacaoEquipamento() {
         initComponents();
         equipamentoDao = new EquipamentoDaoImpl();
@@ -150,24 +146,19 @@ public class DoacaoEquipamento extends javax.swing.JFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         if (!validarCampo()) {
-            carregarEquipamento();
-
+            atualizarEquipamento();
             try {
                 sessao = HibernateUtil.abrirConexao();
                 equipamentoDao.salvarOuAlterar(equipamento, sessao);
-                JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+                JOptionPane.showMessageDialog(null, "Doação cadastrada com Sucesso!");
                 limpar();
-            } catch (HibernateException e) {
-                JOptionPane.showMessageDialog(null, "Erro ao salvar!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao salvar! " + e.getMessage());
             } finally {
                 sessao.close();
             }
         }
     }//GEN-LAST:event_btSalvarActionPerformed
-
-    private void limpar() {
-        taObservacaoDoacao.setText("");
-    }
 
     private void carregarComboEquipamento() {
         equipamentoDao = new EquipamentoDaoImpl();
@@ -187,16 +178,6 @@ public class DoacaoEquipamento extends javax.swing.JFrame {
         }
     }
 
-    public void carregarEquipamento() {
-        int indice = comboEquipamento.getSelectedIndex() - 1;
-        Equipamento equipamentoCombo = equipamentos.get(indice);
-        equipamento.setQuantidadeEstoque(equipamentoCombo.getQuantidadeEstoque() + 1);
-//        Equipamento equipamentoCombo = equipamentos.get(indice);
-//        equipamento.setQuantidadeEstoque(equipamentoCombo.getQuantidadeEstoque() + 1);
-//        equipamento.setObservacao(taObservacaoDoacao.getText());
-    }
-
-
     private boolean validarCampo() {
         String mensagem = "";
         boolean erro = false;
@@ -207,11 +188,23 @@ public class DoacaoEquipamento extends javax.swing.JFrame {
             erro = true;
         }
 
-        if (erro) {
-            JOptionPane.showMessageDialog(null, mensagem);
-        }
-
         return erro;
+    }
+
+    private void atualizarEquipamento() {
+        String selecionado = String.valueOf(comboEquipamento.getSelectedItem());
+        for (Equipamento equipamentoFor : equipamentos) {
+            if (equipamentoFor.getNome().equalsIgnoreCase(selecionado)) {
+                equipamento = equipamentoFor;
+            }
+        }
+        equipamento.setQuantidadeEstoque(equipamento.getQuantidadeEstoque() + 1);
+        equipamento.setObservacao(taObservacaoDoacao.getText());
+    }
+
+    private void limpar() {
+        comboEquipamento.setSelectedIndex(0);
+        taObservacaoDoacao.setText("");
     }
 
     /**

@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 /**
  *
- * @author Administrador
+ * @author Equipe.
  */
 @Entity
 @Table(name = "perfil")

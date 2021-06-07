@@ -12,7 +12,7 @@ import org.hibernate.*;
 
 /**
  *
- * @author Administrador
+ * @author Equipe.
  */
 public class PerfilDaoImpl implements PerfilDao, Serializable{
 
@@ -21,5 +21,5 @@ public class PerfilDaoImpl implements PerfilDao, Serializable{
         Query consulta = sessao.createQuery("FROM Perfil");
         return consulta.list();
     }
-    
+
 }
