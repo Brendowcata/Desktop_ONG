@@ -75,7 +75,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
         lb_login.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_login.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_login.setText("Login:");
+        lb_login.setText("Login (e-mail):");
 
         lb_perfil.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_perfil.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);

@@ -15,8 +15,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         if (!UsuarioLogado.getPerfil().equals("Administrador")) {
             painel_administrador.setVisible(false);
-            pesquisaFaturamento.setVisible(false);
-            novoUsuario.setVisible(false);
+            menuUsuarios.setVisible(false);
         }
     }
 
@@ -44,12 +43,12 @@ public class Principal extends javax.swing.JFrame {
         painel_administrador = new javax.swing.JPanel();
         btPesquisarFaturamento = new javax.swing.JButton();
         btNovoUsuario = new javax.swing.JButton();
+        btGerenciarUsuarios = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         novoCliente = new javax.swing.JMenuItem();
         novoEquipamento = new javax.swing.JMenuItem();
         novoEmprestimo = new javax.swing.JMenuItem();
-        novoUsuario = new javax.swing.JMenuItem();
         pesquisar = new javax.swing.JMenu();
         pesquisarCliente = new javax.swing.JMenuItem();
         pesquisarEquipamento = new javax.swing.JMenuItem();
@@ -58,6 +57,9 @@ public class Principal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         doacaoDinheiro = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        menuUsuarios = new javax.swing.JMenu();
+        novoUsuario = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         sair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -252,14 +254,24 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        btGerenciarUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/imagem/gerenciar_usuarios_64.png"))); // NOI18N
+        btGerenciarUsuarios.setText("Gerenciar Usuários");
+        btGerenciarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGerenciarUsuariosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painel_administradorLayout = new javax.swing.GroupLayout(painel_administrador);
         painel_administrador.setLayout(painel_administradorLayout);
         painel_administradorLayout.setHorizontalGroup(
             painel_administradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_administradorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btNovoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btNovoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btGerenciarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
                 .addComponent(btPesquisarFaturamento, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -269,7 +281,8 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painel_administradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btNovoUsuario)
-                    .addComponent(btPesquisarFaturamento))
+                    .addComponent(btPesquisarFaturamento)
+                    .addComponent(btGerenciarUsuarios))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -279,24 +292,24 @@ public class Principal extends javax.swing.JFrame {
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_principalLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_principalLayout.createSequentialGroup()
                         .addComponent(painel_cadastros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(painel_pesquisas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(painel_administrador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(painel_pesquisas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painel_principalLayout.createSequentialGroup()
+                                .addGap(227, 227, 227)
+                                .addComponent(lbSair))
+                            .addGroup(painel_principalLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(painel_doacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(206, 206, 206))
                     .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addGap(227, 227, 227)
-                        .addComponent(lbSair))
-                    .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(painel_doacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(206, 206, 206))
-            .addGroup(painel_principalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 804, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(painel_administrador, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 804, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         painel_principalLayout.setVerticalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,15 +321,11 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(painel_doacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painel_pesquisas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painel_cadastros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbSair)
-                        .addContainerGap())
-                    .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(painel_administrador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(54, Short.MAX_VALUE))))
+                .addGap(18, 18, 18)
+                .addComponent(painel_administrador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(lbSair)
+                .addContainerGap())
         );
 
         jMenu1.setText("Cadastro");
@@ -347,15 +356,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(novoEmprestimo);
-
-        novoUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        novoUsuario.setText("Novo Usuário");
-        novoUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                novoUsuarioActionPerformed(evt);
-            }
-        });
-        jMenu1.add(novoUsuario);
 
         jMenuBar1.add(jMenu1);
 
@@ -420,6 +420,28 @@ public class Principal extends javax.swing.JFrame {
         jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
+
+        menuUsuarios.setText("Usuários");
+
+        novoUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        novoUsuario.setText("Novo Usuário");
+        novoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                novoUsuarioActionPerformed(evt);
+            }
+        });
+        menuUsuarios.add(novoUsuario);
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
+        jMenuItem1.setText("Gerenciar Usuários");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuUsuarios.add(jMenuItem1);
+
+        jMenuBar1.add(menuUsuarios);
 
         sair.setMnemonic('s');
         sair.setText("Sair");
@@ -535,6 +557,14 @@ public class Principal extends javax.swing.JFrame {
         new CadastroUsuario().setVisible(true);
     }//GEN-LAST:event_novoUsuarioActionPerformed
 
+    private void btGerenciarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerenciarUsuariosActionPerformed
+        new PesquisaUsuario().setVisible(true);
+    }//GEN-LAST:event_btGerenciarUsuariosActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        new PesquisaUsuario().setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -574,6 +604,7 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btDoacaoDinheiro1;
     private javax.swing.JButton btDoacaoEquipamento1;
+    private javax.swing.JButton btGerenciarUsuarios;
     private javax.swing.JButton btNovoCliente;
     private javax.swing.JButton btNovoEmprestimo;
     private javax.swing.JButton btNovoEquipamento;
@@ -586,12 +617,14 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JLabel lbCadastros;
     private javax.swing.JLabel lbDoacoes;
     private javax.swing.JLabel lbPesquisas;
     private javax.swing.JLabel lbSair;
     private javax.swing.JLabel lbTitulo;
+    private javax.swing.JMenu menuUsuarios;
     private javax.swing.JMenuItem novoCliente;
     private javax.swing.JMenuItem novoEmprestimo;
     private javax.swing.JMenuItem novoEquipamento;
