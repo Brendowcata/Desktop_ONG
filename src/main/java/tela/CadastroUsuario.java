@@ -162,7 +162,6 @@ public class CadastroUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        //    int indice = comboPerfil.getSelectedIndex();
         if (!validarCampo()) {
             carregarUsuario();
 
@@ -218,6 +217,35 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
     }
 
+    private void carregarAdministradorBanco() {
+        try {
+            sessao = HibernateUtil.abrirConexao();
+            perfis = perfilDao.pesquisarTodo(sessao);
+        } catch (HibernateException he) {
+            System.out.println("Erro ao carregar perfis" + he.getMessage());
+        } finally {
+            sessao.close();
+        }
+
+        if (perfis.isEmpty()) {
+            Perfil perfilAdministrador = new Perfil(null, "Administrador", "Tem permissão total");
+            sessao = HibernateUtil.abrirConexao();
+            perfilDao.salvarOuAlterar(perfilAdministrador, sessao);
+            sessao.close();
+            carregarAuxiliarBanco();
+        }
+    }
+
+    private void carregarAuxiliarBanco() throws HibernateException {
+        if (perfis.isEmpty()) {
+            Perfil perfilAuxiliar = new Perfil(null, "Auxiliar", "Esse perfil não pode "
+                    + "cadastrar outros usuários e também não pode fazer a pesquisa do total de doações.");
+            sessao = HibernateUtil.abrirConexao();
+            perfilDao.salvarOuAlterar(perfilAuxiliar, sessao);
+            sessao.close();
+        }
+    }
+
     private boolean validarCampo() {
         String mensagem = "";
         boolean erro = false;
@@ -248,6 +276,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
     private void carregarComboPerfil() {
         perfilDao = new PerfilDaoImpl();
+        carregarAdministradorBanco();
         try {
             sessao = HibernateUtil.abrirConexao();
             perfis = perfilDao.pesquisarTodo(sessao);

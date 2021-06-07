@@ -14,12 +14,17 @@ import org.hibernate.*;
  *
  * @author Jhony Vill da Silva.
  */
-public class PerfilDaoImpl implements PerfilDao, Serializable{
+public class PerfilDaoImpl extends BaseDaoImpl<Perfil, Long> implements PerfilDao, Serializable{
 
     @Override
     public List<Perfil> pesquisarTodo(Session sessao) throws HibernateException {
         Query consulta = sessao.createQuery("FROM Perfil");
         return consulta.list();
+    }
+
+    @Override
+    public Perfil pesquisarPorId(Long id, Session sessao) throws HibernateException {
+        return (Perfil) sessao.get(Perfil.class, id);
     }
 
 }

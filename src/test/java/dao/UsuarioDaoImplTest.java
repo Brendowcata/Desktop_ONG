@@ -29,7 +29,7 @@ public class UsuarioDaoImplTest {
     //@Test
     public void testSalvar() {
         System.out.println("salvar");
-        usuario = new Usuario("Teste", "Teste@teste", "12345");
+        usuario = new Usuario("Teste2", "Teste@teste", "12345");
         sessao = HibernateUtil.abrirConexao();
         usuarioDao.salvarOuAlterar(usuario, sessao);
         sessao.close();
