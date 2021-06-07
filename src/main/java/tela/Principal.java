@@ -7,7 +7,7 @@ package tela;
 
 /**
  *
- * @author Equipe.
+ * @author Jhony Vill da Silva.
  */
 public class Principal extends javax.swing.JFrame {
 

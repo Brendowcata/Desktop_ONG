@@ -12,7 +12,7 @@ import org.hibernate.*;
 
 /**
  *
- * @author Equipe.
+ * @author Jhony Vill da Silva.
  */
 public class PerfilDaoImpl implements PerfilDao, Serializable{
 

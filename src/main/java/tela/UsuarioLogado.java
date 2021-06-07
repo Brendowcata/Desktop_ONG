@@ -15,7 +15,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Equipe.
+ * @author Jhony Vill da Silva.
  */
 public class UsuarioLogado implements Serializable {
 
