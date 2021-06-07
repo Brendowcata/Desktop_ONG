@@ -9,7 +9,6 @@ import entidade.Usuario;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -28,25 +27,38 @@ public class UsuarioDaoImplTest {
     }
 
     //@Test
-    public static void testSalvar() {
+    public void testSalvar() {
         System.out.println("salvar");
+        usuario = new Usuario("Teste", "Teste@teste", "12345");
+        sessao = HibernateUtil.abrirConexao();
+        usuarioDao.salvarOuAlterar(usuario, sessao);
+        sessao.close();
+        assertNotNull(usuario.getId());
     }
 
     //@Test
     public void testListarTodo() {
         System.out.println("listarTodo");
-
+        buscarUsuarioBd();
+        sessao = HibernateUtil.abrirConexao();
+        List<Usuario> usuarios = usuarioDao.listarTodo(sessao);
+        sessao.close();
+        assertTrue(!usuarios.isEmpty());
     }
 
     //@Test
     public void testPesquisarPorNome() {
-        System.out.println("pesquisarPorNome");
-
+        System.out.println("pesquisar por nome");
+        buscarUsuarioBd();
+        sessao = HibernateUtil.abrirConexao();
+        List<Usuario> usuarios = usuarioDao.pesquisarPorNome(usuario.getNome(), sessao); 
+        sessao.close();
+        assertTrue(!usuarios.isEmpty());
     }
 
     //@Test
     public void testPesquisarPorId() {
-        System.out.println("pesquisarPorId");
+        //buscarUsuarioBd();
     }
 
     //@Test
@@ -66,7 +78,6 @@ public class UsuarioDaoImplTest {
         sessao = HibernateUtil.abrirConexao();
         usuarioDao.atualizarUltimoAcesso(usuario.getId(), sessao);
         sessao.close();
-        
     }
 
     //@Test

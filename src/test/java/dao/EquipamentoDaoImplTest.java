@@ -73,11 +73,11 @@ public class EquipamentoDaoImplTest {
         System.out.println("pesquisar por nome");
         buscarEquipamentoBd();
         sessao = HibernateUtil.abrirConexao();
-        List<Equipamento> equipamentos = equipamentoDao.pesquisarEquipamentoPorNome(equipamento.getNome().substring(0, 3), sessao); //no lugar do (equipamento.getNome().substring(0, 3)) poderia ter escrito o nome a ser pesquisado.
+        List<Equipamento> equipamentos = equipamentoDao.pesquisarEquipamentoPorNome(equipamento.getNome().substring(0, 3), sessao); 
         sessao.close();
         assertTrue(!equipamentos.isEmpty());
         
-        JOptionPane.showMessageDialog(null, equipamentos); //essa linha serve só para ver a saída, não precisa existir no código.
+        JOptionPane.showMessageDialog(null, equipamentos); 
     }
 
     //@Test
