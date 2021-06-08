@@ -151,6 +151,7 @@ public class CadastroEquipamento extends javax.swing.JFrame {
                     equipamentoDao.salvarOuAlterar(equipamento, sessao);
                     JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
                     limpar();
+                    this.dispose();
                 }
             } catch (HibernateException e) {
                 JOptionPane.showMessageDialog(null, "Erro ao salvar!");

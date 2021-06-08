@@ -18,7 +18,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Administrador
+ * @author Equipe.
  */
 public class PesquisaUsuario extends javax.swing.JFrame {
 
@@ -215,8 +215,6 @@ public class PesquisaUsuario extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Nenhuma linha selecionada!");
         }
-
-    
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void popularTabela() {

@@ -5,6 +5,8 @@
  */
 package tela;
 
+import entidade.Usuario;
+
 /**
  *
  * @author Jhony Vill da Silva.
@@ -16,6 +18,7 @@ public class Principal extends javax.swing.JFrame {
         if (!UsuarioLogado.getPerfil().equals("Administrador")) {
             painel_administrador.setVisible(false);
             menuUsuarios.setVisible(false);
+           // lbAlterarSenha.setVisible(false);
         }
     }
 
@@ -44,6 +47,7 @@ public class Principal extends javax.swing.JFrame {
         btPesquisarFaturamento = new javax.swing.JButton();
         btNovoUsuario = new javax.swing.JButton();
         btGerenciarUsuarios = new javax.swing.JButton();
+        lbAlterarSenha = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         novoCliente = new javax.swing.JMenuItem();
@@ -286,6 +290,13 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        lbAlterarSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/imagem/alterar_senha_32.png"))); // NOI18N
+        lbAlterarSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbAlterarSenhaMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout painel_principalLayout = new javax.swing.GroupLayout(painel_principal);
         painel_principal.setLayout(painel_principalLayout);
         painel_principalLayout.setHorizontalGroup(
@@ -299,7 +310,9 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(painel_pesquisas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painel_principalLayout.createSequentialGroup()
-                                .addGap(227, 227, 227)
+                                .addGap(174, 174, 174)
+                                .addComponent(lbAlterarSenha)
+                                .addGap(18, 18, 18)
                                 .addComponent(lbSair))
                             .addGroup(painel_principalLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -323,8 +336,10 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(painel_cadastros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(painel_administrador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(lbSair)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbSair)
+                    .addComponent(lbAlterarSenha))
                 .addContainerGap())
         );
 
@@ -565,6 +580,11 @@ public class Principal extends javax.swing.JFrame {
         new PesquisaUsuario().setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void lbAlterarSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAlterarSenhaMouseClicked
+        Usuario usuario = UsuarioLogado.getUsuario();
+        new CadastroUsuario(usuario).setVisible(true);
+    }//GEN-LAST:event_lbAlterarSenhaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -619,6 +639,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JLabel lbAlterarSenha;
     private javax.swing.JLabel lbCadastros;
     private javax.swing.JLabel lbDoacoes;
     private javax.swing.JLabel lbPesquisas;

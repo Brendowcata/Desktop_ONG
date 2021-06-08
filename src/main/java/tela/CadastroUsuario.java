@@ -13,7 +13,7 @@ import org.hibernate.*;
 
 /**
  *
- * @author Equipe
+ * @author Jhony Vill da Silva.
  */
 public class CadastroUsuario extends javax.swing.JFrame {
 
@@ -36,6 +36,13 @@ public class CadastroUsuario extends javax.swing.JFrame {
         this.usuario = usuario;
         usuarioDao = new UsuarioDaoImpl();
         carregarParaAlterar();
+        if (!UsuarioLogado.getPerfil().equals("Administrador")) {
+            titulo.setText("Alteração de Senha");
+            lb_situacao.setVisible(false);
+            lb_perfil.setVisible(false);
+            comboPerfil.setVisible(false);
+            radioSituacao.setVisible(false);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -52,6 +59,10 @@ public class CadastroUsuario extends javax.swing.JFrame {
         tfNome = new javax.swing.JTextField();
         tfLogin = new javax.swing.JTextField();
         btLimpar = new javax.swing.JButton();
+        lb_senha = new javax.swing.JLabel();
+        tfSenha = new javax.swing.JTextField();
+        lb_situacao = new javax.swing.JLabel();
+        radioSituacao = new javax.swing.JRadioButton();
 
         setTitle("Cadastro Usuário");
 
@@ -94,56 +105,80 @@ public class CadastroUsuario extends javax.swing.JFrame {
             }
         });
 
+        lb_senha.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_senha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_senha.setText("Senha:");
+
+        tfSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        lb_situacao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_situacao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_situacao.setText("Situação:");
+
+        radioSituacao.setText("Ativo");
+
         javax.swing.GroupLayout painel_principalLayout = new javax.swing.GroupLayout(painel_principal);
         painel_principal.setLayout(painel_principalLayout);
         painel_principalLayout.setHorizontalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(painel_principalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addComponent(lb_perfil, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lb_perfil, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(lb_senha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lb_nome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lb_login, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lb_situacao, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(comboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(tfSenha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                                .addComponent(tfLogin, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(tfNome, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(painel_principalLayout.createSequentialGroup()
+                                    .addComponent(radioSituacao)
+                                    .addGap(57, 57, 57)))
+                            .addComponent(comboPerfil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_principalLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lb_nome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lb_login, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
-                        .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painel_principalLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_principalLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(132, Short.MAX_VALUE))
         );
         painel_principalLayout.setVerticalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_principalLayout.createSequentialGroup()
                 .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65)
+                .addGap(48, 48, 48)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_nome)
-                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_nome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_login)
-                    .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_login))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_perfil)
-                    .addComponent(comboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                    .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_senha))
+                .addGap(15, 15, 15)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(66, 66, 66))
+                    .addComponent(radioSituacao)
+                    .addComponent(lb_situacao))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_perfil))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -170,6 +205,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                 usuarioDao.salvarOuAlterar(usuario, sessao);
                 JOptionPane.showMessageDialog(null, "Usuário salvo com sucesso!");
                 limpar();
+                this.dispose();
             } catch (HibernateException e) {
                 if (e.getCause().toString().contains("usuario_email")) {
                     JOptionPane.showMessageDialog(null, "Já existe usuário com esse e-mail!");
@@ -188,16 +224,24 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private void limpar() {
         tfLogin.setText("");
         tfNome.setText("");
+        tfSenha.setText("");
         comboPerfil.setSelectedIndex(0);
         usuario = null;
     }
 
     private void carregarParaAlterar() {
-        this.setTitle("Alterar Usuário");
-        btSalvar.setText("Alterar");
-        titulo.setText("Alteração de Usuário");
+        if (!UsuarioLogado.getPerfil().equals("Administrador")) {
+            this.setTitle("Alterar Senha");
+            titulo.setText("Alteração de Senha");
+        } else {
+            this.setTitle("Alterar Usuário");
+            titulo.setText("Alteração de Usuário");
+        }
         tfNome.setText(usuario.getNome());
         tfLogin.setText(usuario.getLogin());
+        btSalvar.setText("Alterar");
+        tfSenha.setText(usuario.getSenha());
+        radioSituacao.setSelected(usuario.isAtivo());
         comboPerfil.setSelectedItem(usuario.getPerfil().getNome());
     }
 
@@ -207,14 +251,22 @@ public class CadastroUsuario extends javax.swing.JFrame {
             usuario.setSenha("12345");
             usuario.setAtivo(true);
         }
+        if (!UsuarioLogado.getPerfil().equals("Administrador")) {
+            usuario.setSenha(tfSenha.getText().trim());
+        } else {
+            usuario.setNome(tfNome.getText().trim());
+            usuario.setLogin(tfLogin.getText().trim());
+            usuario.setSenha(tfSenha.getText().trim());
+            if (radioSituacao.isSelected()) {
+                usuario.setAtivo(true);
+            } else {
+                usuario.setAtivo(false);
+            }
 
-        usuario.setNome(tfNome.getText().trim());
-        usuario.setLogin(tfLogin.getText().trim());
-
-        int indice = comboPerfil.getSelectedIndex() - 1;
-        Perfil perfil = perfis.get(indice);
-        usuario.setPerfil(perfil);
-
+            int indice = comboPerfil.getSelectedIndex() - 1;
+            Perfil perfil = perfis.get(indice);
+            usuario.setPerfil(perfil);
+        }
     }
 
     private void carregarAdministradorBanco() {
@@ -265,6 +317,12 @@ public class CadastroUsuario extends javax.swing.JFrame {
         if (indice <= 0) {
             mensagem += "Selecione um perfil!\n";
             erro = true;
+        }
+        if (!UsuarioLogado.getPerfil().equals("Administrador")) {
+            if (!tfNome.getText().equals(usuario.getNome()) || !tfLogin.getText().equals(usuario.getLogin())) {
+                mensagem += "Nome e e-mail não podem ser alterados. Solicite ao Administrador!\n";
+                erro = true;
+            }
         }
 
         if (erro) {
@@ -342,9 +400,13 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel lb_login;
     private javax.swing.JLabel lb_nome;
     private javax.swing.JLabel lb_perfil;
+    private javax.swing.JLabel lb_senha;
+    private javax.swing.JLabel lb_situacao;
     private javax.swing.JPanel painel_principal;
+    private javax.swing.JRadioButton radioSituacao;
     private javax.swing.JTextField tfLogin;
     private javax.swing.JTextField tfNome;
+    private javax.swing.JTextField tfSenha;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }
