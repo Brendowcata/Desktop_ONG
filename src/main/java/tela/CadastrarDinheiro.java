@@ -450,12 +450,20 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
 
         String mensagem = "";
         boolean erro = false;
-        Double valorTela = Double.parseDouble(tfValor.getText().trim());
 
-        if (valorTela <= 0) {
+        String vazio = tfValor.getText().trim();
+        if (vazio.isEmpty()) {
             mensagem += "Digite um valor válido";
             erro = true;
+        } else {
+
+            Double valorTela = Double.parseDouble(tfValor.getText().trim());
+            if (valorTela <= 0) {
+                mensagem += "Digite um valor válido";
+                erro = true;
+            }
         }
+        
         if (erro) { //true
             JOptionPane.showMessageDialog(null, mensagem);
         }
