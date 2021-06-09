@@ -33,19 +33,19 @@ public class Emprestimo implements Serializable {
     private Long id;
     
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = true)
+    @Column(nullable = false)
     private Date cadastro;
     
     @OneToOne
-    @JoinColumn(name = "idUsuario", nullable = true)
+    @JoinColumn(name = "idUsuario", nullable = false)
     private Usuario usuario;
     
     @ManyToOne
-    @JoinColumn(name = "idCliente", nullable = true)
+    @JoinColumn(name = "idCliente", nullable = false)
     private Cliente cliente;
     
     @OneToOne
-    @JoinColumn(name = "idEquipamento", nullable = true)
+    @JoinColumn(name = "idEquipamento", nullable = false)
     private Equipamento equipamento;
     
 

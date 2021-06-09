@@ -250,12 +250,13 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
 
     private void buttonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSalvarActionPerformed
         // TODO add your handling code here:
+        usuario = UsuarioLogado.getUsuario();
       EquipamentoDao equipamentoDao = new EquipamentoDaoImpl();
             if(!comboEquipamento.getSelectedItem().equals("Escolha um Equipamento...")){
         emprestimo = new Emprestimo();
          emprestimo.setCadastro(new Date());
          emprestimo.setCliente(cliente);
-//         emprestimo.setUsuario(usuario);
+         emprestimo.setUsuario(usuario);
          String selecionado = String.valueOf(comboEquipamento.getSelectedItem());
                 for (Equipamento equipamento1 : strList) {
                 if(equipamento1.getNome().equalsIgnoreCase(selecionado)){
@@ -306,6 +307,7 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
         }
         DefaultComboBoxModel defaultComboBox = new DefaultComboBoxModel(listaEquipamento.toArray());
         comboEquipamento.setModel(defaultComboBox);
+        listaEquipamento.clear();
     }
     /**
      * @param args the command line arguments
