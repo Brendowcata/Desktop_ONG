@@ -18,7 +18,7 @@ public class Principal extends javax.swing.JFrame {
         if (!UsuarioLogado.getPerfil().equals("Administrador")) {
             painel_administrador.setVisible(false);
             menuUsuarios.setVisible(false);
-           // lbAlterarSenha.setVisible(false);
+            lbAlterarSenha.setVisible(false);
         }
     }
 

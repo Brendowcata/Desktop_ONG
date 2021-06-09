@@ -27,7 +27,6 @@ public class CadastroUsuario extends javax.swing.JFrame {
         initComponents();
         carregarComboPerfil();
         usuarioDao = new UsuarioDaoImpl();
-
     }
 
     public CadastroUsuario(Usuario usuario) {
@@ -36,13 +35,6 @@ public class CadastroUsuario extends javax.swing.JFrame {
         this.usuario = usuario;
         usuarioDao = new UsuarioDaoImpl();
         carregarParaAlterar();
-        if (!UsuarioLogado.getPerfil().equals("Administrador")) {
-            titulo.setText("Alteração de Senha");
-            lb_situacao.setVisible(false);
-            lb_perfil.setVisible(false);
-            comboPerfil.setVisible(false);
-            radioSituacao.setVisible(false);
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -230,13 +222,8 @@ public class CadastroUsuario extends javax.swing.JFrame {
     }
 
     private void carregarParaAlterar() {
-        if (!UsuarioLogado.getPerfil().equals("Administrador")) {
-            this.setTitle("Alterar Senha");
-            titulo.setText("Alteração de Senha");
-        } else {
-            this.setTitle("Alterar Usuário");
-            titulo.setText("Alteração de Usuário");
-        }
+        this.setTitle("Alterar Usuário");
+        titulo.setText("Alteração de Usuário");
         tfNome.setText(usuario.getNome());
         tfLogin.setText(usuario.getLogin());
         btSalvar.setText("Alterar");
@@ -248,25 +235,19 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private void carregarUsuario() {
         if (usuario == null) {
             usuario = new Usuario();
-            usuario.setSenha("12345");
+        }
+        usuario.setNome(tfNome.getText().trim());
+        usuario.setLogin(tfLogin.getText().trim());
+        usuario.setSenha(tfSenha.getText().trim());
+        if (radioSituacao.isSelected()) {
             usuario.setAtivo(true);
-        }
-        if (!UsuarioLogado.getPerfil().equals("Administrador")) {
-            usuario.setSenha(tfSenha.getText().trim());
         } else {
-            usuario.setNome(tfNome.getText().trim());
-            usuario.setLogin(tfLogin.getText().trim());
-            usuario.setSenha(tfSenha.getText().trim());
-            if (radioSituacao.isSelected()) {
-                usuario.setAtivo(true);
-            } else {
-                usuario.setAtivo(false);
-            }
-
-            int indice = comboPerfil.getSelectedIndex() - 1;
-            Perfil perfil = perfis.get(indice);
-            usuario.setPerfil(perfil);
+            usuario.setAtivo(false);
         }
+
+        int indice = comboPerfil.getSelectedIndex() - 1;
+        Perfil perfil = perfis.get(indice);
+        usuario.setPerfil(perfil);
     }
 
     private void carregarAdministradorBanco() {
@@ -317,12 +298,6 @@ public class CadastroUsuario extends javax.swing.JFrame {
         if (indice <= 0) {
             mensagem += "Selecione um perfil!\n";
             erro = true;
-        }
-        if (!UsuarioLogado.getPerfil().equals("Administrador")) {
-            if (!tfNome.getText().equals(usuario.getNome()) || !tfLogin.getText().equals(usuario.getLogin())) {
-                mensagem += "Nome e e-mail não podem ser alterados. Solicite ao Administrador!\n";
-                erro = true;
-            }
         }
 
         if (erro) {

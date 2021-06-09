@@ -20,7 +20,7 @@ import org.hibernate.Session;
 public class UsuarioLogado implements Serializable {
 
     private static Usuario usuario; // singleton
-
+    
     private Session sessao;
     private UsuarioDao usuarioDao;
 
@@ -28,17 +28,17 @@ public class UsuarioLogado implements Serializable {
         this.usuario = usuario;
         usuarioDao = new UsuarioDaoImpl();
     }
-
+    
     public void atualizarUsuarioUltimoAcesso() {
-        try {
-            sessao = HibernateUtil.abrirConexao();
-            usuarioDao.atualizarUltimoAcesso(usuario.getId(), sessao);
-        } catch (HibernateException e) {
-            System.out.println("Erro ao atualizar último acesso " + e.getMessage());
-        } finally {
-            sessao.close();
+            try {
+                sessao = HibernateUtil.abrirConexao();
+                usuarioDao.atualizarUltimoAcesso(usuario.getId(), sessao);
+            } catch (HibernateException e) {
+                System.out.println("Erro ao atualizar último acesso " + e.getMessage());
+            } finally {
+                sessao.close();
+            }
         }
-    }
     
     public static String getPerfil(){
         return usuario.getPerfil().getNome();
@@ -47,5 +47,5 @@ public class UsuarioLogado implements Serializable {
     public static Usuario getUsuario() {
         return usuario;
     }
-
-}
+    
+    }
