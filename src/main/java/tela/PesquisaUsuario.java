@@ -27,7 +27,7 @@ public class PesquisaUsuario extends javax.swing.JFrame {
     private Usuario usuario;
     private UsuarioDao usuarioDao;
     private List<Usuario> usuarios;
-    
+
 
     public PesquisaUsuario() {
         initComponents();
@@ -119,12 +119,14 @@ public class PesquisaUsuario extends javax.swing.JFrame {
                         .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_principalLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67))
         );
         painel_principalLayout.setVerticalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,21 +224,21 @@ public class PesquisaUsuario extends javax.swing.JFrame {
         tabelaModelo.setNumRows(0);
         String ativo;
         String dataFormatada;
-        SimpleDateFormat formatado = new SimpleDateFormat("dd-MM-YYYY HH:mm");
+        SimpleDateFormat formatado = new SimpleDateFormat("dd-MM-YYYY");
         for (Usuario usuario : usuarios) {
             ativo = usuario.isAtivo() ? "Ativo" : "Inativo";
             dataFormatada = "-";
             if (usuario.getUltimoAcesso() != null) {
-               dataFormatada = formatado.format(usuario.getUltimoAcesso());
+                dataFormatada = formatado.format(usuario.getUltimoAcesso());
             }
             tabelaModelo.addRow(new Object[]{usuario.getNome(),
                 usuario.getLogin(),
                 ativo,
                 usuario.getPerfil().getNome(),
                 dataFormatada});
-            }
         }
-    
+    }
+
     /**
      * @param args the command line arguments
      */
