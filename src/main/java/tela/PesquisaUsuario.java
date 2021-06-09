@@ -163,9 +163,13 @@ public class PesquisaUsuario extends javax.swing.JFrame {
 
     private void btPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisaActionPerformed
         if (!validarCampo()) {
-            sessao = HibernateUtil.abrirConexao();
             try {
+                sessao = HibernateUtil.abrirConexao();
                 usuarios = usuarioDao.pesquisarPorNome(tfNome.getText().trim(), sessao);
+                sessao.close();
+                sessao = HibernateUtil.abrirConexao();
+                usuarios = usuarioDao.pesquisarPorNome(tfNome.getText().trim(), sessao);
+                
                 if (usuarios.isEmpty()) {
                     if (tabelaModelo != null) {
                         tabelaModelo.setNumRows(0);

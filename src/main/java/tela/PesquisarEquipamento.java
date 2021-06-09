@@ -184,13 +184,17 @@ public class PesquisarEquipamento extends javax.swing.JFrame {
             try {
                 sessao = HibernateUtil.abrirConexao();
                 equipamentos = equipamentoDao.pesquisarEquipamentoPorNome(tfNome.getText().trim(), sessao);
+                sessao.close();
+                sessao = HibernateUtil.abrirConexao();
+                equipamentos = equipamentoDao.pesquisarEquipamentoPorNome(tfNome.getText().trim(), sessao);
+                
                 if (equipamentos.isEmpty()) {
                     if (tabelaModelo != null) {
                         tabelaModelo.setNumRows(0);
                     }
                     JOptionPane.showMessageDialog(null, "Não há equipamento com o nome informado!");
                 } else {
-                    popularTabela();
+                popularTabela();
                 }
 
             } catch (HibernateException e) {
