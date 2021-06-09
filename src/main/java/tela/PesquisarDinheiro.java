@@ -67,6 +67,7 @@ public class PesquisarDinheiro extends javax.swing.JFrame {
         tabelaMes = new javax.swing.JTable();
         lb_nome8 = new javax.swing.JLabel();
         tfTotalMes = new javax.swing.JLabel();
+        btLimpar = new javax.swing.JButton();
 
         setTitle("Pesquisar Dinheiro");
 
@@ -280,18 +281,19 @@ public class PesquisarDinheiro extends javax.swing.JFrame {
 
         tfTotalMes.setText(" ");
 
+        btLimpar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btLimpar.setText("Limpar");
+        btLimpar.setPreferredSize(new java.awt.Dimension(90, 25));
+        btLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLimparActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painel_principal1Layout = new javax.swing.GroupLayout(painel_principal1);
         painel_principal1.setLayout(painel_principal1Layout);
         painel_principal1Layout.setHorizontalGroup(
             painel_principal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painel_principal1Layout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(painel_principal1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(painel_principal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -313,7 +315,15 @@ public class PesquisarDinheiro extends javax.swing.JFrame {
                                 .addComponent(lb_nome1)
                                 .addGap(18, 18, 18)
                                 .addComponent(tfTotalMes, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(painel_principal1Layout.createSequentialGroup()
+                                .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21)
+                                .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(61, Short.MAX_VALUE))))
         );
         painel_principal1Layout.setVerticalGroup(
@@ -333,7 +343,8 @@ public class PesquisarDinheiro extends javax.swing.JFrame {
                 .addGroup(painel_principal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(painel_principal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -493,6 +504,11 @@ public class PesquisarDinheiro extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_brIrAnoActionPerformed
+
+    private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
+        tfData.setText("");
+        tabelaModelo.setNumRows(0);
+    }//GEN-LAST:event_btLimparActionPerformed
     
     private boolean validarCampoPesquisa() {
         String mensagem = "";
@@ -600,6 +616,7 @@ public class PesquisarDinheiro extends javax.swing.JFrame {
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btIrMes;
+    private javax.swing.JButton btLimpar;
     private javax.swing.JButton btPesquisar;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
