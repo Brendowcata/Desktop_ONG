@@ -34,9 +34,6 @@ public class Usuario implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_perfil")
     private Perfil perfil;
-    
-    @OneToOne(mappedBy = "usuario")
-    private Emprestimo emprestimo;
 
     public Usuario() {
     }
@@ -48,15 +45,6 @@ public class Usuario implements Serializable {
         this.ativo = true;
         
     }
-
-    public Emprestimo getEmprestimo() {
-        return emprestimo;
-    }
-
-    public void setEmprestimo(Emprestimo emprestimo) {
-        this.emprestimo = emprestimo;
-    }
-    
 
     public Long getId() {
         return id;

@@ -26,9 +26,6 @@ public class Equipamento implements Serializable {
     private int quantidadeEmprestado;
     private String observacao;
     
-    @OneToOne(mappedBy = "equipamento")
-    private Emprestimo emprestimo;
-    
     public Equipamento() {
     }
 
@@ -45,14 +42,6 @@ public class Equipamento implements Serializable {
         this.observacao = observacao;
     }
 
-    public Emprestimo getEmprestimo() {
-        return emprestimo;
-    }
-
-    public void setEmprestimo(Emprestimo emprestimo) {
-        this.emprestimo = emprestimo;
-    }
-    
     public Long getId() {
         return id;
     }

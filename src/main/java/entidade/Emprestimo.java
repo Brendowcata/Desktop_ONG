@@ -36,7 +36,7 @@ public class Emprestimo implements Serializable {
     @Column(nullable = false)
     private Date cadastro;
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idUsuario", nullable = false)
     private Usuario usuario;
     
@@ -44,7 +44,7 @@ public class Emprestimo implements Serializable {
     @JoinColumn(name = "idCliente", nullable = false)
     private Cliente cliente;
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idEquipamento", nullable = false)
     private Equipamento equipamento;
     
