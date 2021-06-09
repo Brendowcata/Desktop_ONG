@@ -50,7 +50,7 @@ public class Login extends javax.swing.JFrame {
 
         lb_login.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_login.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_login.setText("Login:");
+        lb_login.setText("Login (e-mail):");
 
         lb_senha.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_senha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -80,10 +80,10 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(painel_principalLayout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lb_login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lb_senha, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lb_senha, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_login, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tfLogin)

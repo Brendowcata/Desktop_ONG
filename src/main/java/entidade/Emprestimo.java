@@ -32,7 +32,7 @@ public class Emprestimo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Date cadastro;
     

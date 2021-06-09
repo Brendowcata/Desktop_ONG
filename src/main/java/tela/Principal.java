@@ -44,7 +44,7 @@ public class Principal extends javax.swing.JFrame {
         btPesquisarEmprestimo = new javax.swing.JButton();
         lbPesquisas = new javax.swing.JLabel();
         painel_administrador = new javax.swing.JPanel();
-        btPesquisarFaturamento = new javax.swing.JButton();
+        btPesquisarDinheiro = new javax.swing.JButton();
         btNovoUsuario = new javax.swing.JButton();
         btGerenciarUsuarios = new javax.swing.JButton();
         lbAlterarSenha = new javax.swing.JLabel();
@@ -242,11 +242,11 @@ public class Principal extends javax.swing.JFrame {
 
         painel_administrador.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        btPesquisarFaturamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/imagem/pesquisa_faturamento_64.png"))); // NOI18N
-        btPesquisarFaturamento.setText("Pesquisar Faturamento");
-        btPesquisarFaturamento.addActionListener(new java.awt.event.ActionListener() {
+        btPesquisarDinheiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/imagem/pesquisa_faturamento_64.png"))); // NOI18N
+        btPesquisarDinheiro.setText("Pesquisar Dinheiro");
+        btPesquisarDinheiro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btPesquisarFaturamentoActionPerformed(evt);
+                btPesquisarDinheiroActionPerformed(evt);
             }
         });
 
@@ -276,7 +276,7 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btGerenciarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
-                .addComponent(btPesquisarFaturamento, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btPesquisarDinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         painel_administradorLayout.setVerticalGroup(
@@ -285,7 +285,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painel_administradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btNovoUsuario)
-                    .addComponent(btPesquisarFaturamento)
+                    .addComponent(btPesquisarDinheiro)
                     .addComponent(btGerenciarUsuarios))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -548,9 +548,9 @@ public class Principal extends javax.swing.JFrame {
         new PesquisarEmprestimo().setVisible(true);
     }//GEN-LAST:event_btPesquisarEmprestimoActionPerformed
 
-    private void btPesquisarFaturamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarFaturamentoActionPerformed
+    private void btPesquisarDinheiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarDinheiroActionPerformed
         new PesquisarDinheiro().setVisible(true);
-    }//GEN-LAST:event_btPesquisarFaturamentoActionPerformed
+    }//GEN-LAST:event_btPesquisarDinheiroActionPerformed
 
     private void btDoacaoDinheiro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDoacaoDinheiro1ActionPerformed
         new CadastrarDinheiro().setVisible(true);
@@ -630,9 +630,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btNovoEquipamento;
     private javax.swing.JButton btNovoUsuario;
     private javax.swing.JButton btPesquisarCliente;
+    private javax.swing.JButton btPesquisarDinheiro;
     private javax.swing.JButton btPesquisarEmprestimo;
     private javax.swing.JButton btPesquisarEquipamento;
-    private javax.swing.JButton btPesquisarFaturamento;
     private javax.swing.JMenuItem doacaoDinheiro;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

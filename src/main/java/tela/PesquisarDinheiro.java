@@ -400,6 +400,9 @@ public class PesquisarDinheiro extends javax.swing.JFrame {
                 Date dataFormatada = formatarData.parse(tfData.getText());
 
                 dinheiros = dinheiroDao.pesquisarPorData(dataFormatada, sessao);
+                sessao.close();
+                sessao = HibernateUtil.abrirConexao();
+                dinheiros = dinheiroDao.pesquisarPorData(dataFormatada, sessao);
 
                 if (dinheiros.isEmpty()) {
                     if (tabelaModelo != null) {
@@ -431,7 +434,6 @@ public class PesquisarDinheiro extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Excluído com sucesso!");
                     tabelaModelo.setNumRows(0);
                     tfData.setText("");
-                    this.dispose();
                 } catch (HibernateException e) {
                     System.out.println("Erro ao excluir" + e.getMessage());
                 } finally {
@@ -463,7 +465,8 @@ public class PesquisarDinheiro extends javax.swing.JFrame {
                 sessao = HibernateUtil.abrirConexao();
                 SimpleDateFormat formatarData = new SimpleDateFormat("MM");
                 Date dataFormatada = formatarData.parse(tfMes.getText());
-
+                sessao.close();
+                sessao = HibernateUtil.abrirConexao();
                 dinheiros = dinheiroDao.totalDinheiroPorMes(dataFormatada, sessao);
 
                 if (dinheiros.isEmpty()) {
