@@ -7,6 +7,8 @@ package tela;
 
 import dao.*;
 import entidade.Dinheiro;
+import entidade.TxtCampoNumeros;
+import entidade.TxtCampoPesquisaData;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -31,6 +33,9 @@ public class PesquisarDinheiro extends javax.swing.JFrame {
 
     public PesquisarDinheiro() {
         initComponents();
+        tfData.setDocument(new TxtCampoPesquisaData()); //aceitar somente números e "-"
+        tfMes.setDocument(new TxtCampoNumeros()); //somente números
+        tfAno.setDocument(new TxtCampoNumeros()); //somente números
         dinheiroDao = new DinheiroDaoImpl();
     }
 
@@ -479,7 +484,7 @@ public class PesquisarDinheiro extends javax.swing.JFrame {
     }//GEN-LAST:event_btIrMesActionPerformed
 
     private void brIrAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brIrAnoActionPerformed
-       
+
         if (!validarCampoAno()) {
             try {
                 sessao = HibernateUtil.abrirConexao();
@@ -509,7 +514,7 @@ public class PesquisarDinheiro extends javax.swing.JFrame {
         tfData.setText("");
         tabelaModelo.setNumRows(0);
     }//GEN-LAST:event_btLimparActionPerformed
-    
+
     private boolean validarCampoPesquisa() {
         String mensagem = "";
         boolean erro = false;
@@ -541,7 +546,7 @@ public class PesquisarDinheiro extends javax.swing.JFrame {
         }
         return erro;
     }
-    
+
     private boolean validarCampoAno() {
         String mensagem = "";
         boolean erro = false;

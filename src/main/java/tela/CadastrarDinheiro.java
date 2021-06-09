@@ -13,6 +13,8 @@ import dao.HibernateUtil;
 import entidade.Cliente;
 import entidade.Dinheiro;
 import entidade.Endereco;
+import entidade.TxtCampoCadastroDinheiro;
+import entidade.TxtCampoNumeros;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JFrame;
@@ -40,6 +42,9 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
         dinheiroDao = new DinheiroDaoImpl();
         clienteDao = new ClienteDaoImpl();
 
+        tfValor.setDocument(new TxtCampoCadastroDinheiro()); //aceitar somente números e "."
+        tfNumero.setDocument(new TxtCampoNumeros()); //aceitar somente números
+
         if (!botaoIdentifica.isSelected()) {
             painel_Cliente.setVisible(false);
         }
@@ -50,6 +55,7 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
         initComponents();
         this.dinheiro = dinheiro;
         dinheiroDao = new DinheiroDaoImpl();
+        tfValor.setDocument(new TxtCampoCadastroDinheiro()); //aceitar somente números e "."
         formatarData(dinheiro.getData());
         tfValor.setText(dinheiro.getDinheiro().toString());
         painel_Cliente.setVisible(false);
@@ -84,8 +90,6 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
         lb_rg = new javax.swing.JLabel();
         lb_telefone = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
-        tfCpf = new javax.swing.JTextField();
-        tfRg = new javax.swing.JTextField();
         tfTelefone = new javax.swing.JTextField();
         lb_endereco = new javax.swing.JLabel();
         lb_rua = new javax.swing.JLabel();
@@ -100,6 +104,8 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
         tfEstado = new javax.swing.JTextField();
         lb_complemento = new javax.swing.JLabel();
         tfComplemento = new javax.swing.JTextField();
+        tfCpf = new javax.swing.JFormattedTextField();
+        tfRg = new javax.swing.JFormattedTextField();
         btSalvar = new javax.swing.JButton();
         btLimpar = new javax.swing.JButton();
 
@@ -177,6 +183,18 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
         lb_complemento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_complemento.setText("Complemento:");
 
+        try {
+            tfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            tfRg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.##.###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout painel_ClienteLayout = new javax.swing.GroupLayout(painel_Cliente);
         painel_Cliente.setLayout(painel_ClienteLayout);
         painel_ClienteLayout.setHorizontalGroup(
@@ -214,21 +232,21 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
                                                 .addComponent(lb_bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(tfBairro))))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_ClienteLayout.createSequentialGroup()
-                                        .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_ClienteLayout.createSequentialGroup()
-                                                .addComponent(lb_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(tfRg))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_ClienteLayout.createSequentialGroup()
-                                                .addComponent(lb_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(painel_ClienteLayout.createSequentialGroup()
                                         .addComponent(lb_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(tfNome)))
+                                        .addComponent(tfNome))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_ClienteLayout.createSequentialGroup()
+                                        .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_ClienteLayout.createSequentialGroup()
+                                                .addComponent(lb_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_ClienteLayout.createSequentialGroup()
+                                                .addComponent(lb_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(tfRg)))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
                                 .addGap(78, 78, 78))
                             .addComponent(lb_endereco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(31, 31, 31))
@@ -463,7 +481,7 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
                 erro = true;
             }
         }
-        
+
         if (erro) { //true
             JOptionPane.showMessageDialog(null, mensagem);
         }
@@ -558,11 +576,11 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
     private javax.swing.JTextField tfBairro;
     private javax.swing.JTextField tfCidade;
     private javax.swing.JTextField tfComplemento;
-    private javax.swing.JTextField tfCpf;
+    private javax.swing.JFormattedTextField tfCpf;
     private javax.swing.JTextField tfEstado;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfNumero;
-    private javax.swing.JTextField tfRg;
+    private javax.swing.JFormattedTextField tfRg;
     private javax.swing.JTextField tfRua;
     private javax.swing.JTextField tfTelefone;
     private javax.swing.JTextField tfValor;
