@@ -118,6 +118,8 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
         dataCadastro.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         dataCadastro.setText("Data de Cadastro:");
 
+        tfValor.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
         lbDataCadastro.setText(" ");
 
         botaoIdentifica.setText("Sim");
@@ -307,22 +309,7 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
                 .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(94, 94, 94))
             .addGroup(painel_principalLayout.createSequentialGroup()
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painel_principalLayout.createSequentialGroup()
-                                .addComponent(dataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painel_principalLayout.createSequentialGroup()
-                                .addComponent(valor, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painel_principalLayout.createSequentialGroup()
-                                .addComponent(dataCadastro1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(botaoIdentifica))))
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(painel_principalLayout.createSequentialGroup()
                         .addGap(190, 190, 190)
                         .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -330,14 +317,29 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
                         .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(painel_principalLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(painel_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(painel_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painel_principalLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painel_principalLayout.createSequentialGroup()
+                                .addComponent(valor, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painel_principalLayout.createSequentialGroup()
+                                .addComponent(dataCadastro1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(botaoIdentifica))
+                            .addGroup(painel_principalLayout.createSequentialGroup()
+                                .addComponent(dataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lbDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painel_principalLayout.setVerticalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_principalLayout.createSequentialGroup()
                 .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(44, 44, 44)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dataCadastro)
                     .addComponent(lbDataCadastro))
@@ -362,11 +364,14 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painel_principal, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painel_principal, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painel_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(painel_principal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -379,7 +384,9 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
             sessao = HibernateUtil.abrirConexao();
 
             if (dinheiro == null) {   //para cadastrar nova doação em dinheiro
-                dinheiro = new Dinheiro(Double.parseDouble(tfValor.getText()), new Date());
+                dinheiro = new Dinheiro(
+                        Double.parseDouble(tfValor.getText()),
+                        new Date());
 
             } else {   //para alterar o valor da doação em dinheiro
                 dinheiro.setDinheiro(Double.parseDouble(tfValor.getText().trim()));
@@ -389,11 +396,12 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
                 if (botaoIdentifica.isSelected()) {
                     salvarCliente();
                     dinheiro.setCliente(cliente);
-
                 }
+
                 dinheiroDao.salvarOuAlterar(dinheiro, sessao);
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
                 limpar();
+                this.dispose();
             } catch (HibernateException e) {
                 System.out.println("Erro ao salvar!" + e.getMessage());
             } finally {
@@ -442,7 +450,7 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
 
         String mensagem = "";
         boolean erro = false;
-        int valorTela = Integer.parseInt(tfValor.getText().trim());
+        Double valorTela = Double.parseDouble(tfValor.getText().trim());
 
         if (valorTela <= 0) {
             mensagem += "Digite um valor válido";

@@ -34,7 +34,6 @@ public class PesquisarDinheiro extends javax.swing.JFrame {
         dinheiroDao = new DinheiroDaoImpl();
     }
 
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -416,6 +415,7 @@ public class PesquisarDinheiro extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Excluído com sucesso!");
                     tabelaModelo.setNumRows(0);
                     tfData.setText("");
+                    this.dispose();
                 } catch (HibernateException e) {
                     System.out.println("Erro ao excluir" + e.getMessage());
                 } finally {
