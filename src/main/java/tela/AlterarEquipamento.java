@@ -219,15 +219,17 @@ public class AlterarEquipamento extends javax.swing.JFrame {
     }
 
     private boolean validarCampo() {
-        String mensagem = "";
         boolean erro = false;
         String nomeTela = tfNome.getText().trim();
-        if (nomeTela.length() <= 1) {
-            mensagem += "Favor informar o nome do equipamento.\n";
+
+        if (nomeTela.length() == 1) {
+            JOptionPane.showMessageDialog(null, "Valor inválido para nome.");
             erro = true;
         }
-        if (erro) {
-            JOptionPane.showMessageDialog(null, mensagem);
+
+        if (nomeTela.length() < 1) {
+            JOptionPane.showMessageDialog(null, "Favor informar o nome do equipamento.");
+            erro = true;
         }
         return erro;
     }

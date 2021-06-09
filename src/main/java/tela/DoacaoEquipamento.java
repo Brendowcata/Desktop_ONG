@@ -179,12 +179,11 @@ public class DoacaoEquipamento extends javax.swing.JFrame {
     }
 
     private boolean validarCampo() {
-        String mensagem = "";
         boolean erro = false;
 
         int indice = comboEquipamento.getSelectedIndex();
         if (indice <= 0) {
-            mensagem += "Selecione um equipamento!\n";
+            JOptionPane.showMessageDialog(null, " Selecione um equipamento!");
             erro = true;
         }
 
