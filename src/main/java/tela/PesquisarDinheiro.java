@@ -466,6 +466,7 @@ public class PesquisarDinheiro extends javax.swing.JFrame {
                 SimpleDateFormat formatarData = new SimpleDateFormat("MM");
                 Date dataFormatada = formatarData.parse(tfMes.getText());
                 sessao.close();
+                
                 sessao = HibernateUtil.abrirConexao();
                 dinheiros = dinheiroDao.totalDinheiroPorMes(dataFormatada, sessao);
 
@@ -493,7 +494,9 @@ public class PesquisarDinheiro extends javax.swing.JFrame {
                 sessao = HibernateUtil.abrirConexao();
                 SimpleDateFormat formatarData = new SimpleDateFormat("yyyy");
                 Date dataFormatada = formatarData.parse(tfAno.getText());
-
+                sessao.close();
+                
+                sessao = HibernateUtil.abrirConexao();
                 dinheiros = dinheiroDao.totalDinheiroPorAno(dataFormatada, sessao);
 
                 if (dinheiros.isEmpty()) {

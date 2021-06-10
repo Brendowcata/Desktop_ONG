@@ -90,7 +90,6 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
         lb_rg = new javax.swing.JLabel();
         lb_telefone = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
-        tfTelefone = new javax.swing.JTextField();
         lb_endereco = new javax.swing.JLabel();
         lb_rua = new javax.swing.JLabel();
         lb_numero = new javax.swing.JLabel();
@@ -106,8 +105,9 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
         tfComplemento = new javax.swing.JTextField();
         tfCpf = new javax.swing.JFormattedTextField();
         tfRg = new javax.swing.JFormattedTextField();
-        btSalvar = new javax.swing.JButton();
+        tfTelefone = new javax.swing.JFormattedTextField();
         btLimpar = new javax.swing.JButton();
+        btSalvar = new javax.swing.JButton();
 
         setTitle("Cadastrar Dinheiro");
 
@@ -135,7 +135,7 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
             }
         });
 
-        dataCadastro1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        dataCadastro1.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         dataCadastro1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         dataCadastro1.setText("Cliente deseja se identificar?");
 
@@ -157,11 +157,11 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
 
         lb_endereco.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_endereco.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb_endereco.setText("Endereço:");
+        lb_endereco.setText("Endereço");
 
         lb_rua.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_rua.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_rua.setText("Rua:");
+        lb_rua.setText("Logradouro:");
 
         lb_numero.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_numero.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -195,6 +195,12 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        try {
+            tfTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout painel_ClienteLayout = new javax.swing.GroupLayout(painel_Cliente);
         painel_Cliente.setLayout(painel_ClienteLayout);
         painel_ClienteLayout.setHorizontalGroup(
@@ -203,58 +209,60 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painel_ClienteLayout.createSequentialGroup()
-                        .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_ClienteLayout.createSequentialGroup()
+                        .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_ClienteLayout.createSequentialGroup()
+                                .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lb_numero, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lb_cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painel_ClienteLayout.createSequentialGroup()
+                                        .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lb_estado)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tfEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
+                                    .addGroup(painel_ClienteLayout.createSequentialGroup()
+                                        .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lb_bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tfBairro))))
+                            .addGroup(painel_ClienteLayout.createSequentialGroup()
+                                .addComponent(lb_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfNome))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_ClienteLayout.createSequentialGroup()
+                                .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lb_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lb_rua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfRua)
+                                    .addGroup(painel_ClienteLayout.createSequentialGroup()
+                                        .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_ClienteLayout.createSequentialGroup()
                                 .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_ClienteLayout.createSequentialGroup()
-                                        .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lb_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lb_rua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(lb_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(tfTelefone)
-                                            .addComponent(tfRua)))
+                                        .addComponent(tfRg, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_ClienteLayout.createSequentialGroup()
-                                        .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lb_numero, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lb_cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(lb_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(painel_ClienteLayout.createSequentialGroup()
-                                                .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(lb_estado)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(tfEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
-                                            .addGroup(painel_ClienteLayout.createSequentialGroup()
-                                                .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(lb_bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(tfBairro))))
-                                    .addGroup(painel_ClienteLayout.createSequentialGroup()
-                                        .addComponent(lb_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(tfNome))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_ClienteLayout.createSequentialGroup()
-                                        .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_ClienteLayout.createSequentialGroup()
-                                                .addComponent(lb_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_ClienteLayout.createSequentialGroup()
-                                                .addComponent(lb_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(tfRg)))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(78, 78, 78))
-                            .addComponent(lb_endereco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(31, 31, 31))
+                                        .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(109, 109, 109))
                     .addGroup(painel_ClienteLayout.createSequentialGroup()
                         .addComponent(lb_complemento, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(tfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_ClienteLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lb_endereco, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80))))
         );
         painel_ClienteLayout.setVerticalGroup(
             painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,15 +271,15 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
                 .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_nome)
                     .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(9, 9, 9)
                 .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_cpf)
                     .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_rg)
-                    .addComponent(tfRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_rg, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painel_ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_telefone)
                     .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -300,21 +308,21 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btSalvar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btSalvar.setText("Salvar");
-        btSalvar.setPreferredSize(new java.awt.Dimension(90, 25));
-        btSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSalvarActionPerformed(evt);
-            }
-        });
-
         btLimpar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btLimpar.setText("Limpar");
         btLimpar.setPreferredSize(new java.awt.Dimension(90, 25));
         btLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btLimparActionPerformed(evt);
+            }
+        });
+
+        btSalvar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btSalvar.setText("Salvar");
+        btSalvar.setPreferredSize(new java.awt.Dimension(90, 25));
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
             }
         });
 
@@ -327,15 +335,8 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
                 .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(94, 94, 94))
             .addGroup(painel_principalLayout.createSequentialGroup()
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addGap(190, 190, 190)
-                        .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(painel_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painel_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(painel_principalLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,14 +345,21 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(painel_principalLayout.createSequentialGroup()
+                                .addGap(37, 37, 37)
                                 .addComponent(dataCadastro1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(botaoIdentifica))
                             .addGroup(painel_principalLayout.createSequentialGroup()
                                 .addComponent(dataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(lbDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_principalLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(206, 206, 206))
         );
         painel_principalLayout.setVerticalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,17 +373,17 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(valor)
                     .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dataCadastro1)
                     .addComponent(botaoIdentifica))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painel_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(painel_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -389,7 +397,10 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painel_principal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(painel_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2))
         );
 
         pack();
@@ -582,7 +593,7 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
     private javax.swing.JTextField tfNumero;
     private javax.swing.JFormattedTextField tfRg;
     private javax.swing.JTextField tfRua;
-    private javax.swing.JTextField tfTelefone;
+    private javax.swing.JFormattedTextField tfTelefone;
     private javax.swing.JTextField tfValor;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel valor;

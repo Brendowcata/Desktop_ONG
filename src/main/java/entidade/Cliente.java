@@ -32,6 +32,9 @@ public class Cliente implements Serializable {
     @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
     private Endereco endereco;
 
+    @OneToOne(mappedBy = "cliente")
+    private Dinheiro dinheiro;
+    
     public Cliente() {
     }
 
@@ -81,8 +84,15 @@ public class Cliente implements Serializable {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-    
-    
+
+    public Dinheiro getDinheiro() {
+        return dinheiro;
+    }
+
+    public void setDinheiro(Dinheiro dinheiro) {
+        this.dinheiro = dinheiro;
+    }
+        
     
     public Long getId() {
         return id;

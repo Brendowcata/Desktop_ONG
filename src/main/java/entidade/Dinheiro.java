@@ -27,7 +27,7 @@ public class Dinheiro implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataDoacao;
 
-    @OneToOne
+    @OneToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
