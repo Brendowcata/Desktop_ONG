@@ -16,8 +16,6 @@ import org.hibernate.Session;
  */
 public interface ClienteDao extends BaseDao<Cliente, Long>{
     
-   // List<Cliente> pesquisarEmprestimoPorNomeCliente(String nome, Session sessao)throws HibernateException;
-    
     List<Cliente> pesquisarClientesPorNome(String nome, Session sessao)throws HibernateException;
     
     Cliente pesquisaPorCpf(String cpf, Session sessao)throws HibernateException;

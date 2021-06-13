@@ -42,17 +42,16 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         painel_principal = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
-        btSalvar = new javax.swing.JButton();
-        btLimpar = new javax.swing.JButton();
+        painel_dadosPessoais = new javax.swing.JPanel();
         lb_nome = new javax.swing.JLabel();
         lb_cpf = new javax.swing.JLabel();
         lb_rg = new javax.swing.JLabel();
         lb_telefone = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
-        tfCpf = new javax.swing.JTextField();
         tfRg = new javax.swing.JTextField();
-        tfTelefone = new javax.swing.JTextField();
-        lb_endereco = new javax.swing.JLabel();
+        tfCpf = new javax.swing.JFormattedTextField();
+        tfCelular = new javax.swing.JFormattedTextField();
+        painel_endereco = new javax.swing.JPanel();
         lb_rua = new javax.swing.JLabel();
         lb_numero = new javax.swing.JLabel();
         lb_cidade = new javax.swing.JLabel();
@@ -65,13 +64,182 @@ public class CadastroCliente extends javax.swing.JFrame {
         tfEstado = new javax.swing.JTextField();
         lb_complemento = new javax.swing.JLabel();
         tfComplemento = new javax.swing.JTextField();
+        btSalvar = new javax.swing.JButton();
+        btLimpar = new javax.swing.JButton();
 
         setTitle("Cadastro Cliente");
+
+        painel_principal.setPreferredSize(new java.awt.Dimension(600, 500));
 
         titulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titulo.setText("Cadastro de Cliente");
         titulo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        painel_dadosPessoais.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Pessoais"));
+
+        lb_nome.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_nome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_nome.setText("Nome:*");
+
+        lb_cpf.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_cpf.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_cpf.setText("Cpf:*");
+
+        lb_rg.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_rg.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_rg.setText("RG:*");
+
+        lb_telefone.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_telefone.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_telefone.setText("Celular");
+
+        try {
+            tfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            tfCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        javax.swing.GroupLayout painel_dadosPessoaisLayout = new javax.swing.GroupLayout(painel_dadosPessoais);
+        painel_dadosPessoais.setLayout(painel_dadosPessoaisLayout);
+        painel_dadosPessoaisLayout.setHorizontalGroup(
+            painel_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_dadosPessoaisLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painel_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lb_nome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lb_cpf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lb_rg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lb_telefone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(painel_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(painel_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(tfCelular, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                        .addComponent(tfRg, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addGap(49, 49, 49))
+        );
+        painel_dadosPessoaisLayout.setVerticalGroup(
+            painel_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_dadosPessoaisLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painel_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_nome)
+                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painel_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_cpf)
+                    .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painel_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_rg)
+                    .addComponent(tfRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painel_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_telefone)
+                    .addComponent(tfCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
+        painel_endereco.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço"));
+
+        lb_rua.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_rua.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_rua.setText("Logradouro:");
+
+        lb_numero.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_numero.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_numero.setText("Nº:");
+
+        lb_cidade.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_cidade.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_cidade.setText("Cidade:");
+
+        lb_bairro.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_bairro.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_bairro.setText("Bairro:");
+
+        lb_estado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_estado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_estado.setText("UF:");
+
+        lb_complemento.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_complemento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_complemento.setText("Complemento:");
+
+        javax.swing.GroupLayout painel_enderecoLayout = new javax.swing.GroupLayout(painel_endereco);
+        painel_endereco.setLayout(painel_enderecoLayout);
+        painel_enderecoLayout.setHorizontalGroup(
+            painel_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_enderecoLayout.createSequentialGroup()
+                .addGroup(painel_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(painel_enderecoLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(painel_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painel_enderecoLayout.createSequentialGroup()
+                                .addComponent(lb_complemento, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfComplemento))
+                            .addGroup(painel_enderecoLayout.createSequentialGroup()
+                                .addComponent(lb_cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lb_estado)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_enderecoLayout.createSequentialGroup()
+                        .addGroup(painel_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painel_enderecoLayout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(lb_rua, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_enderecoLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lb_numero, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)))
+                        .addGroup(painel_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfRua, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(painel_enderecoLayout.createSequentialGroup()
+                                .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lb_bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfBairro)))))
+                .addGap(57, 57, 57))
+        );
+        painel_enderecoLayout.setVerticalGroup(
+            painel_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_enderecoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painel_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_rua)
+                    .addComponent(tfRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painel_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_numero)
+                    .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_bairro)
+                    .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painel_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_cidade)
+                    .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_estado)
+                    .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painel_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_complemento)
+                    .addComponent(tfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         btSalvar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btSalvar.setText("Salvar");
@@ -91,172 +259,44 @@ public class CadastroCliente extends javax.swing.JFrame {
             }
         });
 
-        lb_nome.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lb_nome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_nome.setText("Nome:");
-
-        lb_cpf.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lb_cpf.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_cpf.setText("Cpf:");
-
-        lb_rg.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lb_rg.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_rg.setText("RG:");
-
-        lb_telefone.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lb_telefone.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_telefone.setText("Telefone:");
-
-        lb_endereco.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lb_endereco.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb_endereco.setText("Endereço:");
-
-        lb_rua.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lb_rua.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_rua.setText("Rua:");
-
-        lb_numero.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lb_numero.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_numero.setText("Nº:");
-
-        lb_cidade.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lb_cidade.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_cidade.setText("Cidade:");
-
-        lb_bairro.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lb_bairro.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_bairro.setText("Bairro:");
-
-        lb_estado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lb_estado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_estado.setText("Estado/UF:");
-
-        lb_complemento.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lb_complemento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_complemento.setText("Complemento:");
-
         javax.swing.GroupLayout painel_principalLayout = new javax.swing.GroupLayout(painel_principal);
         painel_principal.setLayout(painel_principalLayout);
         painel_principalLayout.setHorizontalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(painel_principalLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_principalLayout.createSequentialGroup()
-                        .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_principalLayout.createSequentialGroup()
-                                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lb_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lb_rua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfTelefone)
-                                    .addComponent(tfRua)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_principalLayout.createSequentialGroup()
-                                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lb_numero, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lb_cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(painel_principalLayout.createSequentialGroup()
-                                        .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lb_estado)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(tfEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
-                                    .addGroup(painel_principalLayout.createSequentialGroup()
-                                        .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lb_bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(tfBairro))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_principalLayout.createSequentialGroup()
-                                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_principalLayout.createSequentialGroup()
-                                        .addComponent(lb_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(tfRg))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel_principalLayout.createSequentialGroup()
-                                        .addComponent(lb_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(painel_principalLayout.createSequentialGroup()
-                                .addComponent(lb_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(tfNome)))
-                        .addGap(78, 78, 78))
-                    .addComponent(lb_endereco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(painel_endereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painel_dadosPessoais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(31, 31, 31))
             .addGroup(painel_principalLayout.createSequentialGroup()
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lb_complemento, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(tfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addGap(198, 198, 198)
-                        .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(196, 196, 196)
+                .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painel_principalLayout.setVerticalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_principalLayout.createSequentialGroup()
                 .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_nome)
-                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_cpf)
-                    .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_rg)
-                    .addComponent(tfRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_telefone)
-                    .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lb_endereco)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lb_rua))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_numero)
-                    .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lb_bairro)
-                    .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_cidade)
-                    .addComponent(lb_estado)
-                    .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_complemento)
-                    .addComponent(tfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addComponent(painel_dadosPessoais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(painel_endereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painel_principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(painel_principal, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,25 +313,28 @@ public class CadastroCliente extends javax.swing.JFrame {
         if (!erro) {
             session = HibernateUtil.abrirConexao();
             cliente = new Cliente(
+                    null,
                     tfNome.getText(),
                     tfCpf.getText(),
                     tfRg.getText(),
-                    tfTelefone.getText()
+                    tfCelular.getText()
             );
             endereco = new Endereco(
+                    null,
                     tfRua.getText(),
                     tfNumero.getText(),
                     tfBairro.getText(),
                     tfCidade.getText(),
                     tfEstado.getText(),
-                    tfComplemento.getText(),
-                    null
+                    tfComplemento.getText()
+                    
             );
+            endereco.setCliente(cliente);
             cliente.setEndereco(endereco);
             try {
                 clienteDao.salvarOuAlterar(cliente, session);
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
-                limpar();
+                this.dispose();
             } catch (HibernateException e) {
                 JOptionPane.showMessageDialog(null, "Erro ao salvar!");
             }
@@ -326,7 +369,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         tfNome.setText("");
         tfCpf.setText("");
         tfRg.setText("");
-        tfTelefone.setText("");
+        tfCelular.setText("");
         tfRua.setText("");
         tfNumero.setText("");
         tfBairro.setText("");
@@ -380,24 +423,25 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel lb_cidade;
     private javax.swing.JLabel lb_complemento;
     private javax.swing.JLabel lb_cpf;
-    private javax.swing.JLabel lb_endereco;
     private javax.swing.JLabel lb_estado;
     private javax.swing.JLabel lb_nome;
     private javax.swing.JLabel lb_numero;
     private javax.swing.JLabel lb_rg;
     private javax.swing.JLabel lb_rua;
     private javax.swing.JLabel lb_telefone;
+    private javax.swing.JPanel painel_dadosPessoais;
+    private javax.swing.JPanel painel_endereco;
     private javax.swing.JPanel painel_principal;
     private javax.swing.JTextField tfBairro;
+    private javax.swing.JFormattedTextField tfCelular;
     private javax.swing.JTextField tfCidade;
     private javax.swing.JTextField tfComplemento;
-    private javax.swing.JTextField tfCpf;
+    private javax.swing.JFormattedTextField tfCpf;
     private javax.swing.JTextField tfEstado;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfNumero;
     private javax.swing.JTextField tfRg;
     private javax.swing.JTextField tfRua;
-    private javax.swing.JTextField tfTelefone;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }

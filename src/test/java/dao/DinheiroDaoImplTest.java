@@ -89,7 +89,7 @@ public class DinheiroDaoImplTest {
         assertTrue(!dinheiros.isEmpty());
     }
 
-    @Test
+    //@Test
     public void testPesquisarPorAno() {
         System.out.println("pesquisarPorAno");
         buscarDinheiroBd();

@@ -31,7 +31,9 @@ public class ClienteDaoImplTest {
     //@Test
     public void testSalvar() {
         System.out.println("Salvar Cliente");
+
         cliente = new Cliente(
+                null,
                 gerarNome(),
                 gerarCpf(),
                 gerarNumero(7),
@@ -39,22 +41,19 @@ public class ClienteDaoImplTest {
         );
 
         Endereco endereco = new Endereco(
+                null,
                 gerarLogradouro(),
                 gerarNumero(3),
                 "TRINDADE",
                 gerarCidade(),
                 gerarUF(),
-                "Casa da Frente - Portão Branco",
-                null
+                "Casa da Frente - Portão Branco"
         );
-
-        cliente.setEndereco(endereco);
         endereco.setCliente(cliente);
+        cliente.setEndereco(endereco);
 
         session = HibernateUtil.abrirConexao();
-
         clienteDao.salvarOuAlterar(cliente, session);
-
         session.close();
 
         assertNotNull(cliente.getId());

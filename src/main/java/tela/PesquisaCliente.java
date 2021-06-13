@@ -12,18 +12,20 @@ import entidade.Cliente;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 /**
  *
- * @author Administrador
+ * @author David
  */
 public class PesquisaCliente extends javax.swing.JFrame {
 
     private Session session;
     private Cliente cliente;
     private ClienteDao clienteDao;
-    List<Cliente> clientes;
+    private List<Cliente> clientes;
+    private DefaultTableModel tabelaModelo;
 
     /**
      * Creates new form Template
@@ -44,13 +46,14 @@ public class PesquisaCliente extends javax.swing.JFrame {
 
         painel_principal = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
-        lb_nome = new javax.swing.JLabel();
         btPesquisar = new javax.swing.JButton();
-        tfPesquisaNome = new javax.swing.JTextField();
-        lb_cpf = new javax.swing.JLabel();
-        tfPesquisaCpf = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        painelClientes = new javax.swing.JScrollPane();
         tabelaClientes = new javax.swing.JTable();
+        painel_pesquisaCliente = new javax.swing.JPanel();
+        lb_nome = new javax.swing.JLabel();
+        lb_cpf = new javax.swing.JLabel();
+        tfCpf = new javax.swing.JFormattedTextField();
+        tfPesquisaNome = new javax.swing.JTextField();
 
         setTitle("Pesquisar Clientes");
 
@@ -58,10 +61,6 @@ public class PesquisaCliente extends javax.swing.JFrame {
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titulo.setText("Pesquisa de Clientes");
         titulo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-
-        lb_nome.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lb_nome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_nome.setText("Nome:");
 
         btPesquisar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btPesquisar.setText("Pesquisar");
@@ -72,10 +71,6 @@ public class PesquisaCliente extends javax.swing.JFrame {
             }
         });
 
-        lb_cpf.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lb_cpf.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_cpf.setText("Cpf:");
-
         tabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -84,62 +79,99 @@ public class PesquisaCliente extends javax.swing.JFrame {
                 "Id", "Nome", "Cpf", "Telefone"
             }
         ));
-        jScrollPane1.setViewportView(tabelaClientes);
+        painelClientes.setViewportView(tabelaClientes);
+        if (tabelaClientes.getColumnModel().getColumnCount() > 0) {
+            tabelaClientes.getColumnModel().getColumn(0).setHeaderValue("Id");
+        }
+
+        painel_pesquisaCliente.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        lb_nome.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_nome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_nome.setText("Nome:");
+
+        lb_cpf.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_cpf.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_cpf.setText("Cpf:");
+
+        try {
+            tfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        javax.swing.GroupLayout painel_pesquisaClienteLayout = new javax.swing.GroupLayout(painel_pesquisaCliente);
+        painel_pesquisaCliente.setLayout(painel_pesquisaClienteLayout);
+        painel_pesquisaClienteLayout.setHorizontalGroup(
+            painel_pesquisaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_pesquisaClienteLayout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addGroup(painel_pesquisaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painel_pesquisaClienteLayout.createSequentialGroup()
+                        .addComponent(lb_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painel_pesquisaClienteLayout.createSequentialGroup()
+                        .addComponent(lb_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(76, Short.MAX_VALUE))
+        );
+        painel_pesquisaClienteLayout.setVerticalGroup(
+            painel_pesquisaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_pesquisaClienteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painel_pesquisaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_nome)
+                    .addComponent(tfPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painel_pesquisaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_cpf)
+                    .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout painel_principalLayout = new javax.swing.GroupLayout(painel_principal);
         painel_principal.setLayout(painel_principalLayout);
         painel_principalLayout.setHorizontalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(painel_principalLayout.createSequentialGroup()
-                .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(104, 104, 104))
-            .addGroup(painel_principalLayout.createSequentialGroup()
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painel_principalLayout.createSequentialGroup()
-                                .addComponent(lb_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(tfPesquisaCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painel_principalLayout.createSequentialGroup()
-                                .addComponent(lb_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(tfPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(painelClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painel_principalLayout.createSequentialGroup()
+                            .addGap(48, 48, 48)
+                            .addComponent(painel_pesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(painel_principalLayout.createSequentialGroup()
+                            .addGap(150, 150, 150)
+                            .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         painel_principalLayout.setVerticalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_principalLayout.createSequentialGroup()
                 .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_nome)
-                    .addComponent(tfPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_cpf)
-                    .addComponent(tfPesquisaCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(186, Short.MAX_VALUE))
+                .addComponent(painel_pesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(painelClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(138, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painel_principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(painel_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painel_principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(painel_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -148,9 +180,24 @@ public class PesquisaCliente extends javax.swing.JFrame {
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
         if (validarCampo()) {
-            session = HibernateUtil.abrirConexao();
-            clientes = clienteDao.pesquisarClientesPorNome(tfPesquisaNome.getText(), session);
-            popularTabela();
+            try {
+                session = HibernateUtil.abrirConexao();
+                clientes = clienteDao.pesquisarClientesPorNome(tfPesquisaNome.getText().trim(), session);
+                if (clientes.isEmpty()) {
+                    if (tabelaModelo != null) {
+                        tabelaModelo.setNumRows(0);
+                    }
+                    JOptionPane.showMessageDialog(null, "Não foi localizado nenhum cliente no BD!");
+                } else {
+                    popularTabela();
+                }
+
+            } catch (HibernateException e) {
+                System.out.println("Erro ao pesquisar " + e.getMessage());
+            } finally {
+                session.close();
+            }
+
         }
     }//GEN-LAST:event_btPesquisarActionPerformed
 
@@ -159,18 +206,18 @@ public class PesquisaCliente extends javax.swing.JFrame {
         boolean erro = true;
         String nome = tfPesquisaNome.getText().trim();
         if (nome.length() <= 1) {
+            tabelaModelo.setNumRows(0);
             JOptionPane.showMessageDialog(null, "Valor do nome inválido!");
             erro = false;
         }
         return erro;
     }
-    
-    private void popularTabela(){
-        DefaultTableModel tabelaModelo = (DefaultTableModel) tabelaClientes.getModel();
+
+    private void popularTabela() {
+        tabelaModelo = (DefaultTableModel) tabelaClientes.getModel();
         tabelaModelo.setNumRows(0);
         for (Cliente clienteFor : clientes) {
-            tabelaModelo.addRow(new Object[]
-            {
+            tabelaModelo.addRow(new Object[]{
                 clienteFor.getId(),
                 clienteFor.getNome(),
                 clienteFor.getCpf(),
@@ -220,12 +267,13 @@ public class PesquisaCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btPesquisar;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lb_cpf;
     private javax.swing.JLabel lb_nome;
+    private javax.swing.JScrollPane painelClientes;
+    private javax.swing.JPanel painel_pesquisaCliente;
     private javax.swing.JPanel painel_principal;
     private javax.swing.JTable tabelaClientes;
-    private javax.swing.JTextField tfPesquisaCpf;
+    private javax.swing.JFormattedTextField tfCpf;
     private javax.swing.JTextField tfPesquisaNome;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables

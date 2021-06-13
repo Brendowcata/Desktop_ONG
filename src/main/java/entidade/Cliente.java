@@ -20,29 +20,30 @@ public class Cliente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String nome;
-    @Column(unique = true, length = 14)
+    @Column(nullable = false, unique = true, length = 14)
     private String cpf;
-    @Column(unique = false)
+    @Column(nullable = false, unique = true)
     private String rg;
-    @Column(length = 14)
-    private String telefone;
+    @Column(length = 15)
+    private String celular;
 
-    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL) //Assim que salvar um cliente, salva o endereço.
     private Endereco endereco;
 
     @OneToOne(mappedBy = "cliente")
     private Dinheiro dinheiro;
-    
+
     public Cliente() {
     }
 
-    public Cliente(String nome, String cpf, String rg, String telefone) {
+    public Cliente(Long id, String nome, String cpf, String rg, String celular) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
-        this.telefone = telefone;
+        this.celular = celular;
     }
 
     public String getNome() {
@@ -70,11 +71,11 @@ public class Cliente implements Serializable {
     }
 
     public String getTelefone() {
-        return telefone;
+        return celular;
     }
 
     public void setTelefone(String telefone) {
-        this.telefone = telefone;
+        this.celular = celular;
     }
 
     public Endereco getEndereco() {
@@ -92,8 +93,7 @@ public class Cliente implements Serializable {
     public void setDinheiro(Dinheiro dinheiro) {
         this.dinheiro = dinheiro;
     }
-        
-    
+
     public Long getId() {
         return id;
     }

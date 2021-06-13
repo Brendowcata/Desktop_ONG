@@ -14,18 +14,28 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "endereco")
-
 public class Endereco implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String rua;
+
+    @Column(nullable = false)
+    private String logradouro;
+
+    @Column(nullable = false)
     private String numero;
+
+    @Column(nullable = false)
     private String bairro;
+
+    @Column(nullable = false)
     private String cidade;
+
+    @Column(nullable = false)
     private String estado;
+
     private String complemento;
 
     @OneToOne
@@ -35,17 +45,15 @@ public class Endereco implements Serializable {
     public Endereco() {
     }
 
-    public Endereco(String rua, String numero, String bairro, String cidade, String estado, String complemento, Cliente cliente) {
-        this.rua = rua;
+    public Endereco(Long id, String logradouro, String numero, String bairro, String cidade, String estado, String complemento) {
+        this.id = id;
+        this.logradouro = logradouro;
         this.numero = numero;
         this.bairro = bairro;
         this.cidade = cidade;
         this.estado = estado;
         this.complemento = complemento;
-        this.cliente = cliente;
     }
-
-  
 
     public Long getId() {
         return id;
@@ -55,12 +63,12 @@ public class Endereco implements Serializable {
         this.id = id;
     }
 
-    public String getRua() {
-        return rua;
+    public String getLogradouro() {
+        return logradouro;
     }
 
-    public void setRua(String rua) {
-        this.rua = rua;
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
     public String getNumero() {
@@ -110,8 +118,6 @@ public class Endereco implements Serializable {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    
-    
 
     @Override
     public int hashCode() {

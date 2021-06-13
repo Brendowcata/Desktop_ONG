@@ -124,7 +124,7 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
         dataCadastro.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         dataCadastro.setText("Data de Cadastro:");
 
-        tfValor.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        tfValor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         lbDataCadastro.setText(" ");
 
@@ -188,6 +188,11 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tfCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfCpfActionPerformed(evt);
+            }
+        });
 
         try {
             tfRg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.##.###")));
@@ -452,22 +457,28 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botaoIdentificaActionPerformed
 
+    private void tfCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfCpfActionPerformed
+
     public Cliente salvarCliente() {
 
         cliente = new Cliente(
+                null,
                 tfNome.getText().trim(),
                 tfCpf.getText().trim(),
                 tfRg.getText().trim(),
                 tfTelefone.getText().trim());
 
         endereco = new Endereco(
+                null,
                 tfRua.getText().trim(),
                 tfNumero.getText().trim(),
                 tfBairro.getText().trim(),
                 tfCidade.getText().trim(),
                 tfEstado.getText().trim(),
-                tfComplemento.getText().trim(),
-                null);
+                tfComplemento.getText().trim()
+                );
 
         cliente.setEndereco(endereco);
         clienteDao.salvarOuAlterar(cliente, sessao);
