@@ -58,6 +58,8 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
         tfValor.setDocument(new TxtCampoCadastroDinheiro()); //aceitar somente números e "."
         formatarData(dinheiro.getData());
         tfValor.setText(dinheiro.getDinheiro().toString());
+        cadastroClienteTrue.setVisible(false);
+        botaoIdentifica.setVisible(false);
         painel_Cliente.setVisible(false);
         btSalvar.setText("Alterar");
         titulo.setText("Alterar Dinheiro");
@@ -83,7 +85,7 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
         tfValor = new javax.swing.JTextField();
         lbDataCadastro = new javax.swing.JLabel();
         botaoIdentifica = new javax.swing.JRadioButton();
-        dataCadastro1 = new javax.swing.JLabel();
+        cadastroClienteTrue = new javax.swing.JLabel();
         painel_Cliente = new javax.swing.JPanel();
         lb_nome = new javax.swing.JLabel();
         lb_cpf = new javax.swing.JLabel();
@@ -135,9 +137,9 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
             }
         });
 
-        dataCadastro1.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        dataCadastro1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        dataCadastro1.setText("Cliente deseja se identificar?");
+        cadastroClienteTrue.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        cadastroClienteTrue.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        cadastroClienteTrue.setText("Cliente deseja se identificar?");
 
         lb_nome.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_nome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -336,10 +338,6 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
         painel_principalLayout.setHorizontalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_principalLayout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(94, 94, 94))
-            .addGroup(painel_principalLayout.createSequentialGroup()
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(painel_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(painel_principalLayout.createSequentialGroup()
@@ -351,7 +349,7 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
                                 .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(painel_principalLayout.createSequentialGroup()
                                 .addGap(37, 37, 37)
-                                .addComponent(dataCadastro1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cadastroClienteTrue, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(botaoIdentifica))
                             .addGroup(painel_principalLayout.createSequentialGroup()
@@ -365,12 +363,16 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(206, 206, 206))
+            .addGroup(painel_principalLayout.createSequentialGroup()
+                .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         painel_principalLayout.setVerticalGroup(
             painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_principalLayout.createSequentialGroup()
+                .addGap(43, 43, 43)
                 .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addGap(28, 28, 28)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dataCadastro)
                     .addComponent(lbDataCadastro))
@@ -380,32 +382,32 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
                     .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dataCadastro1)
+                    .addComponent(cadastroClienteTrue)
                     .addComponent(botaoIdentifica))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(painel_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(painel_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(painel_principal, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(painel_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -579,8 +581,8 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.JLabel cadastroClienteTrue;
     private javax.swing.JLabel dataCadastro;
-    private javax.swing.JLabel dataCadastro1;
     private javax.swing.JLabel lbDataCadastro;
     private javax.swing.JLabel lb_bairro;
     private javax.swing.JLabel lb_cidade;
