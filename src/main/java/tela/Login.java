@@ -146,10 +146,10 @@ public class Login extends javax.swing.JFrame {
                 new UsuarioLogado(usuario).atualizarUsuarioUltimoAcesso();
                 new Principal().setVisible(true);
                 this.dispose();
-            } else if (!usuario.isAtivo()) {
-                JOptionPane.showMessageDialog(null, "Usuário sem permissão de acesso!");
-            } else {
+            } else if (usuario == null) {
                 JOptionPane.showMessageDialog(null, "Usuário ou Senha incorreto!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário sem permissão de acesso!");
             }
 
         } catch (HibernateException e) {
