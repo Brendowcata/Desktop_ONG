@@ -16,7 +16,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Administrador
+ * @author David Roussenq Maria
  */
 public class CadastroCliente extends javax.swing.JFrame {
 
@@ -29,6 +29,41 @@ public class CadastroCliente extends javax.swing.JFrame {
     public CadastroCliente() {
         initComponents();
         clienteDao = new ClienteDaoImpl();
+    }
+
+    CadastroCliente(Cliente clienteSelecionado) {
+        initComponents();
+        clienteDao = new ClienteDaoImpl();
+
+        tfNome.setText(clienteSelecionado.getNome());
+        tfCpf.setText(clienteSelecionado.getCpf());
+        tfRg.setText(clienteSelecionado.getRg());
+        
+        /*
+        
+        
+        if (clienteSelecionado.getTelefone() != null) {
+            tfCelular.setText(clienteSelecionado.getTelefone());
+        }
+        if (clienteSelecionado.getEndereco().getLogradouro() != null) {
+            tfRua.setText(clienteSelecionado.getEndereco().getLogradouro());
+        }
+        if (clienteSelecionado.getEndereco().getNumero() != null) {
+            tfNumero.setText(clienteSelecionado.getEndereco().getNumero());
+        }
+        if (clienteSelecionado.getEndereco().getBairro() != null) {
+            tfBairro.setText(clienteSelecionado.getEndereco().getBairro());
+        }
+        if (clienteSelecionado.getEndereco().getCidade() != null) {
+            tfCidade.setText(clienteSelecionado.getEndereco().getCidade());
+        }
+        if (clienteSelecionado.getEndereco().getEstado() != null) {
+            tfEstado.setText(clienteSelecionado.getEndereco().getEstado());
+        }
+        if (clienteSelecionado.getEndereco().getComplemento() != null) {
+            tfComplemento.setText(cliente.getEndereco().getComplemento());
+        }
+         */
     }
 
     /**
@@ -327,7 +362,6 @@ public class CadastroCliente extends javax.swing.JFrame {
                     tfCidade.getText(),
                     tfEstado.getText(),
                     tfComplemento.getText()
-                    
             );
             endereco.setCliente(cliente);
             cliente.setEndereco(endereco);
