@@ -165,6 +165,9 @@ public class DoacaoEquipamento extends javax.swing.JFrame {
         try {
             sessao = HibernateUtil.abrirConexao();
             equipamentos = equipamentoDao.pesquisarTodo(sessao);
+            sessao.close();
+            sessao = HibernateUtil.abrirConexao();
+            equipamentos = equipamentoDao.pesquisarTodo(sessao);
 
         } catch (HibernateException he) {
             System.out.println("Erro ao carregar combobox equipamento" + he.getMessage());

@@ -196,15 +196,14 @@ public class AlterarEquipamento extends javax.swing.JFrame {
 
     private void btExcluirUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirUnidadeActionPerformed
         try {
-            if (equipamento.getQuantidadeEstoque() > 1) {
-                excluirUnidadeEstoque();
+            if (equipamento.getQuantidadeEstoque() == 0) {
+                JOptionPane.showMessageDialog(null, "Não há unidade para excluir!");
+            } else {
                 sessao = HibernateUtil.abrirConexao();
+                excluirUnidadeEstoque();
                 equipamentoDao.salvarOuAlterar(equipamento, sessao);
                 JOptionPane.showMessageDialog(null, "Unidade excluída com sucesso!");
                 lb_quantidadeEstoque.setText(Integer.toString(equipamento.getQuantidadeEstoque()));
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Há apenas uma unidade em estoque, exclua o equipamento todo!");
             }
         } catch (HibernateException e) {
             JOptionPane.showMessageDialog(null, "Erro ao alterar!");

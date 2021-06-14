@@ -175,7 +175,7 @@ public class PesquisarEquipamento extends javax.swing.JFrame {
             new AlterarEquipamento(equipamentoSelecionado).setVisible(true);
             this.isFocusOwner();
         } else {
-            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+            JOptionPane.showMessageDialog(null, "Selecione um Equipamento!");
         }
     }//GEN-LAST:event_btAlterarActionPerformed
 
@@ -187,14 +187,14 @@ public class PesquisarEquipamento extends javax.swing.JFrame {
                 sessao.close();
                 sessao = HibernateUtil.abrirConexao();
                 equipamentos = equipamentoDao.pesquisarEquipamentoPorNome(tfNome.getText().trim(), sessao);
-                
+
                 if (equipamentos.isEmpty()) {
                     if (tabelaModelo != null) {
                         tabelaModelo.setNumRows(0);
                     }
                     JOptionPane.showMessageDialog(null, "Não há equipamento com o nome informado!");
                 } else {
-                popularTabela();
+                    popularTabela();
                 }
 
             } catch (HibernateException e) {
@@ -214,11 +214,13 @@ public class PesquisarEquipamento extends javax.swing.JFrame {
                 try {
                     sessao = HibernateUtil.abrirConexao();
                     Equipamento equipamentoSelecionado = equipamentos.get(linhaSelecionada);
-                    equipamentoDao.excluir(equipamentoSelecionado, sessao);
-                    JOptionPane.showMessageDialog(null, "Equipamento excluído com sucesso!");
-                    btPesquisarActionPerformed(evt);
-                    tfNome.setText("");
-
+                    if (equipamentoSelecionado.getQuantidadeEmprestado() > 0) {
+                        JOptionPane.showMessageDialog(null, "Não é possível excluir equipamento com empréstimo ativo!");
+                    } else {
+                        equipamentoDao.excluir(equipamentoSelecionado, sessao);
+                        JOptionPane.showMessageDialog(null, "Equipamento excluído com sucesso!");
+                        tfNome.setText("");
+                    }
                 } catch (HibernateException e) {
                     System.out.println("Erro ao excluir" + e.getMessage());
                 } finally {

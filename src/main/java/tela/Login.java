@@ -9,6 +9,7 @@ import dao.HibernateUtil;
 import dao.UsuarioDao;
 import dao.UsuarioDaoImpl;
 import entidade.Usuario;
+import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -137,16 +138,23 @@ public class Login extends javax.swing.JFrame {
         try {
             sessao = HibernateUtil.abrirConexao();
             usuario = usuarioDao.logar(tfLogin.getText(), senha, sessao);
-            if (usuario != null) {
+            sessao.close();
+            sessao = HibernateUtil.abrirConexao();
+            usuario = usuarioDao.logar(tfLogin.getText(), senha, sessao);
+
+            if (usuario != null && usuario.isAtivo()) {
                 new UsuarioLogado(usuario).atualizarUsuarioUltimoAcesso();
                 new Principal().setVisible(true);
                 this.dispose();
-            }else{
+            } else if (!usuario.isAtivo()) {
+                JOptionPane.showMessageDialog(null, "Usuário sem permissão de acesso!");
+            } else {
                 JOptionPane.showMessageDialog(null, "Usuário ou Senha incorreto!");
             }
+
         } catch (HibernateException e) {
             System.out.println("Erro ao logar " + e.getMessage());
-        }finally{
+        } finally {
             sessao.close();
         }
     }//GEN-LAST:event_btLogarActionPerformed
@@ -165,16 +173,21 @@ public class Login extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

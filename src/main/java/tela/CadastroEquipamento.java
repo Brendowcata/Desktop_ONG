@@ -138,20 +138,23 @@ public class CadastroEquipamento extends javax.swing.JFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         if (!validarCampo()) {
-            sessao = HibernateUtil.abrirConexao();
 
             try {
+                sessao = HibernateUtil.abrirConexao();
+                equipamentos = equipamentoDao.pesquisarEquipamentoPorNome(tfNome.getText().trim(), sessao);
+                sessao.close();
+                sessao = HibernateUtil.abrirConexao();
                 equipamentos = equipamentoDao.pesquisarEquipamentoPorNome(tfNome.getText().trim(), sessao);
                 if (!equipamentos.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Esse equipamento já está cadastrado!");
                     limpar();
 
                 } else {
-                    equipamento = new Equipamento(tfNome.getText(), 1, taObservacao.getText());
-                    equipamentoDao.salvarOuAlterar(equipamento, sessao);
-                    JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
-                    limpar();
-                    this.dispose();
+                equipamento = new Equipamento(tfNome.getText(), 1, taObservacao.getText());
+                equipamentoDao.salvarOuAlterar(equipamento, sessao);
+                JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+                limpar();
+                this.dispose();
                 }
             } catch (HibernateException e) {
                 JOptionPane.showMessageDialog(null, "Erro ao salvar!");
@@ -183,13 +186,13 @@ public class CadastroEquipamento extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Favor informar o nome do equipamento.");
             erro = true;
         }
-        
+
         return erro;
     }
 
-    /**
-     * @param args the command line arguments
-     */
+        /**
+         * @param args the command line arguments
+         */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

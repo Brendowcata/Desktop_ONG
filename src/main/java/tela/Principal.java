@@ -310,7 +310,7 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(painel_pesquisas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painel_principalLayout.createSequentialGroup()
-                                .addGap(174, 174, 174)
+                                .addGap(171, 171, 171)
                                 .addComponent(lbAlterarSenha)
                                 .addGap(18, 18, 18)
                                 .addComponent(lbSair))
@@ -485,7 +485,8 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sairMouseClicked
-        dispose();
+        this.dispose();
+        new Login().setVisible(true);
     }//GEN-LAST:event_sairMouseClicked
 
     private void novoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoClienteActionPerformed
@@ -517,7 +518,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_pesquisaFaturamentoActionPerformed
 
     private void lbSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSairMouseClicked
-        dispose();
+        this.dispose();
+        new Login().setVisible(true);
     }//GEN-LAST:event_lbSairMouseClicked
 
     private void btNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoClienteActionPerformed
