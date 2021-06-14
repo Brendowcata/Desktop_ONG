@@ -16,7 +16,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Equipe.
+ * @author Jhony Vill da Silva.
  */
 public class Login extends javax.swing.JFrame {
 

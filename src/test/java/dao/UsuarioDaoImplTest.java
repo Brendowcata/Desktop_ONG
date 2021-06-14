@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Equipe
+ * @author Jhony Vill da Silva.
  */
 public class UsuarioDaoImplTest {
 

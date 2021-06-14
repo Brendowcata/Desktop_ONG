@@ -18,7 +18,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Equipe.
+ * @author Jhony Vill da Silva.
  */
 public class PesquisaUsuario extends javax.swing.JFrame {
 
