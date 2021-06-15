@@ -10,6 +10,7 @@ import entidade.Cliente;
 import entidade.Emprestimo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -29,7 +30,7 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
     private Cliente cliente;
     private EmprestimoDao emprestimoDao;
     private List<Emprestimo> emprestimos;
-    private List<Emprestimo> emprestimosMes;
+
     private DefaultTableModel tabelaModelo;
 
     public PesquisarEmprestimo() {
@@ -195,20 +196,19 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
+        
         if (radioNome.isSelected()) {
             try {
                 session = HibernateUtil.abrirConexao();
                 emprestimos = emprestimoDao.pesquisarEmprestimoPorCliente(tfNome.getText().trim(), session);
                 if (emprestimos.isEmpty()) {
-                    if (tabelaModelo != null) {
-                        tabelaModelo.setNumRows(0);
-                    }
                     JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum valor!");
                 } else {
                     if (comboMes.getSelectedItem().equals("Geral")) {
-                        popularTabela();
+                        popularTabela(emprestimos);
                     } else {
-                        pesquisarPorMes(); // resolver 
+                        pesquisarPorMes();
+                       
                     }
                 }
 
@@ -218,27 +218,52 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
                 session.close();
             }
         } else if (radioCPF.isSelected()) {
-            ClienteDao clienteDao = new ClienteDaoImpl();
-            cliente = clienteDao.pesquisaPorCpf(lb_nome.getText().trim(), session);
-            puxarTodosEmprestimos();
-            for (Emprestimo emprestimo1 : emprestimos) {
-                if (emprestimo1.getCliente().getCpf().equals(cliente.getCpf())) {
-                    popularTabela();
+            if(!tfNome.getText().trim().equals("")){
+            try {
+                List<Emprestimo> emprestimosCpf = new ArrayList<>();
+                ClienteDao clienteDao = new ClienteDaoImpl();
+                session = HibernateUtil.abrirConexao();
+                cliente = clienteDao.pesquisaPorCpf(tfNome.getText().trim(), session);
+                emprestimosCpf = puxarTodosEmprestimos();
+                emprestimos = new ArrayList<>();
+                for (Emprestimo emprestimo1 : emprestimosCpf) {
+                    if (emprestimo1.getCliente().getCpf().equals(cliente.getCpf())) {
+                        emprestimos.add(emprestimo1);
+                    }
                 }
+                if (emprestimos.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum valor!");
+                } else {
+                    if (comboMes.getSelectedItem().equals("Geral")) {
+                        popularTabela(emprestimos);
+                    } else {
+                        pesquisarPorMes();
+                    }
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Digite um CPF Valido!");
+            } finally {
+                session.close();
+            }
+
+        } else {
+                JOptionPane.showMessageDialog(null, "Digite um CPF!");
             }
         }
 
     }//GEN-LAST:event_btPesquisarActionPerformed
 
-    private void puxarTodosEmprestimos() {
+    private List<Emprestimo> puxarTodosEmprestimos() {
         session = HibernateUtil.abrirConexao();
         Query consulta = session.createQuery("FROM Emprestimo");
-        emprestimos = consulta.list();
+        return consulta.list();
 
     }
 
     private void pesquisarPorMes() {
         try {
+            List<Emprestimo> emprestimosMes = new ArrayList<>();
+            List<Emprestimo> emprestimosRealizados = new ArrayList<>();
             session = HibernateUtil.abrirConexao();
             SimpleDateFormat formatarData = new SimpleDateFormat("MM");
             Date dataFormatada = formatarData.parse(String.valueOf(comboMes.getSelectedIndex()));
@@ -246,9 +271,22 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
             emprestimosMes = emprestimoDao.emprestimoMes(dataFormatada, session);
 
             if (emprestimosMes.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Não houve nenhum emprestimo nesse mês!");
-            } else {
-                            popularTabela();
+            JOptionPane.showMessageDialog(null, "Não houve nenhum emprestimo nesse mês!");
+            tabelaModelo.setNumRows(0);
+            }else {
+                for (Emprestimo emprestimo1 : emprestimos) {
+                    for (Emprestimo emprestimosMe : emprestimosMes) {
+                        if (emprestimosMe.getCadastro().equals(emprestimo1.getCadastro()) && emprestimosMe.getId().equals(emprestimo1.getId())) {
+                            emprestimosRealizados.add(emprestimo1);
+                        }
+                    }
+                }
+                if(emprestimosRealizados.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Não houve nenhum emprestimo nesse mês!");
+                    tabelaModelo.setNumRows(0);
+                } else{
+                popularTabela(emprestimosRealizados);
+                }
             }
         } catch (ParseException ex) {
             System.out.println("Erro ao pesquisar o mês");
@@ -271,10 +309,10 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_radioCPFActionPerformed
 
-    private void popularTabela() {
+    private void popularTabela(List<Emprestimo> emprestimo) {
         tabelaModelo = (DefaultTableModel) tabelaEmprestimo.getModel();
         tabelaModelo.setNumRows(0);
-        for (Emprestimo emprestimo1 : emprestimos) {
+        for (Emprestimo emprestimo1 : emprestimo) {
             tabelaModelo.addRow(new Object[]{
                 emprestimo1.getCliente().getNome(),
                 emprestimo1.getEquipamento().getNome(),
