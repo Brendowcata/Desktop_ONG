@@ -70,11 +70,11 @@ public class Cliente implements Serializable {
         this.rg = rg;
     }
 
-    public String getTelefone() {
+    public String getCelular() {
         return celular;
     }
 
-    public void setTelefone(String telefone) {
+    public void setCelular(String telefone) {
         this.celular = celular;
     }
 

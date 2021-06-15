@@ -47,7 +47,6 @@ public class PesquisaCliente extends javax.swing.JFrame {
 
         painel_principal = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
-        btPesquisar = new javax.swing.JButton();
         painelClientes = new javax.swing.JScrollPane();
         tabelaClientes = new javax.swing.JTable();
         painel_pesquisaCliente = new javax.swing.JPanel();
@@ -55,8 +54,11 @@ public class PesquisaCliente extends javax.swing.JFrame {
         lb_cpf = new javax.swing.JLabel();
         tfCpf = new javax.swing.JFormattedTextField();
         tfPesquisaNome = new javax.swing.JTextField();
+        btPesquisarCpf = new javax.swing.JButton();
+        btPesquisarNome = new javax.swing.JButton();
         btAlterar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
+        btLimpar = new javax.swing.JButton();
 
         setTitle("Pesquisar Clientes");
 
@@ -65,21 +67,12 @@ public class PesquisaCliente extends javax.swing.JFrame {
         titulo.setText("Pesquisa de Clientes");
         titulo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        btPesquisar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btPesquisar.setText("Pesquisar");
-        btPesquisar.setPreferredSize(new java.awt.Dimension(90, 25));
-        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btPesquisarActionPerformed(evt);
-            }
-        });
-
         tabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Nome", "Cpf", "Telefone"
+                "Id", "Nome", "Cpf", "Celular"
             }
         ));
         painelClientes.setViewportView(tabelaClientes);
@@ -100,22 +93,44 @@ public class PesquisaCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        btPesquisarCpf.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btPesquisarCpf.setText("Pesquisar");
+        btPesquisarCpf.setPreferredSize(new java.awt.Dimension(90, 25));
+        btPesquisarCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisarCpfActionPerformed(evt);
+            }
+        });
+
+        btPesquisarNome.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btPesquisarNome.setText("Pesquisar");
+        btPesquisarNome.setPreferredSize(new java.awt.Dimension(90, 25));
+        btPesquisarNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisarNomeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painel_pesquisaClienteLayout = new javax.swing.GroupLayout(painel_pesquisaCliente);
         painel_pesquisaCliente.setLayout(painel_pesquisaClienteLayout);
         painel_pesquisaClienteLayout.setHorizontalGroup(
             painel_pesquisaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_pesquisaClienteLayout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addContainerGap()
                 .addGroup(painel_pesquisaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painel_pesquisaClienteLayout.createSequentialGroup()
                         .addComponent(lb_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))
                     .addGroup(painel_pesquisaClienteLayout.createSequentialGroup()
                         .addComponent(lb_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(tfPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(76, Short.MAX_VALUE))
+                        .addComponent(tfPesquisaNome)))
+                .addGap(18, 18, 18)
+                .addGroup(painel_pesquisaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btPesquisarCpf, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btPesquisarNome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         painel_pesquisaClienteLayout.setVerticalGroup(
             painel_pesquisaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,11 +138,13 @@ public class PesquisaCliente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painel_pesquisaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_nome)
-                    .addComponent(tfPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btPesquisarNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painel_pesquisaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_cpf)
-                    .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btPesquisarCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -149,6 +166,15 @@ public class PesquisaCliente extends javax.swing.JFrame {
             }
         });
 
+        btLimpar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btLimpar.setText("Limpar");
+        btLimpar.setPreferredSize(new java.awt.Dimension(90, 25));
+        btLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLimparActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painel_principalLayout = new javax.swing.GroupLayout(painel_principal);
         painel_principal.setLayout(painel_principalLayout);
         painel_principalLayout.setHorizontalGroup(
@@ -156,14 +182,14 @@ public class PesquisaCliente extends javax.swing.JFrame {
             .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(painel_principalLayout.createSequentialGroup()
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(painelClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(painel_principalLayout.createSequentialGroup()
-                            .addGap(48, 48, 48)
+                    .addGroup(painel_principalLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(painelClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(painel_pesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(painel_principalLayout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(116, 116, 116)
+                        .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -180,9 +206,9 @@ public class PesquisaCliente extends javax.swing.JFrame {
                 .addComponent(painelClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -201,28 +227,24 @@ public class PesquisaCliente extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        if (validarCampo()) {
-            try {
-                session = HibernateUtil.abrirConexao();
-                clientes = clienteDao.pesquisarClientesPorNome(tfPesquisaNome.getText().trim(), session);
-                if (clientes.isEmpty()) {
-                    if (tabelaModelo != null) {
-                        tabelaModelo.setNumRows(0);
-                    }
-                    JOptionPane.showMessageDialog(null, "Não foi localizado nenhum cliente no BD!");
-                } else {
-                    popularTabela();
+    private void btPesquisarNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarNomeActionPerformed
+        try {
+            session = HibernateUtil.abrirConexao();
+            clientes = clienteDao.pesquisarClientesPorNome(tfPesquisaNome.getText().trim(), session);
+            if (clientes.isEmpty()) {
+                if (tabelaModelo != null) {
+                    tabelaModelo.setNumRows(0);
                 }
-
-            } catch (HibernateException e) {
-                System.out.println("Erro ao pesquisar " + e.getMessage());
-            } finally {
-                session.close();
+                JOptionPane.showMessageDialog(null, "Não foi localizado nenhum cliente no BD!");
+            } else {
+                popularTabela();
             }
-
+        } catch (HibernateException e) {
+            System.out.println("Erro ao pesquisar " + e.getMessage());
+        } finally {
+            session.close();
         }
-    }//GEN-LAST:event_btPesquisarActionPerformed
+    }//GEN-LAST:event_btPesquisarNomeActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
 
@@ -242,7 +264,6 @@ public class PesquisaCliente extends javax.swing.JFrame {
                 } finally {
                     session.close();
                 }
-
             }
         } else {
             JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela para exluir!");
@@ -252,16 +273,53 @@ public class PesquisaCliente extends javax.swing.JFrame {
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
         int linhaSelecionada = tabelaClientes.getSelectedRow();
-
+        
         if (linhaSelecionada >= 0) {
             Cliente clienteSelecionado = clientes.get(linhaSelecionada);
-            new CadastroCliente(clienteSelecionado).setVisible(true);
-            this.dispose();
+            new AlterarCliente(clienteSelecionado).setVisible(true);
+            this.isFocusOwner();
+            
+            //this.dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela para alterar!");
         }
 
     }//GEN-LAST:event_btAlterarActionPerformed
+
+    private void btPesquisarCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarCpfActionPerformed
+        try {
+            session = HibernateUtil.abrirConexao();
+            cliente = clienteDao.pesquisaPorCpf(tfCpf.getText(), session);
+            if (cliente == null) {
+                if (tabelaModelo != null) {
+                    tabelaModelo.setNumRows(0);
+                }
+                JOptionPane.showMessageDialog(null, "Não foi localizado nenhum CPF no BD!");
+            } else {
+                tabelaModelo.addRow(new Object[]{
+                    cliente.getId(),
+                    cliente.getNome(),
+                    cliente.getCpf(),
+                    cliente.getCelular()
+                }
+                );
+            }
+        } catch (HibernateException e) {
+            System.out.println("Erro ao pesquisar " + e.getMessage());
+        } finally {
+            session.close();
+        }
+    }//GEN-LAST:event_btPesquisarCpfActionPerformed
+
+    private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
+        limpar();
+    }//GEN-LAST:event_btLimparActionPerformed
+
+    private void limpar() {
+        tfPesquisaNome.setText("");
+        tfCpf.setText("");
+        tabelaModelo.setNumRows(0);
+    }
 
     private boolean validarCampo() {
         boolean erro = true;
@@ -284,7 +342,7 @@ public class PesquisaCliente extends javax.swing.JFrame {
                 clienteFor.getId(),
                 clienteFor.getNome(),
                 clienteFor.getCpf(),
-                clienteFor.getTelefone()
+                clienteFor.getCelular()
             }
             );
         }
@@ -335,7 +393,9 @@ public class PesquisaCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btExcluir;
-    private javax.swing.JButton btPesquisar;
+    private javax.swing.JButton btLimpar;
+    private javax.swing.JButton btPesquisarCpf;
+    private javax.swing.JButton btPesquisarNome;
     private javax.swing.JLabel lb_cpf;
     private javax.swing.JLabel lb_nome;
     private javax.swing.JScrollPane painelClientes;
@@ -346,4 +406,5 @@ public class PesquisaCliente extends javax.swing.JFrame {
     private javax.swing.JTextField tfPesquisaNome;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
+
 }

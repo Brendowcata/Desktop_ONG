@@ -2,7 +2,7 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="title" type="java.lang.String" value="Cadastro Cliente"/>
+    <Property name="title" type="java.lang.String" value="Alterar Cadastro Cliente"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -86,7 +86,7 @@
               <Font name="Tahoma" size="18" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Cadastro de Cliente"/>
+            <Property name="text" type="java.lang.String" value="Alterar Cadastro de Cliente"/>
             <Property name="verticalAlignment" type="int" value="3"/>
           </Properties>
         </Component>
@@ -255,13 +255,13 @@
                                   </Group>
                               </Group>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="tfRua" min="-2" pref="350" max="-2" attributes="0"/>
+                                  <Component id="tfLogradouro" min="-2" pref="350" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
-                                      <Component id="tfNumero" min="-2" pref="76" max="-2" attributes="0"/>
+                                      <Component id="tfNumero" min="-2" pref="78" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="lb_bairro" min="-2" pref="56" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="lb_bairro" max="32767" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="tfBairro" min="-2" pref="179" max="-2" attributes="0"/>
+                                      <Component id="tfBairro" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -276,7 +276,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lb_rua" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfRua" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfLogradouro" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -348,7 +348,7 @@
                 <Property name="text" type="java.lang.String" value="UF:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tfRua">
+            <Component class="javax.swing.JTextField" name="tfLogradouro">
             </Component>
             <Component class="javax.swing.JTextField" name="tfNumero">
             </Component>

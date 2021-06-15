@@ -18,7 +18,7 @@ import org.hibernate.Session;
  *
  * @author David Roussenq Maria
  */
-public class CadastroCliente extends javax.swing.JFrame {
+public class AlterarCliente extends javax.swing.JFrame {
 
     private Session session;
     private Cliente cliente;
@@ -26,12 +26,28 @@ public class CadastroCliente extends javax.swing.JFrame {
     private ClienteDao clienteDao;
     private String mensagem = "";
 
-    public CadastroCliente() {
+    public AlterarCliente() {
         initComponents();
         clienteDao = new ClienteDaoImpl();
     }
 
-    
+    AlterarCliente(Cliente clienteSelecionado) {
+        initComponents();
+        cliente = clienteSelecionado;
+        endereco = clienteSelecionado.getEndereco();
+        clienteDao = new ClienteDaoImpl();
+        tfNome.setText(clienteSelecionado.getNome());
+        tfCpf.setText(clienteSelecionado.getCpf());
+        tfRg.setText(clienteSelecionado.getRg());
+        tfCelular.setText(clienteSelecionado.getCelular());
+        tfLogradouro.setText(clienteSelecionado.getEndereco().getLogradouro());
+        tfNumero.setText(clienteSelecionado.getEndereco().getNumero());
+        tfBairro.setText(clienteSelecionado.getEndereco().getBairro());
+        tfCidade.setText(clienteSelecionado.getEndereco().getCidade());
+        tfEstado.setText(clienteSelecionado.getEndereco().getEstado());
+        tfComplemento.setText(clienteSelecionado.getEndereco().getComplemento());
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,7 +75,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         lb_cidade = new javax.swing.JLabel();
         lb_bairro = new javax.swing.JLabel();
         lb_estado = new javax.swing.JLabel();
-        tfRua = new javax.swing.JTextField();
+        tfLogradouro = new javax.swing.JTextField();
         tfNumero = new javax.swing.JTextField();
         tfCidade = new javax.swing.JTextField();
         tfBairro = new javax.swing.JTextField();
@@ -69,13 +85,13 @@ public class CadastroCliente extends javax.swing.JFrame {
         btSalvar = new javax.swing.JButton();
         btLimpar = new javax.swing.JButton();
 
-        setTitle("Cadastro Cliente");
+        setTitle("Alterar Cadastro Cliente");
 
         painel_principal.setPreferredSize(new java.awt.Dimension(600, 500));
 
         titulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titulo.setText("Cadastro de Cliente");
+        titulo.setText("Alterar Cadastro de Cliente");
         titulo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         painel_dadosPessoais.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Pessoais"));
@@ -208,13 +224,13 @@ public class CadastroCliente extends javax.swing.JFrame {
                                 .addComponent(lb_numero, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)))
                         .addGroup(painel_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfRua, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(painel_enderecoLayout.createSequentialGroup()
-                                .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lb_bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(lb_bairro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(tfBairro)))))
                 .addGap(57, 57, 57))
         );
         painel_enderecoLayout.setVerticalGroup(
@@ -223,7 +239,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painel_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_rua)
-                    .addComponent(tfRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painel_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_numero)
@@ -314,30 +330,29 @@ public class CadastroCliente extends javax.swing.JFrame {
         boolean erro = validarCampo();
         if (!erro) {
             session = HibernateUtil.abrirConexao();
-            cliente = new Cliente(
-                    null,
-                    tfNome.getText(),
-                    tfCpf.getText(),
-                    tfRg.getText(),
-                    tfCelular.getText().trim()
-            );
-            endereco = new Endereco(
-                    null,
-                    tfRua.getText(),
-                    tfNumero.getText(),
-                    tfBairro.getText(),
-                    tfCidade.getText(),
-                    tfEstado.getText(),
-                    tfComplemento.getText()
-            );
+            cliente.setNome(tfNome.getText());
+            cliente.setCpf(tfCpf.getText());
+            cliente.setRg(tfRg.getText());
+            cliente.setCelular(tfCelular.getText());
+
+            endereco.setLogradouro(tfLogradouro.getText());
+            endereco.setNumero(tfNumero.getText());
+            endereco.setBairro(tfBairro.getText());
+            endereco.setCidade(tfCidade.getText());
+            endereco.setEstado(tfEstado.getText());
+            endereco.setComplemento(tfComplemento.getText());
+
             endereco.setCliente(cliente);
             cliente.setEndereco(endereco);
+
             try {
                 clienteDao.salvarOuAlterar(cliente, session);
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
                 this.dispose();
             } catch (HibernateException e) {
                 JOptionPane.showMessageDialog(null, "Erro ao salvar!");
+            }finally{
+                session.close();
             }
         }
     }//GEN-LAST:event_btSalvarActionPerformed
@@ -371,7 +386,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         tfCpf.setText("");
         tfRg.setText("");
         tfCelular.setText("");
-        tfRua.setText("");
+        tfLogradouro.setText("");
         tfNumero.setText("");
         tfBairro.setText("");
         tfCidade.setText("");
@@ -396,14 +411,18 @@ public class CadastroCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -412,7 +431,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastroCliente().setVisible(true);
+                new AlterarCliente().setVisible(true);
             }
         });
     }
@@ -439,10 +458,10 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JTextField tfComplemento;
     private javax.swing.JFormattedTextField tfCpf;
     private javax.swing.JTextField tfEstado;
+    private javax.swing.JTextField tfLogradouro;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfNumero;
     private javax.swing.JTextField tfRg;
-    private javax.swing.JTextField tfRua;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }
