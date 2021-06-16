@@ -30,7 +30,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Administrador
+ * @author Brendow
  */
 public class CadastroEmprestimo extends javax.swing.JFrame {
 
@@ -300,9 +300,11 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
         session = HibernateUtil.abrirConexao();
         Query consulta = session.createQuery("FROM Equipamento");
         strList = consulta.list();
-       session = HibernateUtil.abrirConexao();
+        session.close();
+        session = HibernateUtil.abrirConexao();
         Query consulta2 = session.createQuery("FROM Equipamento");
         strList = consulta2.list();
+        session.close();
         for (Equipamento equipamento1 : strList) {
             if(equipamento1.getQuantidadeEstoque() > 0){
             listaEquipamento.add(equipamento1.getNome());

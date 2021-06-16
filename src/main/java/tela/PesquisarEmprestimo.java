@@ -22,7 +22,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Jhony Vill da Silva.
+ * @author Brendow
  */
 public class PesquisarEmprestimo extends javax.swing.JFrame {
 
@@ -61,7 +61,7 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
         radioCPF = new javax.swing.JRadioButton();
         comboMes = new javax.swing.JComboBox<>();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jButton1 = new javax.swing.JButton();
+        jButtonExcluir = new javax.swing.JButton();
 
         setTitle("Pesquisa Equipamento");
 
@@ -126,10 +126,10 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
 
         jFormattedTextField1.setText("jFormattedTextField1");
 
-        jButton1.setText("Excluir Emprestimo");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonExcluir.setText("Excluir Emprestimo");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonExcluirActionPerformed(evt);
             }
         });
 
@@ -160,7 +160,7 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
                                 .addComponent(radioNome)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(radioCPF))))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painel_principalLayout.setVerticalGroup(
@@ -186,7 +186,7 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(jButtonExcluir)
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -208,13 +208,18 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        if(tabelaEmprestimo.getRowCount() > 0){
+        if (tabelaEmprestimo.getRowCount() > 0) {
             tabelaModelo.setNumRows(0);
         }
         if (radioNome.isSelected()) {
             try {
                 session = HibernateUtil.abrirConexao();
                 emprestimos = emprestimoDao.pesquisarEmprestimoPorCliente(tfNome.getText().trim(), session);
+                session.close();
+                session = HibernateUtil.abrirConexao();
+                emprestimos = emprestimoDao.pesquisarEmprestimoPorCliente(tfNome.getText().trim(), session);
+                session.close();
+
                 if (emprestimos.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum valor!");
                 } else {
@@ -222,58 +227,48 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
                         popularTabela(emprestimos);
                     } else {
                         pesquisarPorMes();
-                       
+
                     }
                 }
 
             } catch (HibernateException e) {
                 System.out.println("Erro ao pesquisar!" + e.getMessage());
-            } finally {
-                session.close();
             }
         } else if (radioCPF.isSelected()) {
-            if(!tfNome.getText().trim().equals("")){
-            try {
-                List<Emprestimo> emprestimosCpf = new ArrayList<>();
-                ClienteDao clienteDao = new ClienteDaoImpl();
-                session = HibernateUtil.abrirConexao();
-                cliente = clienteDao.pesquisaPorCpf(tfNome.getText().trim(), session);
-                emprestimosCpf = puxarTodosEmprestimos();
-                emprestimos = new ArrayList<>();
-                for (Emprestimo emprestimo1 : emprestimosCpf) {
-                    if (emprestimo1.getCliente().getCpf().equals(cliente.getCpf())) {
-                        emprestimos.add(emprestimo1);
+            if (!tfNome.getText().trim().equals("")) {
+                try {
+                    List<Emprestimo> emprestimosCpf;
+                    ClienteDao clienteDao = new ClienteDaoImpl();
+                    session = HibernateUtil.abrirConexao();
+                    cliente = clienteDao.pesquisaPorCpf(tfNome.getText().trim(), session);
+                    emprestimosCpf = emprestimoDao.listarTodos(session);
+                    session.close();
+                    emprestimos = new ArrayList<>();
+                    for (Emprestimo emprestimo1 : emprestimosCpf) {
+                        if (emprestimo1.getCliente().getCpf().equals(cliente.getCpf())) {
+                            emprestimos.add(emprestimo1);
+                        }
                     }
-                }
-                if (emprestimos.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum valor!");
-                } else {
-                    if (comboMes.getSelectedItem().equals("Geral")) {
-                        popularTabela(emprestimos);
+                    if (emprestimos.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Digite um CPF Valido!");
                     } else {
-                        pesquisarPorMes();
+                        if (comboMes.getSelectedItem().equals("Geral")) {
+                            popularTabela(emprestimos);
+                        } else {
+                            pesquisarPorMes();
+                        }
                     }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Digite um CPF Valido!");
                 }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Digite um CPF Valido!");
-            } finally {
-                session.close();
-            }
 
-        } else {
+            } else {
                 JOptionPane.showMessageDialog(null, "Digite um CPF!");
                 tabelaModelo.setNumRows(0);
             }
         }
 
     }//GEN-LAST:event_btPesquisarActionPerformed
-
-    private List<Emprestimo> puxarTodosEmprestimos() {
-        session = HibernateUtil.abrirConexao();
-        Query consulta = session.createQuery("FROM Emprestimo");
-        return consulta.list();
-
-    }
 
     private void pesquisarPorMes() {
         try {
@@ -286,8 +281,8 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
             emprestimosMes = emprestimoDao.emprestimoMes(dataFormatada, session);
 
             if (emprestimosMes.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Não houve nenhum emprestimo nesse mês!");
-            }else {
+                JOptionPane.showMessageDialog(null, "Não houve nenhum emprestimo nesse mês!");
+            } else {
                 for (Emprestimo emprestimo1 : emprestimos) {
                     for (Emprestimo emprestimosMe : emprestimosMes) {
                         if (emprestimosMe.getCadastro().equals(emprestimo1.getCadastro()) && emprestimosMe.getId().equals(emprestimo1.getId())) {
@@ -295,10 +290,10 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
                         }
                     }
                 }
-                if(emprestimosRealizados.isEmpty()){
+                if (emprestimosRealizados.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Não houve nenhum emprestimo nesse mês!");
-                } else{
-                popularTabela(emprestimosRealizados);
+                } else {
+                    popularTabela(emprestimosRealizados);
                 }
             }
         } catch (ParseException ex) {
@@ -322,27 +317,31 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_radioCPFActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         // TODO add your handling code here:
         int resposta = JOptionPane.showConfirmDialog(null, "Tem Certeza Que Deseja Excluir Esse Emprestimo?");
-        
-        if (resposta == 0){
-        EquipamentoDao equipamentoDao = new EquipamentoDaoImpl();
-        int linhaSelecionada = tabelaEmprestimo.getSelectedRow();
-        if (linhaSelecionada >= 0) {
-            Emprestimo emprestimoS = emprestimos.get(linhaSelecionada);
-            equipamento = emprestimoS.getEquipamento();
-            equipamento.setQuantidadeEmprestado(equipamento.getQuantidadeEmprestado() - 1);
-            equipamento.setQuantidadeEstoque(equipamento.getQuantidadeEstoque() + 1);
-            session = HibernateUtil.abrirConexao();
-            equipamentoDao.salvarOuAlterar(equipamento, session);
-            emprestimoDao.excluir(emprestimoS, session);
-            session.close();
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione um Equipamento!");
+
+        if (resposta == 0) {
+            EquipamentoDao equipamentoDao = new EquipamentoDaoImpl();
+            int linhaSelecionada = tabelaEmprestimo.getSelectedRow();
+            if (linhaSelecionada >= 0) {
+                Emprestimo emprestimoS = emprestimos.get(linhaSelecionada);
+                equipamento = emprestimoS.getEquipamento();
+                equipamento.setQuantidadeEmprestado(equipamento.getQuantidadeEmprestado() - 1);
+                equipamento.setQuantidadeEstoque(equipamento.getQuantidadeEstoque() + 1);
+                session = HibernateUtil.abrirConexao();
+                equipamentoDao.salvarOuAlterar(equipamento, session);
+                emprestimoDao.excluir(emprestimoS, session);
+                session.close();
+                JOptionPane.showMessageDialog(null, "Emprestimo Excluido Com Sucesso!");
+                emprestimos.remove(linhaSelecionada);
+                tabelaModelo.setNumRows(0);
+                popularTabela(emprestimos);
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione um Emprestimo!");
+            }
         }
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void popularTabela(List<Emprestimo> emprestimosTabela) {
         emprestimos = emprestimosTabela;
@@ -407,7 +406,7 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JComboBox<String> comboMes;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonExcluir;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lb_nome;

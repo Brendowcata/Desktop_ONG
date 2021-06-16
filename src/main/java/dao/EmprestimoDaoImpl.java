@@ -38,6 +38,12 @@ public class EmprestimoDaoImpl extends BaseDaoImpl<Emprestimo, Long> implements 
         return consulta.list();
     }
 
+    @Override
+    public List<Emprestimo> listarTodos(Session sessao) throws HibernateException {
+         Query consulta = sessao.createQuery("FROM Emprestimo");
+         return consulta.list();
+    }
+
 
     
     

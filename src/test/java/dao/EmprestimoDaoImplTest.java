@@ -9,8 +9,12 @@ import entidade.Cliente;
 import entidade.Emprestimo;
 import entidade.Equipamento;
 import entidade.Usuario;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import static org.junit.Assert.assertNotNull;
@@ -21,29 +25,15 @@ import org.junit.Test;
  * @author Brendow
  */
 public class EmprestimoDaoImplTest {
-    
+
     private Emprestimo emprestimo;
     private EmprestimoDao emprestimoDao;
+    List<Emprestimo> emprestimos;
     private Session session;
-    
+
     public EmprestimoDaoImplTest() {
         emprestimoDao = new EmprestimoDaoImpl();
     }
-
-    //@Test
-    public void testPesquisarEmprestimoPorCliente() {
-        buscarEmprestimoBd();
-        session = HibernateUtil.abrirConexao();
-        List<Emprestimo> emprestimoBd = emprestimoDao.pesquisarEmprestimoPorCliente(String.valueOf(emprestimo.getCliente().getId()), session);
-        session.close();
-        assertNotNull(emprestimoBd);
-        
-        emprestimo = emprestimoBd.get(0);
-        System.out.println(emprestimo.getCliente().getNome());
-    }
-    
-   
-    
 
     //@Test
     public void testSalvar() {
@@ -58,8 +48,8 @@ public class EmprestimoDaoImplTest {
         emprestimo.setCliente(cliente);
         emprestimo.setEquipamento(equipamento);
         emprestimo.setUsuario(salvarUsuario());
-        
-         session = HibernateUtil.abrirConexao();
+
+        session = HibernateUtil.abrirConexao();
 
         emprestimoDao.salvarOuAlterar(emprestimo, session);
 
@@ -68,7 +58,7 @@ public class EmprestimoDaoImplTest {
         assertNotNull(emprestimo.getId());
 
     }
-    
+
     //@Test
     public void testAlterar() {
         System.out.println("alterar");
@@ -90,14 +80,79 @@ public class EmprestimoDaoImplTest {
         emprestimoDao.salvarOuAlterar(emprestimo, session);
         session.close();
 
-        
     }
     
-    
-    
-   
-    
-    private Usuario salvarUsuario(){
+    //@Test
+    public void testExcluir(){
+        EquipamentoDao equipamentoDao = new EquipamentoDaoImpl();
+        Equipamento equipamento = new Equipamento();
+        buscarEmprestimoBd();
+        emprestimo = emprestimos.get(0);
+        equipamento = emprestimo.getEquipamento();
+        equipamento.setQuantidadeEmprestado(equipamento.getQuantidadeEmprestado() - 1);
+        equipamento.setQuantidadeEstoque(equipamento.getQuantidadeEstoque() + 1);
+        session = HibernateUtil.abrirConexao();
+        emprestimoDao.excluir(emprestimo, session);
+        equipamentoDao.salvarOuAlterar(equipamento, session);
+        session.close();
+        System.out.println("Emprestimo Excluido Com Sucesso!");
+    }
+
+    //@Test
+    public void testPesquisarEmprestimoPorCliente() {
+        buscarEmprestimoBd();
+        emprestimo = emprestimos.get(0);
+        session = HibernateUtil.abrirConexao();
+        List<Emprestimo> emprestimoBd = emprestimoDao.pesquisarEmprestimoPorCliente(emprestimo.getCliente().getNome(), session);
+        session.close();
+        assertNotNull(emprestimoBd);
+
+        emprestimo = emprestimoBd.get(0);
+        for (Emprestimo emprestimo1 : emprestimoBd) {
+            System.out.println(emprestimo1.getCliente().getNome());
+            System.out.println(emprestimo1.getCadastro());
+            System.out.println(emprestimo1.getEquipamento().getNome());
+            System.out.println(emprestimo1.getUsuario().getNome());
+            System.out.println("");
+        }
+    }
+
+    //@Test
+    public void testPesquisarTodosEmprestimos() {
+        session = HibernateUtil.abrirConexao();
+        emprestimos = emprestimoDao.listarTodos(session);
+        session.close();
+        for (Emprestimo emprestimo1 : emprestimos) {
+            System.out.println(emprestimo1.getCliente().getNome());
+            System.out.println(emprestimo1.getCadastro());
+            System.out.println(emprestimo1.getEquipamento().getNome());
+            System.out.println(emprestimo1.getUsuario().getNome());
+            System.out.println("");
+        }
+    }
+
+    //@Test
+    public void testPesquisarEmprestimosPorMes() {
+        try {
+            SimpleDateFormat formatarData = new SimpleDateFormat("MM");
+            int mes = 5;
+            Date dataFormatada = formatarData.parse(String.valueOf(mes));
+            session = HibernateUtil.abrirConexao();
+            emprestimos = emprestimoDao.emprestimoMes(dataFormatada, session);
+            session.close();
+            for (Emprestimo emprestimo1 : emprestimos) {
+                System.out.println(emprestimo1.getCliente().getNome());
+                System.out.println(emprestimo1.getCadastro());
+                System.out.println(emprestimo1.getEquipamento().getNome());
+                System.out.println(emprestimo1.getUsuario().getNome());
+                System.out.println("");
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(EmprestimoDaoImplTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private Usuario salvarUsuario() {
         Usuario usuario = new Usuario(util.UtilGerador.gerarNome(), util.UtilGerador.gerarNome(), util.UtilGerador.gerarNome());
         UsuarioDao usuarioDao = new UsuarioDaoImpl();
         session = HibernateUtil.abrirConexao();
@@ -106,11 +161,11 @@ public class EmprestimoDaoImplTest {
         assertNotNull(usuario.getId());
         return usuario;
     }
-    
-     public Emprestimo buscarEmprestimoBd() {
+
+    public Emprestimo buscarEmprestimoBd() {
         session = HibernateUtil.abrirConexao();
         Query consulta = session.createQuery("from Emprestimo");
-        List<Emprestimo> emprestimos = consulta.list();
+        emprestimos = consulta.list();
         session.close();
         if (emprestimos.isEmpty()) {
             testSalvar();
@@ -119,7 +174,5 @@ public class EmprestimoDaoImplTest {
         }
         return emprestimo;
     }
-    
-    
-    
+
 }

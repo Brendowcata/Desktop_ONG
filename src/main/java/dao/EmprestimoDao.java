@@ -21,4 +21,6 @@ public interface EmprestimoDao extends BaseDao<Emprestimo, Long> {
     
     List<Emprestimo> emprestimoMes (Date mes, Session sessao) throws HibernateException;
     
+    List<Emprestimo> listarTodos (Session sessao) throws HibernateException;
+    
 }
