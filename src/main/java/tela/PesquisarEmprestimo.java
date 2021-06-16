@@ -29,7 +29,7 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
     private Session session;
     private Emprestimo emprestimo;
     private Cliente cliente;
-    Equipamento equipamento;
+    private Equipamento equipamento;
     private EmprestimoDao emprestimoDao;
     private List<Emprestimo> emprestimos;
 
@@ -63,7 +63,7 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jButtonExcluir = new javax.swing.JButton();
 
-        setTitle("Pesquisa Equipamento");
+        setTitle("Pesquisa Emprestimo");
 
         painel_principal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         painel_principal.setPreferredSize(new java.awt.Dimension(600, 428));
@@ -274,12 +274,12 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
         try {
             List<Emprestimo> emprestimosMes = new ArrayList<>();
             List<Emprestimo> emprestimosRealizados = new ArrayList<>();
-            session = HibernateUtil.abrirConexao();
             SimpleDateFormat formatarData = new SimpleDateFormat("MM");
             Date dataFormatada = formatarData.parse(String.valueOf(comboMes.getSelectedIndex()));
 
+            session = HibernateUtil.abrirConexao();
             emprestimosMes = emprestimoDao.emprestimoMes(dataFormatada, session);
-
+            session.close();
             if (emprestimosMes.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Não houve nenhum emprestimo nesse mês!");
             } else {

@@ -83,6 +83,8 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
         lb_nome3 = new javax.swing.JLabel();
         comboEquipamento = new javax.swing.JComboBox<>();
 
+        setTitle("Pesquisa Emprestimo");
+
         titulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titulo.setText("Cadastro de Empréstimos");
