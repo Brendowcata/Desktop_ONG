@@ -67,11 +67,11 @@ public class Principal extends javax.swing.JFrame {
         sair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Sistema ONG");
+        setTitle("Fundação UniONG");
 
         lbTitulo.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         lbTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTitulo.setText("Desktop ONG");
+        lbTitulo.setText(" Fundação UniONG");
         lbTitulo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lbTitulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -401,7 +401,7 @@ public class Principal extends javax.swing.JFrame {
         pesquisar.add(pesquisarEmprestimo);
 
         pesquisaFaturamento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
-        pesquisaFaturamento.setText("Pesquisar Faturamento");
+        pesquisaFaturamento.setText("Pesquisar Dinheiro");
         pesquisaFaturamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pesquisaFaturamentoActionPerformed(evt);
