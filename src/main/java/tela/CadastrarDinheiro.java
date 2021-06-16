@@ -5,16 +5,8 @@
  */
 package tela;
 
-import dao.ClienteDao;
-import dao.ClienteDaoImpl;
-import dao.DinheiroDao;
-import dao.DinheiroDaoImpl;
-import dao.HibernateUtil;
-import entidade.Cliente;
-import entidade.Dinheiro;
-import entidade.Endereco;
-import entidade.TxtCampoCadastroDinheiro;
-import entidade.TxtCampoNumeros;
+import dao.*;
+import entidade.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JFrame;
