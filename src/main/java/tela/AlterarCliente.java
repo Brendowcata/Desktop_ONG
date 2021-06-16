@@ -33,8 +33,8 @@ public class AlterarCliente extends javax.swing.JFrame {
 
     AlterarCliente(Cliente clienteSelecionado) {
         initComponents();
-        cliente = clienteSelecionado;
-        endereco = clienteSelecionado.getEndereco();
+         this.cliente = clienteSelecionado;
+      this.endereco = clienteSelecionado.getEndereco();
         clienteDao = new ClienteDaoImpl();
         tfNome.setText(clienteSelecionado.getNome());
         tfCpf.setText(clienteSelecionado.getCpf());
@@ -46,7 +46,6 @@ public class AlterarCliente extends javax.swing.JFrame {
         tfCidade.setText(clienteSelecionado.getEndereco().getCidade());
         tfEstado.setText(clienteSelecionado.getEndereco().getEstado());
         tfComplemento.setText(clienteSelecionado.getEndereco().getComplemento());
-
     }
 
     /**
@@ -260,7 +259,7 @@ public class AlterarCliente extends javax.swing.JFrame {
         );
 
         btSalvar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btSalvar.setText("Salvar");
+        btSalvar.setText("Alterar");
         btSalvar.setPreferredSize(new java.awt.Dimension(90, 25));
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -347,10 +346,11 @@ public class AlterarCliente extends javax.swing.JFrame {
 
             try {
                 clienteDao.salvarOuAlterar(cliente, session);
-                JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+                JOptionPane.showMessageDialog(null, "Alterado com sucesso!");
                 this.dispose();
+                
             } catch (HibernateException e) {
-                JOptionPane.showMessageDialog(null, "Erro ao salvar!");
+                JOptionPane.showMessageDialog(null, "Erro ao alterar!");
             }finally{
                 session.close();
             }

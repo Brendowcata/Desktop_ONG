@@ -229,6 +229,10 @@ public class PesquisaCliente extends javax.swing.JFrame {
 
     private void btPesquisarNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarNomeActionPerformed
         try {
+
+            session = HibernateUtil.abrirConexao();
+            clientes = clienteDao.pesquisarClientesPorNome(tfPesquisaNome.getText().trim(), session);
+            session.close();
             session = HibernateUtil.abrirConexao();
             clientes = clienteDao.pesquisarClientesPorNome(tfPesquisaNome.getText().trim(), session);
             if (clientes.isEmpty()) {
@@ -247,7 +251,6 @@ public class PesquisaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btPesquisarNomeActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-
         int linhaSelecionada = tabelaClientes.getSelectedRow();
         if (linhaSelecionada >= 0) {
             int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir?");
@@ -255,9 +258,11 @@ public class PesquisaCliente extends javax.swing.JFrame {
                 try {
                     session = HibernateUtil.abrirConexao();
                     Cliente clienteSelecionado = clientes.get(linhaSelecionada);
+
                     clienteDao.excluir(clienteSelecionado, session);
                     JOptionPane.showMessageDialog(null, "Cliente excluido com sucesso!");
                     clientes.remove(linhaSelecionada);
+                    limpar();
                     popularTabela();
                 } catch (HeadlessException | HibernateException e) {
                     System.out.println("Erro ao excluir " + e.getMessage());
@@ -268,26 +273,25 @@ public class PesquisaCliente extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela para exluir!");
         }
-
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
         int linhaSelecionada = tabelaClientes.getSelectedRow();
-        
         if (linhaSelecionada >= 0) {
             Cliente clienteSelecionado = clientes.get(linhaSelecionada);
             new AlterarCliente(clienteSelecionado).setVisible(true);
             this.isFocusOwner();
-            
-            //this.dispose();
+            limpar();
         } else {
             JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela para alterar!");
         }
-
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btPesquisarCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarCpfActionPerformed
         try {
+            session = HibernateUtil.abrirConexao();
+            cliente = clienteDao.pesquisaPorCpf(tfCpf.getText(), session);
+            session.close();
             session = HibernateUtil.abrirConexao();
             cliente = clienteDao.pesquisaPorCpf(tfCpf.getText(), session);
             if (cliente == null) {
@@ -296,6 +300,7 @@ public class PesquisaCliente extends javax.swing.JFrame {
                 }
                 JOptionPane.showMessageDialog(null, "Não foi localizado nenhum CPF no BD!");
             } else {
+
                 tabelaModelo.addRow(new Object[]{
                     cliente.getId(),
                     cliente.getNome(),

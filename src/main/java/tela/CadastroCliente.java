@@ -338,6 +338,8 @@ public class CadastroCliente extends javax.swing.JFrame {
                 this.dispose();
             } catch (HibernateException e) {
                 JOptionPane.showMessageDialog(null, "Erro ao salvar!");
+            } finally {
+                session.close();
             }
         }
     }//GEN-LAST:event_btSalvarActionPerformed

@@ -26,7 +26,6 @@ public class Cliente implements Serializable {
     private String cpf;
     @Column(nullable = false, unique = true)
     private String rg;
-    @Column(length = 15)
     private String celular;
 
     @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL) //Assim que salvar um cliente, salva o endereço.
