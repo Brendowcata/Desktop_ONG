@@ -272,6 +272,7 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
                     session.close();
                     JOptionPane.showMessageDialog(null, "Emprestimo Cadastrado com Sucesso!");
                     puxarDadosEquipamento();
+                    
             } else {
                 JOptionPane.showMessageDialog(null, "Escolha um equipamento para ser emprestado!");
             }
@@ -299,7 +300,9 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
         session = HibernateUtil.abrirConexao();
         Query consulta = session.createQuery("FROM Equipamento");
         strList = consulta.list();
-        session.close();
+       session = HibernateUtil.abrirConexao();
+        Query consulta2 = session.createQuery("FROM Equipamento");
+        strList = consulta2.list();
         for (Equipamento equipamento1 : strList) {
             if(equipamento1.getQuantidadeEstoque() > 0){
             listaEquipamento.add(equipamento1.getNome());

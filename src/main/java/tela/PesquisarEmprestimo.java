@@ -8,6 +8,7 @@ package tela;
 import dao.*;
 import entidade.Cliente;
 import entidade.Emprestimo;
+import entidade.Equipamento;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
     private Session session;
     private Emprestimo emprestimo;
     private Cliente cliente;
+    Equipamento equipamento;
     private EmprestimoDao emprestimoDao;
     private List<Emprestimo> emprestimos;
 
@@ -55,11 +57,11 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
         lb_nome = new javax.swing.JLabel();
         btPesquisar = new javax.swing.JButton();
         tfNome = new javax.swing.JTextField();
-        javax.swing.JLabel lbQuantidade = new javax.swing.JLabel();
         radioNome = new javax.swing.JRadioButton();
         radioCPF = new javax.swing.JRadioButton();
         comboMes = new javax.swing.JComboBox<>();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jButton1 = new javax.swing.JButton();
 
         setTitle("Pesquisa Equipamento");
 
@@ -71,11 +73,11 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Cliente", "Equipamento", "Data", "Cadastrado Por:"
+                "Cliente", "CPF", "Equipamento", "Data", "Cadastrado Por:"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -83,10 +85,15 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tabelaEmprestimo);
+        if (tabelaEmprestimo.getColumnModel().getColumnCount() > 0) {
+            tabelaEmprestimo.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tabelaEmprestimo.getColumnModel().getColumn(1).setPreferredWidth(90);
+            tabelaEmprestimo.getColumnModel().getColumn(3).setPreferredWidth(60);
+        }
 
         titulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titulo.setText("Pesquisa de Equipamento");
+        titulo.setText("Pesquisa de Emprestimo");
 
         lb_nome.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_nome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -100,8 +107,6 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
                 btPesquisarActionPerformed(evt);
             }
         });
-
-        lbQuantidade.setText(" ");
 
         radioNome.setText("Nome");
         radioNome.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +126,13 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
 
         jFormattedTextField1.setText("jFormattedTextField1");
 
+        jButton1.setText("Excluir Emprestimo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painel_principalLayout = new javax.swing.GroupLayout(painel_principal);
         painel_principal.setLayout(painel_principalLayout);
         painel_principalLayout.setHorizontalGroup(
@@ -134,7 +146,6 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
                 .addGap(2, 2, 2)
                 .addGroup(painel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(painel_principalLayout.createSequentialGroup()
                         .addComponent(lb_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -148,7 +159,8 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
                             .addGroup(painel_principalLayout.createSequentialGroup()
                                 .addComponent(radioNome)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(radioCPF)))))
+                                .addComponent(radioCPF))))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painel_principalLayout.setVerticalGroup(
@@ -173,9 +185,9 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
                     .addComponent(radioCPF))
                 .addGap(7, 7, 7)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbQuantidade)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -196,7 +208,9 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        
+        if(tabelaEmprestimo.getRowCount() > 0){
+            tabelaModelo.setNumRows(0);
+        }
         if (radioNome.isSelected()) {
             try {
                 session = HibernateUtil.abrirConexao();
@@ -248,6 +262,7 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
 
         } else {
                 JOptionPane.showMessageDialog(null, "Digite um CPF!");
+                tabelaModelo.setNumRows(0);
             }
         }
 
@@ -272,7 +287,6 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
 
             if (emprestimosMes.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Não houve nenhum emprestimo nesse mês!");
-            tabelaModelo.setNumRows(0);
             }else {
                 for (Emprestimo emprestimo1 : emprestimos) {
                     for (Emprestimo emprestimosMe : emprestimosMes) {
@@ -283,7 +297,6 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
                 }
                 if(emprestimosRealizados.isEmpty()){
                     JOptionPane.showMessageDialog(null, "Não houve nenhum emprestimo nesse mês!");
-                    tabelaModelo.setNumRows(0);
                 } else{
                 popularTabela(emprestimosRealizados);
                 }
@@ -309,12 +322,36 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_radioCPFActionPerformed
 
-    private void popularTabela(List<Emprestimo> emprestimo) {
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int resposta = JOptionPane.showConfirmDialog(null, "Tem Certeza Que Deseja Excluir Esse Emprestimo?");
+        
+        if (resposta == 0){
+        EquipamentoDao equipamentoDao = new EquipamentoDaoImpl();
+        int linhaSelecionada = tabelaEmprestimo.getSelectedRow();
+        if (linhaSelecionada >= 0) {
+            Emprestimo emprestimoS = emprestimos.get(linhaSelecionada);
+            equipamento = emprestimoS.getEquipamento();
+            equipamento.setQuantidadeEmprestado(equipamento.getQuantidadeEmprestado() - 1);
+            equipamento.setQuantidadeEstoque(equipamento.getQuantidadeEstoque() + 1);
+            session = HibernateUtil.abrirConexao();
+            equipamentoDao.salvarOuAlterar(equipamento, session);
+            emprestimoDao.excluir(emprestimoS, session);
+            session.close();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um Equipamento!");
+        }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void popularTabela(List<Emprestimo> emprestimosTabela) {
+        emprestimos = emprestimosTabela;
         tabelaModelo = (DefaultTableModel) tabelaEmprestimo.getModel();
         tabelaModelo.setNumRows(0);
-        for (Emprestimo emprestimo1 : emprestimo) {
+        for (Emprestimo emprestimo1 : emprestimosTabela) {
             tabelaModelo.addRow(new Object[]{
                 emprestimo1.getCliente().getNome(),
+                emprestimo1.getCliente().getCpf(),
                 emprestimo1.getEquipamento().getNome(),
                 emprestimo1.getCadastro(),
                 emprestimo1.getUsuario().getNome(),});
@@ -370,6 +407,7 @@ public class PesquisarEmprestimo extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JComboBox<String> comboMes;
+    private javax.swing.JButton jButton1;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lb_nome;
