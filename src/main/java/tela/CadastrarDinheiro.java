@@ -147,11 +147,11 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
 
         lb_cpf.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_cpf.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_cpf.setText("Cpf:");
+        lb_cpf.setText("Cpf:*");
 
         lb_rg.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_rg.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_rg.setText("RG:");
+        lb_rg.setText("RG:*");
 
         lb_telefone.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_telefone.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);

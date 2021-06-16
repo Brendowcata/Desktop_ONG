@@ -347,7 +347,7 @@
                   <Font name="Tahoma" size="12" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="Cpf:"/>
+                <Property name="text" type="java.lang.String" value="Cpf:*"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lb_rg">
@@ -356,7 +356,7 @@
                   <Font name="Tahoma" size="12" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="RG:"/>
+                <Property name="text" type="java.lang.String" value="RG:*"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lb_telefone">
