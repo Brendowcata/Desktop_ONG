@@ -19,6 +19,7 @@ public class Principal extends javax.swing.JFrame {
             painel_administrador.setVisible(false);
             menuUsuarios.setVisible(false);
             lbAlterarSenha.setVisible(false);
+            pesquisaFaturamento.setVisible(false);
         }
     }
 
