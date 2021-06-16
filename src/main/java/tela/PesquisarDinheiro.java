@@ -17,7 +17,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Kamilla
+ * @author Kamilla Faust
  */
 public class PesquisarDinheiro extends javax.swing.JFrame {
 

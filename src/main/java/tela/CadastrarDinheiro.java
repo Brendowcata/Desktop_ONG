@@ -16,7 +16,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Kamilla
+ * @author Kamilla Faust
  */
 public class CadastrarDinheiro extends javax.swing.JFrame {
 
