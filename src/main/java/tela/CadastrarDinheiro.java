@@ -483,6 +483,7 @@ public class CadastrarDinheiro extends javax.swing.JFrame {
                 );
 
         cliente.setEndereco(endereco);
+        endereco.setCliente(cliente);
         clienteDao.salvarOuAlterar(cliente, sessao);
         limpar();
         return cliente;
